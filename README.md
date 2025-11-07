@@ -1,4 +1,4 @@
-# 💰 Sistema Web de Cobros Municipal
+# Sistema Web de Cobros Municipal
 
 [![React](https://img.shields.io/badge/React-18.2.0-blue)](https://reactjs.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green)](https://nodejs.org/)
@@ -24,7 +24,6 @@
 
 ### 🏦 Control de Caja
 - Arqueo de caja diario
-- Control de turnos por cajero
 - Auditoría de transacciones
 - Cierre de turnos automático
 

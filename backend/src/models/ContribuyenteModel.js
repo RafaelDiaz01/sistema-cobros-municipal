@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
-const Contribuyente = sequelize.define("Contribuyente", {
+const Contribuyente = sequelize.define("contribuyente", {
   id_contribuyente: {
     type: DataTypes.INTEGER,
     primaryKey: true,

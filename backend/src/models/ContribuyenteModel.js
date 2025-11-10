@@ -27,6 +27,24 @@ const Contribuyente = sequelize.define("contribuyente", {
     type: DataTypes.STRING(15), // String por si el usuario ingresa 951-580-12-24
     allowNull: true,
   },
+  calle : {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+  },
+  numero_calle : {
+    type: DataTypes.STRING(20),
+  },
+  barrio: {
+    type: DataTypes.STRING(20),
+    allowNull: false,
+  },
+  rfc: {
+    type: DataTypes.STRING(15),
+    unique: true
+  },
+  copia_credencial: {
+    type: DataTypes.TEXT
+  },
   activo: {
     type: DataTypes.BOOLEAN,
     defaultValue: true, // Activo por defecto

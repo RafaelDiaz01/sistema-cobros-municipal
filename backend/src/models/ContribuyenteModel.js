@@ -21,17 +21,17 @@ const Contribuyente = sequelize.define("contribuyente", {
   },
   fecha_nacimiento: {
     type: DataTypes.DATEONLY, // DATEONLY es solo para fecha sin hora.
-    allowNull: true,
+    allowNull: false,
   },
   telefono: {
     type: DataTypes.STRING(15), // String por si el usuario ingresa 951-580-12-24
     allowNull: true,
   },
-  calle : {
+  calle: {
     type: DataTypes.STRING(50),
     allowNull: false,
   },
-  numero_calle : {
+  numero_calle: {
     type: DataTypes.STRING(20),
   },
   barrio: {
@@ -40,15 +40,15 @@ const Contribuyente = sequelize.define("contribuyente", {
   },
   rfc: {
     type: DataTypes.STRING(15),
-    unique: true
+    unique: true,
   },
   copia_credencial: {
-    type: DataTypes.TEXT
+    type: DataTypes.TEXT,
   },
   activo: {
     type: DataTypes.BOOLEAN,
     defaultValue: true, // Activo por defecto
-  },
+  }
 });
 
 export default Contribuyente;

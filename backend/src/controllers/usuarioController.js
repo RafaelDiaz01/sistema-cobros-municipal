@@ -11,7 +11,7 @@ export const obtenerUsuarios = async (req, res) => {
 
 export const crearUsuario = async (req, res) => {
     try {
-        const usuarios = await Usuario.create();
+        const usuarios = await Usuario.create(req.body);
         res.json(usuarios);
     } catch (error) {
         res.status(500).json({ error: error.message });

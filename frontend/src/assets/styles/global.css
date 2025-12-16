@@ -1,8 +1,8 @@
-@import './_variables.css';
+@import "./_variables.css";
+@import "tailwindcss";
 
 * {
   margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 

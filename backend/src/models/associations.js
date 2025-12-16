@@ -1,6 +1,7 @@
 import Contribuyente from "./ContribuyenteModel.js";
 import Establecimiento from "./EstablecimientoModel.js";
 import BaseCatastral from "./BaseCatastralModel.js";
+import Conexion from "./ConexionModel.js";
 
 // =============================
 // RELACIÓN CONTRIBUYENTE - ESTABLECIMIENTOS
@@ -34,4 +35,20 @@ BaseCatastral.belongsTo(Contribuyente, {
   as: "contribuyente",
 });
 
-export { Contribuyente, Establecimiento, BaseCatastral };
+// =============================
+// RELACIÓN CONTRIBUYENTE - CONEXIONES
+// =============================
+
+// Un contribuyente tiene muchas Conexiones
+Contribuyente.hasMany(Conexion, {
+  foreignKey: "id_contribuyente",
+  as: "conexiones"
+});
+
+// Una conexión pertenece a un Contribuyente
+Conexion.belongsTo(Contribuyente, {
+  foreignKey: "id_contribuyente",
+  as: "contribuyente"
+});
+
+export { Contribuyente, Establecimiento, BaseCatastral, Conexion };

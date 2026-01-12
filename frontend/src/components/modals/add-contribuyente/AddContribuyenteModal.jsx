@@ -1,0 +1,173 @@
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { X, User, MapPin, FolderUp } from "lucide-react";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import Section from "./Section.jsx";
+import Grid from "./Grid.jsx";
+import Input from "./Input.jsx";
+import Select from "./Select.jsx";
+import Upload from "./Upload.jsx";
+import Stack from "../../layouts/Stack.jsx";
+import { createContribuyente } from "../../../services/contribuyentesService.jsx";
+
+export default function AddContribuyenteModal({ open, onClose, onSuccess }) {
+  if (!open) return null;
+
+  const MySwal = withReactContent(Swal);
+  // Usando React Hook Form para manejar el formulario
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    try {
+      await createContribuyente(data);
+      MySwal.fire({
+        toast: true,
+        position: "bottom-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        icon: "success",
+        title: "Contribuyente guardado exitosamente",
+      });
+      reset(); // limpia el formulario
+      onClose(); // cierra el modal
+      onSuccess(); // notifica al padre para refrescar la lista
+    } catch (error) {
+      console.error("Error al guardar contribuyente", error);
+      alert(`Error: ${error.message}`);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-6">
+      <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl flex flex-col max-h-[90vh] animated-fade-up">
+        {/* HEADER */}
+        <div className="flex items-center justify-between px-8 py-5 border-b border-[var(--color-borde)]">
+          <div>
+            <h2 className="text-xl font-bold text-gray-900">
+              Agregar Nuevo Contribuyente
+            </h2>
+            <p className="text-sm text-gray-500">
+              Complete el formulario para registrar un nuevo ciudadano en el
+              sistema.
+            </p>
+          </div>
+
+          <button onClick={onClose}>
+            <X className="text-gray-400 hover:text-black" />
+          </button>
+        </div>
+
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col flex-1 min-h-0"
+        >
+          {/* BODY */}
+          <div className="flex-1 min-h-0 overflow-y-auto px-8 py-6">
+            <Stack gap="gap-8">
+              {/* DATOS PERSONALES */}
+              <Section icon={<User size={18} />} title="Datos Personales">
+                <Grid>
+                  <Input
+                    {...register("nombre", { required: true })}
+                    label="Nombre(s)"
+                    placeholder="Ej. Juan Carlos"
+                  />
+                  <Input
+                    {...register("apellido_paterno", { required: true })}
+                    label="Apellido Paterno"
+                    placeholder="Ej. Pérez"
+                  />
+                  <Input
+                    {...register("apellido_materno", { required: true })}
+                    label="Apellido Materno"
+                    placeholder="Ej. López"
+                  />
+                  <Input
+                    {...register("fecha_nacimiento")}
+                    type="date"
+                    label="Fecha de Nacimiento"
+                  />
+                  <Input
+                    {...register("rfc", {
+                      required: true,
+                      minLength: 13,
+                      maxLength: 13,
+                    })}
+                    label="RFC"
+                    placeholder="DILK040315MQ7"
+                    helper="Ingrese la homoclave si está disponible."
+                  />
+                  <Input
+                    {...register("telefono", { required: true })}
+                    label="Teléfono"
+                    placeholder="9515801224"
+                  />
+                </Grid>
+              </Section>
+
+              <hr className="border-[var(--color-borde)]" />
+
+              {/* DOMICILIO */}
+              <Section icon={<MapPin size={18} />} title="Domicilio">
+                <Grid cols={2}>
+                  <Input
+                    {...register("calle", { required: true })}
+                    label="Calle"
+                    placeholder="Ej. Av. Independencia"
+                  />
+                  <Input
+                    {...register("numero_calle", { required: true })}
+                    label="Número Exterior / Interior"
+                    placeholder="Ej. 15"
+                  />
+                  <Select
+                    label="Barrio / Colonia"
+                    options={[
+                      "San Pedro",
+                      "San Francisco",
+                      "La Asunción",
+                      "La Soledad",
+                    ]}
+                    {...register("barrio", { required: true })}
+                  />
+                </Grid>
+              </Section>
+
+              <hr className="border-[var(--color-borde)]" />
+
+              {/* DOCUMENTACIÓN */}
+              <Section icon={<FolderUp size={18} />} title="Documentación">
+                <Upload />
+              </Section>
+            </Stack>
+          </div>
+
+          {/* FOOTER */}
+          <div className="flex justify-end gap-4 px-8 py-5 border-t border-[var(--color-borde)] bg-white">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-5 py-2 rounded-lg border text-sm"
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="submit"
+              className="px-6 py-2 rounded-lg bg-[var(--color-acento)] text-white text-sm font-medium"
+            >
+              Guardar Contribuyente
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}

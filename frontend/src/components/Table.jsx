@@ -1,6 +1,14 @@
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, ToggleRight, ToggleLeft } from "lucide-react";
 
-export default function Table({ data = [] }) {
+export default function Table({
+  contribuyentes = [],
+  loading = false,
+  updateStatus,
+}) {
+  if (loading) {
+    return <p>Cargando...</p>;
+  }
+
   return (
     <div className="w-full bg-white border border-[var(--color-borde)] rounded-2xl overflow-hidden shadow-sm">
       {/* ENCABEZADO */}
@@ -14,42 +22,36 @@ export default function Table({ data = [] }) {
       </div>
 
       {/* FILAS */}
-      {data.map((item, i) => (
+      {contribuyentes.map((c) => (
         <div
-          key={i}
+          key={c.id_contribuyente}
           className="grid grid-cols-6 px-6 py-4 text-sm border-t border-[var(--color-borde)] items-center"
         >
           {/* ID */}
-          <span className="text-[var(--color-primario)] font-medium cursor-pointer hover:underline">
-            {item.id}
+          <span className="text-[var(--color-texto)] font-medium cursor-pointer hover:underline">
+            {c.id_contribuyente}
           </span>
 
           {/* NOMBRE */}
-          <span className="font-medium">{item.nombre}</span>
+          <span className="font-medium">
+            {c.nombre} {c.apellido_paterno} {c.apellido_materno}
+          </span>
 
           {/* DIRECCIÓN */}
-          <span className="text-[var(--color-primario)] cursor-pointer hover:underline">
-            {item.direccion}
+          <span className="text-[var(--color-texto)] cursor-pointer hover:underline">
+            {c.calle} #{c.numero_calle}, {c.barrio}
           </span>
 
           {/* TELÉFONO */}
-          <span className="text-[var(--color-primario)]">{item.telefono}</span>
+          <span className="text-[var(--color-texto)]">{c.telefono}</span>
 
           {/* ESTADO */}
           <span>
-            {item.estado === "Activo" && (
-              <span className="px-3 py-1 rounded-lg bg-[#E8F8EE] text-[var(--color-primario)] text-xs font-medium">
+            {c.activo ? (
+              <span className="px-3 py-1 rounded-lg bg-[#E8F8EE] text-[var(--color-texto)] text-xs font-medium">
                 Activo
               </span>
-            )}
-
-            {item.estado === "Con Adeudo" && (
-              <span className="px-3 py-1 rounded-lg bg-[#FFF6D8] text-[#7A5E00] text-xs font-medium">
-                Con Adeudo
-              </span>
-            )}
-
-            {item.estado === "Inactivo" && (
+            ) : (
               <span className="px-3 py-1 rounded-lg bg-[#E6E7EB] text-[#4B5563] text-xs font-medium">
                 Inactivo
               </span>
@@ -61,8 +63,15 @@ export default function Table({ data = [] }) {
             <button className="text-[var(--color-primario)] hover:opacity-70">
               <Pencil size={18} />
             </button>
-            <button className="text-red-500 hover:opacity-70">
-              <Trash2 size={18} />
+            <button
+              className="text-red-500 hover:opacity-70"
+              onClick={() => updateStatus(c.id_contribuyente, c.activo)}
+            >
+              {c.activo ? (
+                <ToggleRight size={18} className="text-red-500" />
+              ) : (
+                <ToggleLeft size={18} className="text-green-600" />
+              )}
             </button>
           </div>
         </div>

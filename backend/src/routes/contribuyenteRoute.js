@@ -1,15 +1,15 @@
 import express from "express";
-import {
-  obtenerContribuyentes,
-  crearContribuyente,
-} from "../controllers/contribuyenteController.js";
+import * as contribuyenteController from "../controllers/contribuyenteController.js";
 
 const router = express.Router();
 
 // Obtener todos los contribuyentes
-router.get("/", obtenerContribuyentes);
+router.get("/", contribuyenteController.getContribuyentes);
 
 // Crear un nuevo contribuyente
-router.post("/", crearContribuyente);
+router.post("/", contribuyenteController.postContribuyente);
+
+// Actualizar el estado de un contribuyente
+router.put("/:id/estado", contribuyenteController.putContribuyenteEstado);
 
 export default router;

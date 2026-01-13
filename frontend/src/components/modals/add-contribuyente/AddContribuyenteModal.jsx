@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { X, User, MapPin, FolderUp } from "lucide-react";
 import Swal from "sweetalert2";
@@ -10,11 +10,13 @@ import Select from "./Select.jsx";
 import Upload from "./Upload.jsx";
 import Stack from "../../layouts/Stack.jsx";
 import { createContribuyente } from "../../../services/contribuyentesService.jsx";
+import { updateContribuyente } from "../../../services/contribuyentesService.jsx";
 
-export default function AddContribuyenteModal({ open, onClose, onSuccess }) {
-  if (!open) return null;
+export default function AddContribuyenteModal({ onClose, contribuyente, onSuccess }) {
 
   const MySwal = withReactContent(Swal);
+  const isEdit = Boolean(contribuyente);
+
   // Usando React Hook Form para manejar el formulario
   const {
     register,
@@ -23,23 +25,44 @@ export default function AddContribuyenteModal({ open, onClose, onSuccess }) {
     formState: { errors, isSubmitting },
   } = useForm();
 
+  useEffect(() => {
+    if (isEdit && contribuyente) {
+      reset({
+        nombre: contribuyente.nombre,
+        apellido_paterno: contribuyente.apellido_paterno,
+        apellido_materno: contribuyente.apellido_materno,
+        fecha_nacimiento: contribuyente.fecha_nacimiento?.split("T")[0],
+        rfc: contribuyente.rfc,
+        telefono: contribuyente.telefono,
+        calle: contribuyente.calle,
+        numero_calle: contribuyente.numero_calle,
+        barrio: contribuyente.barrio,
+      });
+    }
+  }, [isEdit, contribuyente, reset]);
+
   const onSubmit = async (data) => {
     try {
-      await createContribuyente(data);
-      MySwal.fire({
-        toast: true,
-        position: "bottom-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        icon: "success",
-        title: "Contribuyente guardado exitosamente",
-      });
-      reset(); // limpia el formulario
-      onClose(); // cierra el modal
+      console.log("Edit: ", isEdit);
+      console.log("Data: ", data);
+      if (isEdit) {
+        await updateContribuyente(contribuyente.id_contribuyente, data)
+      } else {
+        await createContribuyente(data);
+        MySwal.fire({
+          toast: true,
+          position: "bottom-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          icon: "success",
+          title: "Contribuyente guardado exitosamente",
+        });
+      }
       onSuccess(); // notifica al padre para refrescar la lista
+      onClose(); // cierra el modal
     } catch (error) {
-      console.error("Error al guardar contribuyente", error);
+      console.error("Error al guardar contribuyente (AddContribuyenteModal)", error);
       alert(`Error: ${error.message}`);
     }
   };
@@ -51,7 +74,7 @@ export default function AddContribuyenteModal({ open, onClose, onSuccess }) {
         <div className="flex items-center justify-between px-8 py-5 border-b border-[var(--color-borde)]">
           <div>
             <h2 className="text-xl font-bold text-gray-900">
-              Agregar Nuevo Contribuyente
+              {isEdit ? "Editar Contribuyente" : "Agregar Nuevo Contribuyente"}
             </h2>
             <p className="text-sm text-gray-500">
               Complete el formulario para registrar un nuevo ciudadano en el
@@ -163,7 +186,7 @@ export default function AddContribuyenteModal({ open, onClose, onSuccess }) {
               type="submit"
               className="px-6 py-2 rounded-lg bg-[var(--color-acento)] text-white text-sm font-medium"
             >
-              Guardar Contribuyente
+              {isEdit ? "Actualizar Contribuyente" : "Guardar Contribuyente"}
             </button>
           </div>
         </form>

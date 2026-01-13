@@ -54,3 +54,15 @@ export const actualizarEstadoContribuyente = async (id, estado) => {
 
   return contribuyente;
 };
+
+// Actualizar los datos de un contribuyente
+export const actualizarContribuyente = async (id, data) => {
+  const contribuyente = await Contribuyente.findByPk(id);
+
+  if (!contribuyente) {
+    throw new Error("Contribuyente no encontrado");
+  }
+
+  await contribuyente.update(data); 
+  return contribuyente;
+}

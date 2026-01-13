@@ -35,3 +35,22 @@ export const putContribuyenteEstado = async (req, res) => {
     res.status(500).json({ message: "Error al actualizar estado del contribuyente", error: error.message, });
   }
 };
+
+// Actualizar los datos de un contribuyente
+export const putContribuyente = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = req.body;
+    const contribuyenteActualizado = await contribuyenteService.actualizarContribuyente(id, data);
+    res.json({
+      message: "Contribuyente actualizado correctamente",
+      contribuyente: contribuyenteActualizado
+    })
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Error al actualizar los datos del contribuyente",
+      error: error.message
+    });
+  }
+}

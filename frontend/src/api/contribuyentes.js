@@ -23,3 +23,9 @@ export const updateStatusContribuyenteAPI = async (id, data) => {
   const response = await api.put(`/contribuyentes/${id}/estado`, data);
   return response.data;
 };
+
+// Actualizar datos de un contribuyente
+export const updateContribuyenteAPI = async (id, data) => {
+  const response = await api.put(`/contribuyentes/${id}`, data);
+  return response.data;
+};

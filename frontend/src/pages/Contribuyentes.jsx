@@ -27,6 +27,26 @@ const Contribuyentes = () => {
 
   const [search, setSearch] = useState("");
 
+  const filteredContribuyentes = useMemo(() => {
+    if (!search) return contribuyentes;
+
+    const term = search.toLowerCase();
+
+    return contribuyentes.filter((c) =>
+      [
+        c.nombre,
+        c.apellido_paterno,
+        c.apellido_materno,
+        c.rfc,
+        c.telefono,
+      ]
+        .join(" ")
+        .toLowerCase()
+        .includes(term)
+    );
+  }, [search, contribuyentes]);
+
+
   const stats = useMemo(() => {
     const total = contribuyentes.length;
     const activos = contribuyentes.filter((c) => c.activo).length;
@@ -131,10 +151,10 @@ const Contribuyentes = () => {
         <SearchBar
           value={search}
           onChange={setSearch}
-          placeholder="Buscar por nombre, CURP o clave catastral..."
+          placeholder="Buscar por nombre, RFC o clave catastral"
         />
         <Table
-          contribuyentes={contribuyentes}
+          contribuyentes={filteredContribuyentes}
           loading={loading}
           updateStatus={handleDelete}
         />

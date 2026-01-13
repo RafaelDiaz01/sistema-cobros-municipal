@@ -12,4 +12,7 @@ router.post("/", contribuyenteController.postContribuyente);
 // Actualizar el estado de un contribuyente
 router.put("/:id/estado", contribuyenteController.putContribuyenteEstado);
 
+// Actualizar datos de un contribuyente
+router.put("/:id" , contribuyenteController.putContribuyente);
+
 export default router;

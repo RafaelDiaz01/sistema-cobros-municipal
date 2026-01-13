@@ -1,5 +1,6 @@
 import { createContribuyenteAPI } from "../api/contribuyentes.js";
 import { updateStatusContribuyenteAPI } from "../api/contribuyentes.js";
+import { updateContribuyenteAPI } from "../api/contribuyentes.js";
 
 // Crear contribuyente
 export const createContribuyente = async (formData) => {
@@ -10,4 +11,9 @@ export const createContribuyente = async (formData) => {
 // Actualizar estado de contribuyente
 export const updateStatusContribuyente = async (id, estado) => {
   return await updateStatusContribuyenteAPI(id, { estado });
+}
+
+// Actualizar datos de un contribuyente
+export const updateContribuyente = async (id, data) => {
+  return await updateContribuyenteAPI(id, data);
 }

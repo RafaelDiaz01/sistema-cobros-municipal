@@ -19,6 +19,7 @@ const Contribuyentes = () => {
   const [contribuyentes, setContribuyentes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
+  const [contribuyenteEdit, setContribuyenteEdit] = useState(null);
   const MySwal = withReactContent(Swal);
 
   useEffect(() => {
@@ -127,20 +128,32 @@ const Contribuyentes = () => {
     }
   };
 
+  // Abrir modal para crear
+  const handleAdd = () => {
+    setContribuyenteEdit(null);
+    setOpen(true);
+  };
+
+  // Abrir modal para editar
+  const handleEdit = (contribuyente) => {
+    setContribuyenteEdit(contribuyente);
+    setOpen(true);
+  };
+
   return (
     <PageLayout>
       <Stack gap="gap-10">
         {/* TÍTULO DEL MÓDULO */}
         <SectionTitle
           text="Gestión de Contribuyentes"
-          onAdd={() => setOpen(true)}
+          onAdd={handleAdd}
         />
         {/* MODAL PARA AGREGAR CONTRIBUYENTE */}
-        <AddContribuyenteModal
-          open={open}
+        {open && (<AddContribuyenteModal
           onClose={() => setOpen(false)}
+          contribuyente = {contribuyenteEdit}
           onSuccess={fetchContribuyentes}
-        />
+        />)}
         {/* ESTADISTÍCAS DEL MÓDULO */}
         {loading ? (
           <p>Cargando estadísticas...</p>
@@ -157,6 +170,7 @@ const Contribuyentes = () => {
           contribuyentes={filteredContribuyentes}
           loading={loading}
           updateStatus={handleDelete}
+          onEdit={handleEdit}
         />
         <Pagination
           currentPage={1}

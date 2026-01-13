@@ -4,6 +4,7 @@ export default function Table({
   contribuyentes = [],
   loading = false,
   updateStatus,
+  onEdit
 }) {
   if (loading) {
     return <p>Cargando...</p>;
@@ -60,7 +61,8 @@ export default function Table({
 
           {/* ACCIONES */}
           <div className="flex justify-center gap-4">
-            <button className="text-[var(--color-primario)] hover:opacity-70">
+            <button className="text-[var(--color-primario)] hover:opacity-70"
+              onClick={() => onEdit(c)}>
               <Pencil size={18} />
             </button>
             <button

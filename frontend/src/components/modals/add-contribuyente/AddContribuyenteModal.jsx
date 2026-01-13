@@ -12,8 +12,11 @@ import Stack from "../../layouts/Stack.jsx";
 import { createContribuyente } from "../../../services/contribuyentesService.jsx";
 import { updateContribuyente } from "../../../services/contribuyentesService.jsx";
 
-export default function AddContribuyenteModal({ onClose, contribuyente, onSuccess }) {
-
+export default function AddContribuyenteModal({
+  onClose,
+  contribuyente,
+  onSuccess,
+}) {
   const MySwal = withReactContent(Swal);
   const isEdit = Boolean(contribuyente);
 
@@ -46,7 +49,7 @@ export default function AddContribuyenteModal({ onClose, contribuyente, onSucces
       console.log("Edit: ", isEdit);
       console.log("Data: ", data);
       if (isEdit) {
-        await updateContribuyente(contribuyente.id_contribuyente, data)
+        await updateContribuyente(contribuyente.id_contribuyente, data);
       } else {
         await createContribuyente(data);
         MySwal.fire({
@@ -62,7 +65,10 @@ export default function AddContribuyenteModal({ onClose, contribuyente, onSucces
       onSuccess(); // notifica al padre para refrescar la lista
       onClose(); // cierra el modal
     } catch (error) {
-      console.error("Error al guardar contribuyente (AddContribuyenteModal)", error);
+      console.error(
+        "Error al guardar contribuyente (AddContribuyenteModal)",
+        error
+      );
       alert(`Error: ${error.message}`);
     }
   };
@@ -77,8 +83,9 @@ export default function AddContribuyenteModal({ onClose, contribuyente, onSucces
               {isEdit ? "Editar Contribuyente" : "Agregar Nuevo Contribuyente"}
             </h2>
             <p className="text-sm text-gray-500">
-              Complete el formulario para registrar un nuevo ciudadano en el
-              sistema.
+              {isEdit
+                ? "Modifique los datos del contribuyente."
+                : "Complete el formulario para registrar un nuevo ciudadano en el sistema."}
             </p>
           </div>
 

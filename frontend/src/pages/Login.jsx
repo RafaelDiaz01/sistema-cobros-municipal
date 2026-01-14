@@ -1,8 +1,56 @@
-import { User, Lock, Eye } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { User, Lock, Eye, EyeOff } from "lucide-react";
 import logoUrl from "../assets/images/logo-ixtlan.png";
 import Stack from "../components/layouts/Stack.jsx";
+import { login } from "../services/authService.jsx";
 
 export default function Login() {
+  const [loginError, setLoginError] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
+
+  const navigate = useNavigate();
+  // Usando React Hook Form para manejar el formulario
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    clearErrors,
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    try {
+      setLoginError("");
+      const response = await login(data);
+
+      // Guardar el token y la información del usuario en el almacenamiento local
+      localStorage.setItem("token", response.token);
+      localStorage.setItem("user", JSON.stringify(response.usuario));
+
+      navigate("/contribuyentes");
+    } catch (error) {
+      if (error.response?.status === 400 || error.response?.status === 401) {
+        setLoginError("Usuario y/o contraseña incorrectos");
+      } else {
+        setLoginError("Error del servidor. Intente más tarde.");
+      }
+    }
+  };
+
+  const inputClass = (hasError) =>
+    `w-full pl-10 pr-3 py-2 rounded-lg
+                    bg-[#F9FAFB]
+                    border
+                    text-sm
+                    outline-none
+                    
+   ${
+     hasError
+       ? "border-red-500 focus:ring-2 focus:ring-red-400"
+       : "border-[#E5E7EB] focus:border-green-500 focus:ring-1 focus:ring-green-200"
+   }`;
+
   return (
     <div className="relative h-screen overflow-hidden bg-gradient-to-br from-green-50 via-white to-green-100 flex items-center justify-center">
       {/* FORMAS DECORATIVAS */}
@@ -43,6 +91,12 @@ export default function Login() {
               H. Ayuntamiento de Ixtlán de Juárez
             </p>
 
+            {loginError && (
+              <div className="bg-red-100 text-red-700 px-4 py-2 rounded-lg text-sm mb-4">
+                {loginError}
+              </div>
+            )}
+
             {/* FORM */}
             <Stack gap="gap-4">
               <form className="flex flex-col gap-4">
@@ -58,17 +112,10 @@ export default function Login() {
                     />
                     <input
                       type="text"
+                      {...register("nombre_usuario", { required: true })}
                       placeholder="Ingrese su usuario"
-                      className="
-                    w-full pl-10 pr-3 py-2 rounded-lg
-                    bg-[#F9FAFB]
-                    border border-[#E5E7EB]
-                    text-sm
-                    outline-none
-                    focus:border-green-500
-                    focus:ring-1
-                    focus:ring-green-200
-                  "
+                      className={inputClass(loginError)}
+                      onChange={() => setLoginError("")}
                     />
                   </div>
                 </div>
@@ -93,23 +140,33 @@ export default function Login() {
                       className="absolute left-3 top-1/2 -translate-y-1/2 text-green-600"
                     />
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
+                      {...register("password_usuario", { required: true })}
                       placeholder="••••••••"
-                      className="
-                    w-full pl-10 pr-10 py-2 rounded-lg
-                    bg-[#F9FAFB]
-                    border border-[#E5E7EB]
-                    text-sm
-                    outline-none
-                    focus:border-green-500
-                    focus:ring-1
-                    focus:ring-green-200
-                  "
+                      className={inputClass(loginError)}
+                      onChange={() => setLoginError("")}
                     />
-                    <Eye
-                      size={18}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600 cursor-pointer"
-                    />
+                    <button
+                      type="button"
+                      aria-label={
+                        showPassword
+                          ? "Ocultar contraseña"
+                          : "Mostrar contraseña"
+                      }
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <Eye
+                          size={18}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600 cursor-pointer"
+                        />
+                      ) : (
+                        <EyeOff
+                          size={18}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600 cursor-pointer"
+                        />
+                      )}
+                    </button>
                   </div>
                 </div>
 
@@ -125,6 +182,7 @@ export default function Login() {
                 {/* BOTÓN */}
                 <button
                   type="submit"
+                  onClick={handleSubmit(onSubmit)}
                   className="
                 w-full py-3 rounded-lg
                 bg-green-500

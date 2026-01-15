@@ -34,19 +34,12 @@ const Contribuyentes = () => {
     const term = search.toLowerCase();
 
     return contribuyentes.filter((c) =>
-      [
-        c.nombre,
-        c.apellido_paterno,
-        c.apellido_materno,
-        c.rfc,
-        c.telefono,
-      ]
+      [c.nombre, c.apellido_paterno, c.apellido_materno, c.rfc, c.telefono]
         .join(" ")
         .toLowerCase()
         .includes(term)
     );
   }, [search, contribuyentes]);
-
 
   const stats = useMemo(() => {
     const total = contribuyentes.length;
@@ -147,13 +140,16 @@ const Contribuyentes = () => {
         <SectionTitle
           text="Gestión de Contribuyentes"
           onAdd={handleAdd}
+          textButton="Agregar Contribuyente"
         />
         {/* MODAL PARA AGREGAR CONTRIBUYENTE */}
-        {open && (<AddContribuyenteModal
-          onClose={() => setOpen(false)}
-          contribuyente = {contribuyenteEdit}
-          onSuccess={fetchContribuyentes}
-        />)}
+        {open && (
+          <AddContribuyenteModal
+            onClose={() => setOpen(false)}
+            contribuyente={contribuyenteEdit}
+            onSuccess={fetchContribuyentes}
+          />
+        )}
         {/* ESTADISTÍCAS DEL MÓDULO */}
         {loading ? (
           <p>Cargando estadísticas...</p>

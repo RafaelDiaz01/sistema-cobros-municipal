@@ -10,7 +10,7 @@ import {
     Store,
     Map
 } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 import SectionTitleSimple from "../components/Titles.jsx/SectionTitleSimple.jsx";
 import SectionSubtitle from "../components/Titles.jsx/SectionSubtitle.jsx";
 import PageLayout from "../components/layouts/PageLayout.jsx";
@@ -18,6 +18,7 @@ import Stack from "../components/layouts/Stack.jsx";
 import CatalogCard from "../components/cards/CatalogCard.jsx";
 
 export default function Mas() {
+    const navigate = useNavigate();
     return (
         <PageLayout>
             <Stack gap="gap-10">
@@ -91,6 +92,7 @@ export default function Mas() {
                             icon={<Store size={20} />}
                             title="Gestión de Establecimiento"
                             description="Padrón de establecimientos comerciales y licencias de funcionamiento."
+                            onClick={() => navigate("/establecimientos")}
                         />
                         <CatalogCard
                             icon={<Map size={20} />}

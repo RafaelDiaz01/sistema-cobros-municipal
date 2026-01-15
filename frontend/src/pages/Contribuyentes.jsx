@@ -6,9 +6,9 @@ import {
   getContribuyentes,
   updateStatusContribuyenteAPI,
 } from "../api/contribuyentes.js";
-import StatsCards from "../components/StatsCards.jsx";
+import StatsCards from "../components/cards/StatsCards.jsx";
 import PageLayout from "../components/layouts/PageLayout.jsx";
-import SectionTitle from "../components/SectionTitle.jsx";
+import SectionTitle from "../components/Titles.jsx/SectionTitle.jsx";
 import AddContribuyenteModal from "../components/modals/add-contribuyente/AddContribuyenteModal.jsx";
 import SearchBar from "../components/SearchBar.jsx";
 import Table from "../components/Table.jsx";

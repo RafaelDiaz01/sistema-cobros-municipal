@@ -35,6 +35,10 @@ const Establecimiento = sequelize.define("establecimiento", {
   },
   giro: {
     type: DataTypes.STRING(50)
+  },
+  activo: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true, // Activo por defecto
   }
 });
 

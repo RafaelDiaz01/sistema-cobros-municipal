@@ -1,6 +1,6 @@
 import { Plus } from "lucide-react";
 
-export default function SectionTitle({ text, onAdd }) {
+export default function SectionTitle({ text, onAdd, textButton }) {
   return (
     <div className="w-full flex items-center justify-between">
       {/* TÍTULO */}
@@ -14,7 +14,7 @@ export default function SectionTitle({ text, onAdd }) {
         className="flex items-center gap-2 bg-[var(--color-acento)] text-white font-medium px-5 py-2.5 rounded-lg hover:opacity-90 transition"
       >
         <Plus size={18} />
-        Agregar Contribuyente
+        {textButton}
       </button>
     </div>
   );

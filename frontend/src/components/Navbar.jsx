@@ -1,4 +1,9 @@
+import { NavLink } from "react-router-dom";
 import { UserCircle, Landmark, Settings } from "lucide-react";
+
+const linkClass = ({ isActive }) =>
+  `hover:text-[var(--color-acento)] transition ${isActive ? "text-[var(--color-acento)] font-semibold" : "text-black"
+  }`;
 
 export default function Navbar() {
   return (
@@ -17,17 +22,13 @@ export default function Navbar() {
             Cobrar
           </button>
 
-          <button className="text-[var(--color-acento)] font-semibold">
-            Contribuyentes
-          </button>
+          <NavLink to="/contribuyentes" className={linkClass}>Contribuyentes</NavLink>
 
           <button className="hover:text-[var(--color-primario)] transition">
             Corte de Caja
           </button>
 
-          <button className="hover:text-[var(--color-primario)] transition">
-            Más
-          </button>
+          <NavLink to="/mas" className={linkClass}>Más</NavLink>
         </nav>
 
         {/* ICONO DE AJUSTES Y DE PERFIL */}

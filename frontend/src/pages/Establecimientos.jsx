@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Store,
   MapPinCheckInside,
@@ -11,11 +11,22 @@ import SectionTitle from "../components/Titles.jsx/SectionTitle";
 import StatsCards from "../components/cards/StatsCards";
 import SearchBar from "../components/SearchBar";
 import Table from "../components/Table";
+import { getEstablecimientos } from "../api/establecimientos.js";
+import { updateStatusEstablecimientoAPI } from "../api/establecimientos.js";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
 
 export default function Establecimientos() {
   const [establecimientos, setEstablecimientos] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [establecimientoEdit, setEstablecimientoEdit] = useState(null);
+
+  useEffect(() => {
+    fetchEstablecimientos();
+  }, []);
 
   const filteredEstablecimientos = useMemo(() => {
     if (!search) return establecimientos;
@@ -59,6 +70,69 @@ export default function Establecimientos() {
       },
     ];
   }, [establecimientos]);
+
+  const fetchEstablecimientos = async () => {
+    try {
+      setLoading(true);
+      const data = await getEstablecimientos();
+      console.log("Establecimientos cargados:", data);
+      setEstablecimientos(data);
+    } catch (error) {
+      console.error("Error al cargar establecimientos", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id, estadoActual) => {
+    const nuevoEstado = !estadoActual;
+    const mensaje = nuevoEstado
+      ? "¿Deseas activar este establecimiento?"
+      : "¿Deseas desactivar este establecimiento?";
+
+    const confirmacion = await MySwal.fire({
+      title: "Confirmar acción",
+      text: mensaje,
+      icon: "question",
+      showCancelButton: true,
+      reverseButtons: true,
+      confirmButtonColor: "var(--color-acento)",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, continuar",
+      cancelButtonText: "Cancelar",
+    });
+    if (!confirmacion.isConfirmed) return;
+
+    try {
+      await updateStatusEstablecimientoAPI(id, { estado: nuevoEstado });
+      fetchEstablecimientos();
+      MySwal.fire({
+        toast: true,
+        position: "bottom-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        icon: "success",
+        title: "Estado actualizado exitosamente",
+      });
+    } catch (error) {
+      console.error("Error al cambiar el estado del establecimiento", error);
+      alert("Error al cambiar el estado del establecimiento");
+    }
+  };
+
+  // Abrir modal para crear
+  const handleAdd = () => {
+    setEstablecimientoEdit(null);
+    setOpen(true);
+  };
+
+  // Abrir modal para editar
+  const handleEdit = (establecimiento) => {
+    setEstablecimientoEdit(establecimiento);
+    setOpen(true);
+  };
+
   return (
     <PageLayout>
       <Stack gap="gap-10">
@@ -73,10 +147,10 @@ export default function Establecimientos() {
           placeholder="Buscar por nombre o giro del establecimiento"
         />
         <Table
-          contribuyentes={filteredEstablecimientos}
+          establecimientos={filteredEstablecimientos}
           loading={loading}
-        //   updateStatus={handleDelete}
-        //   onEdit={handleEdit}
+          updateStatus={handleDelete}
+          onEdit={handleEdit}
         />
       </Stack>
     </PageLayout>

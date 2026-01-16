@@ -1,4 +1,4 @@
-import Navbar from "../Navbar.jsx";
+import Navbar from "../navbar/Navbar.jsx";
 
 const PageLayout = ({ children }) => {
   return (

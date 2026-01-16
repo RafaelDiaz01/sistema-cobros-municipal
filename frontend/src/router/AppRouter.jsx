@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
 
 import Login from "../pages/Login";
 import Contribuyentes from "../pages/Contribuyentes";
@@ -9,10 +10,14 @@ import Establecimientos from "../pages/Establecimientos";
 const AppRouter = () => {
   return (
     <Routes>
-      {/* Rutas Publicas */}
-      <Route path="/" element={<Navigate to="/login" replace />} />
-      <Route path="/login" element={<Login />} />
+      {/* Rutas No Encontradas */}
       <Route path="*" element={<h1>Página no encontrada</h1>} />
+
+      {/* Rutas Publicas */}
+      <Route element={<PublicRoute />}>
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/login" element={<Login />} />
+      </Route>
 
       {/* Rutas Privadas */}
       <Route element={<PrivateRoute />}>

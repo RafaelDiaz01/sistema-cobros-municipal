@@ -11,11 +11,13 @@ import PageLayout from "../components/layouts/PageLayout.jsx";
 import SectionTitle from "../components/Titles.jsx/SectionTitle.jsx";
 import AddContribuyenteModal from "../components/modals/add-contribuyente/AddContribuyenteModal.jsx";
 import SearchBar from "../components/SearchBar.jsx";
-import Table from "../components/Table.jsx";
+// import Table from "../components/Table.jsx";
 import Stack from "../components/layouts/Stack.jsx";
 import Pagination from "../components/Pagination.jsx";
 import { showToast } from "../utils/alerts/toast.js";
 import { alertConfirmation } from "../utils/alerts/alert.js";
+import Table from "../components/table/Table.jsx";
+import { contribuyentesColumns } from "../pages/contribuyetes.columns.jsx";
 
 const Contribuyentes = () => {
   const [contribuyentes, setContribuyentes] = useState([]);
@@ -77,6 +79,7 @@ const Contribuyentes = () => {
     try {
       setLoading(true);
       const data = await getContribuyentes();
+      console.log("Contribuyentes cargados:", data);
       setContribuyentes(data);
     } catch (error) {
       console.error("Error al cargar contribuyentes", error);
@@ -90,9 +93,13 @@ const Contribuyentes = () => {
     const mensaje = nuevoEstado
       ? "¿Deseas activar este contribuyente?"
       : "¿Deseas desactivar este contribuyente?";
-    
+
     // El código espera aquí hasta que el usuario haga clic
-    const confirmacion = await alertConfirmation("Atención", mensaje, "warning");
+    const confirmacion = await alertConfirmation(
+      "Atención",
+      mensaje,
+      "warning"
+    );
     if (!confirmacion) return;
 
     try {
@@ -146,12 +153,19 @@ const Contribuyentes = () => {
           onChange={setSearch}
           placeholder="Buscar por nombre, RFC o clave catastral"
         />
-        <Table
+        {/* <Table
           contribuyentes={filteredContribuyentes}
           loading={loading}
           updateStatus={handleDelete}
           onEdit={handleEdit}
+        /> */}
+        <Table
+          rows={contribuyentes}
+          loading={loading}
+          columns={contribuyentesColumns(handleEdit, handleDelete)}
+          getRowId={(row) => row.id_contribuyente}
         />
+        ;
         <Pagination
           currentPage={1}
           totalPages={5}

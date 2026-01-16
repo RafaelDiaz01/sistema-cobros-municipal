@@ -11,7 +11,7 @@ const startServer = async () => {
   try {
     await sequelize.authenticate();
 
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ force: false });
 
     app.listen(PORT, () => {
       console.log(`Servidor corriendo en el puerto ${PORT}`);

@@ -11,6 +11,7 @@ import Upload from "./Upload.jsx";
 import Stack from "../../layouts/Stack.jsx";
 import { createContribuyente } from "../../../services/contribuyentesService.jsx";
 import { updateContribuyente } from "../../../services/contribuyentesService.jsx";
+import { showToast } from "../../../utils/alerts/toast.js";
 
 export default function AddContribuyenteModal({
   onClose,
@@ -46,21 +47,11 @@ export default function AddContribuyenteModal({
 
   const onSubmit = async (data) => {
     try {
-      console.log("Edit: ", isEdit);
-      console.log("Data: ", data);
       if (isEdit) {
         await updateContribuyente(contribuyente.id_contribuyente, data);
       } else {
         await createContribuyente(data);
-        MySwal.fire({
-          toast: true,
-          position: "bottom-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          icon: "success",
-          title: "Contribuyente guardado exitosamente",
-        });
+        showToast("success", "Contribuyente guardado exitosamente");
       }
       onSuccess(); // notifica al padre para refrescar la lista
       onClose(); // cierra el modal
@@ -184,14 +175,14 @@ export default function AddContribuyenteModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-2 rounded-lg border text-sm"
+              className="px-5 py-2 rounded-lg bg-[var(--color-cancelar)] text-[var(--color-text-secundario)] text-sm"
             >
               Cancelar
             </button>
 
             <button
               type="submit"
-              className="px-6 py-2 rounded-lg bg-[var(--color-acento)] text-white text-sm font-medium"
+              className="px-6 py-2 rounded-lg bg-[var(--color-acento)] text-[var(--color-text-secundario)] text-sm font-medium"
             >
               {isEdit ? "Actualizar Contribuyente" : "Guardar Contribuyente"}
             </button>

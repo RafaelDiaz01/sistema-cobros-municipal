@@ -14,6 +14,8 @@ import SearchBar from "../components/SearchBar.jsx";
 import Table from "../components/Table.jsx";
 import Stack from "../components/layouts/Stack.jsx";
 import Pagination from "../components/Pagination.jsx";
+import { showToast } from "../utils/alerts/toast.js";
+import { alertConfirmation } from "../utils/alerts/alert.js";
 
 const Contribuyentes = () => {
   const [contribuyentes, setContribuyentes] = useState([]);
@@ -88,33 +90,15 @@ const Contribuyentes = () => {
     const mensaje = nuevoEstado
       ? "¿Deseas activar este contribuyente?"
       : "¿Deseas desactivar este contribuyente?";
-
+    
     // El código espera aquí hasta que el usuario haga clic
-    const confirmacion = await MySwal.fire({
-      title: "Confirmar acción",
-      text: mensaje,
-      icon: "question",
-      showCancelButton: true,
-      reverseButtons: true,
-      confirmButtonColor: "var(--color-acento)",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, continuar",
-      cancelButtonText: "Cancelar",
-    });
-    if (!confirmacion.isConfirmed) return;
+    const confirmacion = await alertConfirmation("Atención", mensaje, "warning");
+    if (!confirmacion) return;
 
     try {
       await updateStatusContribuyenteAPI(id, { estado: nuevoEstado });
       fetchContribuyentes();
-      MySwal.fire({
-        toast: true,
-        position: "bottom-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        icon: "success",
-        title: "Estado actualizado exitosamente",
-      });
+      showToast("success", "Estado actualizado exitosamente");
     } catch (error) {
       console.error("Error al cambiar el estado contribuyente", error);
       alert("Error al cambiar el estado del contribuyente");

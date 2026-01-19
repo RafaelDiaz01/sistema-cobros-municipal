@@ -10,32 +10,37 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: "Inter, system-ui, Avenir, Helvetica, Arial, sans-serif",
+    fontFamily: "DM Sans, sans-serif",
   },
   components: {
     MuiDataGrid: {
       styleOverrides: {
         root: {
-          border: "none",
+          borderRadius: "1rem",
+          overflow: "hidden",
+          border: "1px solid var(--color-borde)",
+          boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
           backgroundColor: "#FFFFFF",
         },
 
         columnHeaders: {
-          backgroundColor: "#F9FAFB",
+          backgroundColor: "#E8F8EE",
           borderBottom: "1px solid #E5E7EB",
         },
 
         columnHeadersInner: {
-          backgroundColor: "#F9FAFB",
+          backgroundColor: "#E8F8EE",
         },
 
         columnHeader: {
-          backgroundColor: "#F9FAFB",
-          color: "#111827",
+          backgroundColor: "#E8F8EE",
+          color: "var(--color-texto)",
           fontWeight: 600,
         },
         cell: {
           color: "#374151",
+          display: "flex",
+          alignItems: "center",
         },
         row: {
           "&:hover": {

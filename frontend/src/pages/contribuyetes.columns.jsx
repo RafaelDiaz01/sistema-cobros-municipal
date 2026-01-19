@@ -56,22 +56,22 @@ export const contribuyentesColumns = (onEdit, onToggleStatus) => [
       const { id_contribuyente, activo } = params.row;
 
       return (
-        <div className="flex justify-center gap-4">
+        <div className="flex items-center justify-center gap-4">
           <button
             onClick={() => onEdit(params.row)}
-            className="text-[var(--color-primario)] hover:opacity-70"
+            className="flex items-center justify-center w-8 h-8 rounded-full text-[var(--color-primario)] hover:bg-gray-200"
           >
             <Pencil size={18} />
           </button>
 
           <button
             onClick={() => onToggleStatus(id_contribuyente, activo)}
-            className="text-red-500 hover:opacity-70"
+            className="hover:opacity-70 flex items-center"
           >
             {activo ? (
-              <ToggleRight size={18} className="text-red-500" />
+              <ToggleRight size={18} className="text-[var(--color-cancelar)]" />
             ) : (
-              <ToggleLeft size={18} className="text-green-600" />
+              <ToggleLeft size={18} className="text-[var(--color-primario)]" />
             )}
           </button>
         </div>

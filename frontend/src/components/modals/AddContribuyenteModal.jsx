@@ -2,15 +2,15 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { X, User, MapPin, FolderUp } from "lucide-react";
 import withReactContent from "sweetalert2-react-content";
-import Section from "./Section.jsx";
-import Grid from "./Grid.jsx";
-import Input from "./Input.jsx";
-import Select from "./Select.jsx";
-import Upload from "./Upload.jsx";
-import Stack from "../../layouts/Stack.jsx";
-import { createContribuyente } from "../../../services/contribuyentesService.jsx";
-import { updateContribuyente } from "../../../services/contribuyentesService.jsx";
-import { showToast } from "../../../utils/alerts/toast.js";
+import Section from "./components/Section.jsx";
+import Grid from "./components/Grid.jsx";
+import Input from "./components/Input.jsx";
+import Select from "./components/Select.jsx";
+import Upload from "./components/Upload.jsx";
+import Stack from "../layouts/Stack.jsx";
+import { createContribuyente } from "../../services/contribuyentesService.jsx";
+import { updateContribuyente } from "../../services/contribuyentesService.jsx";
+import { showToast } from "../../utils/alerts/toast.js";
 
 export default function AddContribuyenteModal({
   onClose,

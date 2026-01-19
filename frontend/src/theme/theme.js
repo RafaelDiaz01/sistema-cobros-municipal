@@ -34,17 +34,25 @@ const theme = createTheme({
 
         columnHeader: {
           backgroundColor: "#E8F8EE",
-          color: "var(--color-texto)",
+          color: "var(--color-texto) ",
           fontWeight: 600,
+          fontSize: "0.875rem",
         },
         cell: {
-          color: "#374151",
+          color: "var(--color-texto)",
           display: "flex",
           alignItems: "center",
+          // Elimina el borde al seleccionar una celda
+          "&:focus": {
+            outline: "none",
+          },
+          "&:focus-within": {
+            outline: "none",
+          },
         },
         row: {
           "&:hover": {
-            backgroundColor: "#F0F9FF",
+            backgroundColor: "var(--color-hover-fila)",
           },
         },
       },

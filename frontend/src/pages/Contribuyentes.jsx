@@ -1,7 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
 import { Users, UserCheck, UserX, IdCard } from "lucide-react";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import {
   getContribuyentes,
   updateStatusContribuyenteAPI,
@@ -11,9 +9,7 @@ import PageLayout from "../components/layouts/PageLayout.jsx";
 import SectionTitle from "../components/Titles.jsx/SectionTitle.jsx";
 import AddContribuyenteModal from "../components/modals/add-contribuyente/AddContribuyenteModal.jsx";
 import SearchBar from "../components/SearchBar.jsx";
-// import Table from "../components/Table.jsx";
 import Stack from "../components/layouts/Stack.jsx";
-import Pagination from "../components/Pagination.jsx";
 import { showToast } from "../utils/alerts/toast.js";
 import { alertConfirmation } from "../utils/alerts/alert.js";
 import Table from "../components/table/Table.jsx";
@@ -24,7 +20,6 @@ const Contribuyentes = () => {
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [contribuyenteEdit, setContribuyenteEdit] = useState(null);
-  const MySwal = withReactContent(Swal);
 
   useEffect(() => {
     fetchContribuyentes();
@@ -164,11 +159,6 @@ const Contribuyentes = () => {
           loading={loading}
           columns={contribuyentesColumns(handleEdit, handleDelete)}
           getRowId={(row) => row.id_contribuyente}
-        />
-        <Pagination
-          currentPage={1}
-          totalPages={5}
-          onPageChange={(page) => console.log("Cambiar a página:", page)}
         />
       </Stack>
     </PageLayout>

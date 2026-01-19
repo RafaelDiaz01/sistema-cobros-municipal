@@ -20,8 +20,8 @@ export const contribuyentesColumns = (onEdit, onToggleStatus) => [
     field: "direccion",
     headerName: "Dirección",
     flex: 1,
-    valueGetter: (params) =>
-      `${params.row.calle} #${params.row.numero_calle}, ${params.row.barrio}`,
+    valueGetter: (params, row) =>
+      `${row.calle} #${row.numero_calle}, ${row.barrio}`,
   },
   {
     field: "telefono",

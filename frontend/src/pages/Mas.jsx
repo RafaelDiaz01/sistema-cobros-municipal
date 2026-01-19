@@ -11,8 +11,8 @@ import {
     Map
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import SectionTitleSimple from "../components/Titles.jsx/SectionTitleSimple.jsx";
-import SectionSubtitle from "../components/Titles.jsx/SectionSubtitle.jsx";
+import SectionTitleSimple from "../components/titles/SectionTitleSimple.jsx";
+import SectionSubtitle from "../components/titles/SectionSubtitle.jsx";
 import PageLayout from "../components/layouts/PageLayout.jsx";
 import Stack from "../components/layouts/Stack.jsx";
 import CatalogCard from "../components/cards/CatalogCard.jsx";

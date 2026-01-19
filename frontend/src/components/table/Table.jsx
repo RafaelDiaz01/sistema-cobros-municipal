@@ -9,7 +9,7 @@ export default function Table({
   onRowClick,
 }) {
   return (
-    <div style={{ width: "100%", height: 520 }}>
+    <div style={{ width: "100%"}}>
       <DataGrid
         rows={rows}
         columns={columns}

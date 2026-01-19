@@ -165,7 +165,6 @@ const Contribuyentes = () => {
           columns={contribuyentesColumns(handleEdit, handleDelete)}
           getRowId={(row) => row.id_contribuyente}
         />
-        ;
         <Pagination
           currentPage={1}
           totalPages={5}

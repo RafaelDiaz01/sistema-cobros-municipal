@@ -8,8 +8,9 @@ import {
 import PageLayout from "../components/layouts/PageLayout";
 import Stack from "../components/layouts/Stack";
 import SectionTitle from "../components/titles/SectionTitle.jsx";
+import AddEstablecimientoModal from "../components/modals/AddEstablecimientoModal.jsx";
 import StatsCards from "../components/cards/StatsCards";
-import Table from "../components/table/Table.jsx"
+import Table from "../components/table/Table.jsx";
 import { getEstablecimientos } from "../api/establecimientos.js";
 import { updateStatusEstablecimientoAPI } from "../api/establecimientos.js";
 import Swal from "sweetalert2";
@@ -20,26 +21,13 @@ const MySwal = withReactContent(Swal);
 
 export default function Establecimientos() {
   const [establecimientos, setEstablecimientos] = useState([]);
-  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
   const [establecimientoEdit, setEstablecimientoEdit] = useState(null);
 
   useEffect(() => {
     fetchEstablecimientos();
   }, []);
-
-  const filteredEstablecimientos = useMemo(() => {
-    if (!search) return establecimientos;
-
-    const term = search.toLowerCase();
-
-    return establecimientos.filter((e) =>
-      [e.nombre, e.calle, e.barrio, e.fecha_apertura, e.giro]
-        .join(" ")
-        .toLowerCase()
-        .includes(term)
-    );
-  }, [search, establecimientos]);
 
   const stats = useMemo(() => {
     const total = establecimientos.length;
@@ -138,10 +126,18 @@ export default function Establecimientos() {
       <Stack gap="gap-10">
         <SectionTitle
           text="Gestión de Establecimientos"
+          onAdd={handleAdd}
           textButton="Agregar Establecimiento"
         />
+        {open && (
+          <AddEstablecimientoModal
+            onClose={() => setOpen(false)}
+            onSuccess={fetchEstablecimientos}
+            establecimiento={establecimientoEdit}
+          />
+        )}
         <StatsCards stats={stats} />
-        <Table 
+        <Table
           rows={establecimientos}
           loading={loading}
           columns={establecimientosColumns(handleEdit, handleDelete)}

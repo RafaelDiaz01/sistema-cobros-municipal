@@ -7,7 +7,7 @@ import {
 import StatsCards from "../components/cards/StatsCards.jsx";
 import PageLayout from "../components/layouts/PageLayout.jsx";
 import SectionTitle from "../components/titles/SectionTitle.jsx";
-import AddContribuyenteModal from "../components/modals/AddContribuyenteModal.js";
+import AddContribuyenteModal from "../components/modals/AddContribuyenteModal.jsx";
 import SearchBar from "../components/SearchBar.jsx";
 import Stack from "../components/layouts/Stack.jsx";
 import { showToast } from "../utils/alerts/toast.js";

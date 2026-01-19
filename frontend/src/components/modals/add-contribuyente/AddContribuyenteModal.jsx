@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { X, User, MapPin, FolderUp } from "lucide-react";
-import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Section from "./Section.jsx";
 import Grid from "./Grid.jsx";
@@ -18,7 +17,6 @@ export default function AddContribuyenteModal({
   contribuyente,
   onSuccess,
 }) {
-  const MySwal = withReactContent(Swal);
   const isEdit = Boolean(contribuyente);
 
   // Usando React Hook Form para manejar el formulario
@@ -49,6 +47,7 @@ export default function AddContribuyenteModal({
     try {
       if (isEdit) {
         await updateContribuyente(contribuyente.id_contribuyente, data);
+        showToast("success", "Contribuyente actualizado exitosamente");
       } else {
         await createContribuyente(data);
         showToast("success", "Contribuyente guardado exitosamente");

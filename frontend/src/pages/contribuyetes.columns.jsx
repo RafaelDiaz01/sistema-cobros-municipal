@@ -1,3 +1,4 @@
+import { Tooltip } from "@mui/material";
 import { Pencil, ToggleRight, ToggleLeft } from "lucide-react";
 
 export const contribuyentesColumns = (onEdit, onToggleStatus) => [
@@ -7,14 +8,11 @@ export const contribuyentesColumns = (onEdit, onToggleStatus) => [
     width: 90,
   },
   {
-    field: "nombreCompleto",
+    field: "nombre",
     headerName: "Nombre Completo",
     flex: 1,
-    renderCell: ({ row }) => (
-      <span className="font-medium">
-        {row.nombre} {row.apellido_paterno} {row.apellido_materno}
-      </span>
-    ),
+    valueGetter: (params, row) =>
+      `${row.nombre} ${row.apellido_paterno} ${row.apellido_materno}`,
   },
   {
     field: "direccion",
@@ -48,7 +46,7 @@ export const contribuyentesColumns = (onEdit, onToggleStatus) => [
   {
     field: "acciones",
     headerName: "Acciones",
-    width: 160,
+    width: 140,
     sortable: false,
     filterable: false,
 
@@ -57,23 +55,41 @@ export const contribuyentesColumns = (onEdit, onToggleStatus) => [
 
       return (
         <div className="flex items-center justify-center gap-4">
-          <button
-            onClick={() => onEdit(params.row)}
-            className="flex items-center justify-center w-8 h-8 rounded-full text-[var(--color-primario)] hover:bg-gray-200"
-          >
-            <Pencil size={18} />
-          </button>
+          <Tooltip title="Editar contribuyente" arrow>
+            <button
+              onClick={() => onEdit(params.row)}
+              className="flex items-center justify-center w-8 h-8 rounded-full
+                       text-[var(--color-primario)]
+                       hover:bg-gray-200
+                       transition-transform duration-200 hover:scale-110"
+            >
+              <Pencil size={18} />
+            </button>
+          </Tooltip>
 
-          <button
-            onClick={() => onToggleStatus(id_contribuyente, activo)}
-            className="hover:opacity-70 flex items-center"
+          <Tooltip
+            title={
+              activo ? "Desactivar contribuyente" : "Activar contribuyente"
+            }
+            arrow
           >
-            {activo ? (
-              <ToggleRight size={18} className="text-[var(--color-cancelar)]" />
-            ) : (
-              <ToggleLeft size={18} className="text-[var(--color-primario)]" />
-            )}
-          </button>
+            <button
+              onClick={() => onToggleStatus(id_contribuyente, activo)}
+              className="hover:opacity-70 flex items-center"
+            >
+              {activo ? (
+                <ToggleRight
+                  size={18}
+                  className="text-[var(--color-cancelar)]"
+                />
+              ) : (
+                <ToggleLeft
+                  size={18}
+                  className="text-[var(--color-primario)]"
+                />
+              )}
+            </button>
+          </Tooltip>
         </div>
       );
     },

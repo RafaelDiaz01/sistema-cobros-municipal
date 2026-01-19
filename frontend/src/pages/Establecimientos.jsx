@@ -7,14 +7,14 @@ import {
 } from "lucide-react";
 import PageLayout from "../components/layouts/PageLayout";
 import Stack from "../components/layouts/Stack";
-import SectionTitle from "../components/Titles.jsx/SectionTitle";
+import SectionTitle from "../components/titles/SectionTitle.jsx";
 import StatsCards from "../components/cards/StatsCards";
-import SearchBar from "../components/SearchBar";
-import Table from "../components/Table";
+import Table from "../components/table/Table.jsx"
 import { getEstablecimientos } from "../api/establecimientos.js";
 import { updateStatusEstablecimientoAPI } from "../api/establecimientos.js";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { establecimientosColumns } from "./establecimientos/establecimientos.columns.jsx";
 
 const MySwal = withReactContent(Swal);
 
@@ -141,16 +141,11 @@ export default function Establecimientos() {
           textButton="Agregar Establecimiento"
         />
         <StatsCards stats={stats} />
-        <SearchBar
-          value={search}
-          onChange={setSearch}
-          placeholder="Buscar por nombre o giro del establecimiento"
-        />
-        <Table
-          establecimientos={filteredEstablecimientos}
+        <Table 
+          rows={establecimientos}
           loading={loading}
-          updateStatus={handleDelete}
-          onEdit={handleEdit}
+          columns={establecimientosColumns(handleEdit, handleDelete)}
+          getRowId={(row) => row.id_estableciemiento}
         />
       </Stack>
     </PageLayout>

@@ -1,4 +1,5 @@
 import Contribuyente from "../models/ContribuyenteModel.js";
+import { Op, fn, col, where } from "sequelize";
 
 // Obtener todos los contribuyentes
 export const obtenerContribuyentes = async () => {
@@ -66,3 +67,29 @@ export const actualizarContribuyente = async (id, data) => {
   await contribuyente.update(data); 
   return contribuyente;
 }
+
+// Buscar contribuyentes por nombre
+export const buscarContribuyentesPorNombre = async (search) => {
+  return await Contribuyente.findAll({
+    attributes: [
+      "id_contribuyente",
+      "nombre",
+      "apellido_paterno",
+      "apellido_materno"
+    ],
+    where: where(
+      fn(
+        "CONCAT",
+        col("nombre"),
+        " ",
+        col("apellido_paterno"),
+        " ",
+        col("apellido_materno")
+      ),
+      {
+        [Op.like]: `%${search}%`
+      }
+    ),
+    limit: 10
+  });
+};

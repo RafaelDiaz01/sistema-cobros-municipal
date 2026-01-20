@@ -54,3 +54,19 @@ export const putContribuyente = async (req, res) => {
     });
   }
 }
+
+// Buscar contribuyentes por nombre
+export const searchContribuyentes = async (req, res) => {
+  try {
+    const { nombre } = req.query;
+    if (!nombre || nombre.length < 2) {
+      return res.status(400).json({ message: "El parámetro 'nombre' es obligatorio" });
+    }
+    
+    const resultados = await contribuyenteService.buscarContribuyentesPorNombre(nombre);
+    res.json(resultados);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error al buscar contribuyentes", error: error.message });
+  }
+};

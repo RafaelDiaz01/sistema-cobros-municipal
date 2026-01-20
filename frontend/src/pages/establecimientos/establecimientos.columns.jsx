@@ -32,6 +32,23 @@ export const establecimientosColumns = (onEdit, onToggleStatus) => [
       `${row.contribuyente.nombre} ${row.contribuyente.apellido_paterno} ${row.contribuyente.apellido_materno}`,
   },
   {
+    field: "activo",
+    headerName: "Estado",
+    width: 100,
+    sortable: false,
+
+    renderCell: (params) =>
+      params.row.activo ? (
+        <span className="px-3 py-1 rounded-lg bg-[#E8F8EE] text-[var(--color-texto)] text-xs font-medium">
+          Activo
+        </span>
+      ) : (
+        <span className="px-3 py-1 rounded-lg bg-[#E6E7EB] text-[#4B5563] text-xs font-medium">
+          Inactivo
+        </span>
+      ),
+  },
+  {
     field: "acciones",
     headerName: "Acciones",
     width: 140,

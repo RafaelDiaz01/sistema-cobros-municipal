@@ -29,3 +29,11 @@ export const updateContribuyenteAPI = async (id, data) => {
   const response = await api.put(`/contribuyentes/${id}`, data);
   return response.data;
 };
+
+// Buscar contribuyentes por nombre
+export const searchContribuyentesAPI = async (nombre) => {
+  const response = await api.get(`/contribuyentes/buscar`, {
+    params: { nombre },
+  });
+  return response.data;
+};

@@ -16,4 +16,7 @@ router.put("/:id/estado", authMiddleware, contribuyenteController.putContribuyen
 // Actualizar datos de un contribuyente
 router.put("/:id", authMiddleware, contribuyenteController.putContribuyente);
 
+// Buscar contribuyentes por nombre
+router.get("/buscar", authMiddleware, contribuyenteController.searchContribuyentes);
+
 export default router;

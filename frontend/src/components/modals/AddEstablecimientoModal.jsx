@@ -100,6 +100,7 @@ export default function AddEstablecimientoModal({
                 <Grid>
                   <Input
                     label="Nombre del Establecimiento"
+                    placeholder="Ej. La Roca"
                     {...register("nombre", {
                       required: "Este campo es obligatorio",
                     })}
@@ -107,6 +108,7 @@ export default function AddEstablecimientoModal({
                   />
                   <Input
                     label="Giro"
+                    placeholder="Ej. Tienda de abarrotes"
                     {...register("giro", {
                       required: "Este campo es obligatorio",
                     })}
@@ -114,12 +116,14 @@ export default function AddEstablecimientoModal({
                   />
                   <Input
                     label="Propietario"
+                    placeholder="Ej. Juan Pérez"
                     {...register("propietario", {
                       required: "Este campo es obligatorio",
                     })}
                     error={errors.propietario?.message}
                   />
                   <Input
+                    type="date"
                     label="Fecha de Apertura"
                     {...register("fecha_apertura", {
                       required: "Este campo es obligatorio",
@@ -172,7 +176,7 @@ export default function AddEstablecimientoModal({
               type="submit"
               className="px-6 py-2 rounded-lg bg-[var(--color-acento)] text-[var(--color-text-secundario)] text-sm font-medium"
             >
-              {isEdit ? "Actualizar Contribuyente" : "Guardar Contribuyente"}
+              {isEdit ? "Actualizar Establecimiento" : "Guardar Establecimiento"}
             </button>
           </div>
         </form>

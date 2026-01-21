@@ -3,6 +3,7 @@ import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 
 import Login from "../pages/Login";
+import Cobrar from "../pages/cobrar/Cobrar";
 import Contribuyentes from "../pages/Contribuyentes";
 import Mas from "../pages/Mas";
 import Establecimientos from "../pages/Establecimientos";
@@ -21,6 +22,7 @@ const AppRouter = () => {
 
       {/* Rutas Privadas */}
       <Route element={<PrivateRoute />}>
+        <Route path="/cobrar" element={<Cobrar />} />
         <Route path="/contribuyentes" element={<Contribuyentes />} />
         <Route path="/mas" element={<Mas />} />
         <Route path="/establecimientos" element={<Establecimientos />} />

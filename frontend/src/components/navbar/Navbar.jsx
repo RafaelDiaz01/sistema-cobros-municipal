@@ -20,9 +20,9 @@ export default function Navbar() {
 
         {/* OPCIONES DE NAVEGACIÓN */}
         <nav className="flex items-center gap-8 text-sm">
-          <button className="hover:text-[var(--color-primario)] transition">
+          <NavLink to="/cobrar" className={linkClass}>
             Cobrar
-          </button>
+          </NavLink>
 
           <NavLink to="/contribuyentes" className={linkClass}>
             Contribuyentes

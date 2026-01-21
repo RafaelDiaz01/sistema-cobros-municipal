@@ -1,4 +1,4 @@
-function Grid({ children, cols = 3 }) {
+function Grid({ children, cols}) {
   return (
     <div className={`grid grid-cols-${cols} md:grid-cols-${cols} lg:grid-cols-${cols} gap-5`}>
       {children}

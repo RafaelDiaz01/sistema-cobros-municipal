@@ -1,5 +1,6 @@
-import { updateEstablecimiento } from "../../services/establecimientoService";
-import { createEstablecimiento } from "../../services/establecimientoService";
+import { updateEstablecimiento } from "../../services/establecimientoService.js";
+import { createEstablecimiento } from "../../services/establecimientoService.js";
+import { searchContribuyentes } from "../../services/contribuyentesService.jsx";
 import { showToast } from "../../utils/alerts/toast.js";
 import { X, Store, MapPin } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -9,6 +10,7 @@ import Section from "./components/Section.jsx";
 import Grid from "./components/Grid.jsx";
 import Input from "./components/Input.jsx";
 import Select from "./components/Select.jsx";
+import SearchAutocomplete from "./components/SearchAutocomplete.jsx";
 
 export default function AddEstablecimientoModal({
   onClose,
@@ -22,6 +24,7 @@ export default function AddEstablecimientoModal({
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors, isSubmitting },
   } = useForm();
 
@@ -31,7 +34,7 @@ export default function AddEstablecimientoModal({
         // Inicializar los campos del formulario con los datos del establecimiento
         nombre: establecimiento.nombre,
         giro: establecimiento.giro,
-        propietario:
+        id_contribuyente:
           establecimiento.contribuyente.nombre +
           " " +
           establecimiento.contribuyente.apellido_paterno,
@@ -114,13 +117,28 @@ export default function AddEstablecimientoModal({
                     })}
                     error={errors.giro?.message}
                   />
-                  <Input
+                  {/* <Input
                     label="Propietario"
                     placeholder="Ej. Juan Pérez"
                     {...register("propietario", {
                       required: "Este campo es obligatorio",
                     })}
                     error={errors.propietario?.message}
+                  /> */}
+                  <SearchAutocomplete
+                    name="id_contribuyente"
+                    control={control}
+                    label="Propietario"
+                    placeholder="Buscar contribuyente por nombre..."
+                    searchFn={searchContribuyentes} // función para buscar contribuyentes
+                    getOptionLabel={(option) =>
+                      `${option.nombre} ${option.apellido_paterno}`
+                    }
+                    getOptionValue={(option) => option.id_contribuyente}
+                    // Integrar con react-hook-form
+                    {...register("id_contribuyente", {
+                      required: "Este campo es obligatorio",
+                    })}
                   />
                   <Input
                     type="date"

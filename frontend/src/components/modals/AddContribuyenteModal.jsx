@@ -93,7 +93,7 @@ export default function AddContribuyenteModal({
             <Stack gap="gap-8">
               {/* DATOS PERSONALES */}
               <Section icon={<User size={18} />} title="Datos Personales">
-                <Grid>
+                <Grid cols={3}>
                   <Input
                     {...register("nombre", { required: true })}
                     label="Nombre(s)"
@@ -136,7 +136,7 @@ export default function AddContribuyenteModal({
 
               {/* DOMICILIO */}
               <Section icon={<MapPin size={18} />} title="Domicilio">
-                <Grid cols={2}>
+                <Grid cols={3}>
                   <Input
                     {...register("calle", { required: true })}
                     label="Calle"

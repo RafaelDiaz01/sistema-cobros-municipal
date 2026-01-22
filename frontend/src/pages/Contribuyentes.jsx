@@ -36,7 +36,7 @@ const Contribuyentes = () => {
       [c.nombre, c.apellido_paterno, c.apellido_materno, c.rfc, c.telefono]
         .join(" ")
         .toLowerCase()
-        .includes(term)
+        .includes(term),
     );
   }, [search, contribuyentes]);
 
@@ -93,7 +93,7 @@ const Contribuyentes = () => {
     const confirmacion = await alertConfirmation(
       "Atención",
       mensaje,
-      "warning"
+      "warning",
     );
     if (!confirmacion) return;
 
@@ -121,7 +121,7 @@ const Contribuyentes = () => {
 
   return (
     <PageLayout>
-      <Stack gap="gap-10">
+      <Stack size="xl">
         {/* TÍTULO DEL MÓDULO */}
         <SectionTitle
           text="Gestión de Contribuyentes"

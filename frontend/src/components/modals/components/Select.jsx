@@ -2,7 +2,7 @@ import Stack from "../../layouts/Stack.jsx";
 
 function Select({ label, options = [], ...props }) {
   return (
-    <Stack gap="gap-1.5">
+    <Stack size="xs">
       <label className="text-sm font-medium">
         {label} <span className="text-red-500">*</span>{" "}
       </label>

@@ -15,7 +15,7 @@ export default function SearchAutocomplete({
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState(""); // 👈 texto escrito
-  
+
   // Aquí use Debounce para evitar muchas llamadas a la API
   useEffect(() => {
     if (!inputValue || inputValue.length < 2) {
@@ -43,7 +43,7 @@ export default function SearchAutocomplete({
       name={name}
       control={control}
       render={({ field }) => (
-        <Stack gap="gap-1.5">
+        <Stack size="xs">
           {/* LABEL */}
           <label className="text-sm font-medium">
             {label} <span className="text-red-500">*</span>

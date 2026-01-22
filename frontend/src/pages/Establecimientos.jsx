@@ -123,7 +123,7 @@ export default function Establecimientos() {
 
   return (
     <PageLayout>
-      <Stack gap="gap-10">
+      <Stack size="xl">
         <SectionTitle
           text="Gestión de Establecimientos"
           onAdd={handleAdd}

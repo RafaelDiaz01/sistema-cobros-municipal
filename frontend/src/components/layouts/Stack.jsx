@@ -1,13 +1,18 @@
 // Componente para apilar elementos verticalmente con espacio entre ellos
-import React from 'react';
+import clsx from "clsx";
 
-export default function Stack({ children, gap }) {
+const GAP_SIZES = {
+  xs: "gap-2",
+  sm: "gap-4",
+  md: "gap-6",
+  lg: "gap-8",
+  xl: "gap-10",
+};
+
+export default function Stack({ children, size = "md", className }) {
   return (
-    <div className={`flex flex-col ${gap}`}>
+    <div className={clsx("flex flex-col", GAP_SIZES[size], className)}>
       {children}
     </div>
   );
-}
-
-// Uso: <Stack gap="gap-6">...</Stack> para apilar con espacio de 1.5rem entre elementos
-// <Stack gap="gap-4">...</Stack> para espacio de 1rem, por ejemplo campos de formulario.
+};

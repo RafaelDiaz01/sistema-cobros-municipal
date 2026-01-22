@@ -73,39 +73,41 @@ export default function Login() {
       {/* CONTENIDO */}
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4">
         <div className="w-full max-w-sm bg-white rounded-2xl shadow-xl px-8 py-10 text-center">
-          <Stack gap="gap-1.5">
+          <Stack size="md">
             {/* LOGO */}
-            <div className="flex justify-center mb-6">
-              <img
-                src={logoUrl}
-                alt="Logo Ayuntamiento"
-                className="w-16 h-16 object-contain"
-              />
-            </div>
-
-            {/* TITULO */}
-            <h1 className="text-xl font-bold text-gray-900">
-              Sistema de Cobros
-            </h1>
-            <p className="text-sm text-green-600 mt-1">
-              H. Ayuntamiento de Ixtlán de Juárez
-            </p>
-
-            {loginError && (
-              <div className="bg-red-100 text-red-700 px-4 py-2 rounded-lg text-sm mb-4">
-                {loginError}
+            <Stack size="xs">
+              <div className="flex justify-center">
+                <img
+                  src={logoUrl}
+                  alt="Logo Ayuntamiento"
+                  className="w-16 h-16 object-contain"
+                />
               </div>
-            )}
+
+              {/* TITULO */}
+              <h1 className="text-xl font-bold text-gray-900">
+                Sistema de Cobros
+              </h1>
+              <p className="text-sm text-green-600">
+                H. Ayuntamiento de Ixtlán de Juárez
+              </p>
+
+              {loginError && (
+                <div className="bg-red-100 text-red-700 px-4 py-2 rounded-lg text-sm mb-4">
+                  {loginError}
+                </div>
+              )}
+            </Stack>
 
             {/* FORM */}
-            <Stack gap="gap-4">
-              <form className="flex flex-col gap-4">
+            <form className="flex flex-col">
+              <Stack size="md">
                 {/* USUARIO */}
                 <div className="text-left">
                   <label className="text-sm font-medium text-gray-700">
                     Usuario
                   </label>
-                  <div className="mt-1 relative">
+                  <div className="relative">
                     <User
                       size={18}
                       className="absolute left-3 top-1/2 -translate-y-1/2 text-green-600"
@@ -134,7 +136,7 @@ export default function Login() {
                     </button>
                   </div>
 
-                  <div className="mt-1 relative">
+                  <div className="relative">
                     <Lock
                       size={18}
                       className="absolute left-3 top-1/2 -translate-y-1/2 text-green-600"
@@ -193,11 +195,11 @@ export default function Login() {
                 >
                   Iniciar Sesión
                 </button>
-              </form>
-            </Stack>
+              </Stack>
+            </form>
 
-            {/* FOOTER CARD */}
-            <p className="mt-6 text-xs text-green-700">
+            {/* FOOTER*/}
+            <p className="text-xs text-green-700">
               © 2026 Tesorería Municipal Ixtlán de Juárez.
               <br />
               Todos los derechos reservados.

@@ -9,51 +9,102 @@ import ContribuyenteCard from "./ContribuyenteCard";
 import ResumenRecibo from "./ResumenRecibo";
 import Input from "../../components/modals/components/Input.jsx";
 import Select from "../../components/modals/components/Select.jsx";
+import TextArea from "../../components/modals/components/TextArea.jsx";
+import InfoItem from "../../components/cobros/InfoItem.jsx";
+import { User } from "lucide-react";
+import { useState } from "react";
 
 export default function Cobrar() {
   const total = 1200;
+  const [contribuyente, setContribuyente] = useState(null);
 
   return (
     <PageLayout>
-      <Stack gap="gap-10">
+      <Stack size="xl">
         <SectionTitleSimple text="Procesar Cobros Municipales" />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* IZQUIERDA */}
           <div className="lg:col-span-2 flex flex-col gap-6">
             <CardCobro title="Buscar Contribuyente">
-              <BuscarContribuyente />
+              <BuscarContribuyente onSelect={setContribuyente} />
             </CardCobro>
 
             <CardCobro title="Detalles del Pago">
-                <Select
-                    label="Concepto de Pago"
-                    options={[
-                      "Predial",
-                      "Estacionamiento",
-                      "Conexión",
-                      "Multas",
-                    ]}
-                    // {...register("barrio", { required: true })}
-                  />
-              <Grid cols={3}>
-                <Input
-                  // {...register("nombre", { required: true })}
-                  label="Concepto de Pago"
-                  placeholder="Ej. Predial 2024"
-                />
+              <Select
+                label="Concepto de Pago"
+                options={["Predial", "Estacionamiento", "Conexión", "Multas"]}
+                // {...register("barrio", { required: true })}
+              />
+              <Grid cols={2}>
                 <Input
                   // {...register("nombre", { required: true })}
                   label="Monto a Pagar"
                   placeholder="Ej. 1,250.00"
                 />
+                <Input
+                  // {...register("nombre", { required: true })}
+                  label="Periodo de Pago"
+                  placeholder="Ej. Predial 2024"
+                />
               </Grid>
+              <TextArea
+                label="Descripción"
+                placeholder="Ej. Pago de Predial correspondiente al año 2024"
+              />
             </CardCobro>
           </div>
 
           {/* DERECHA */}
           <div className="flex flex-col gap-6">
-            <ContribuyenteCard />
-            <ResumenRecibo total={total.toFixed(2)} />
+            <CardCobro title="Contribuyente Seleccionado">
+              <Grid cols={2}>
+                <div>
+                  <InfoItem
+                    label="Nombre Completo"
+                    value={
+                      [
+                        contribuyente?.nombre,
+                        contribuyente?.apellido_paterno,
+                        contribuyente?.apellido_materno,
+                      ]
+                        .filter(Boolean)
+                        .join(" ") || "No seleccionado"
+                    }
+                  />
+                </div>
+                <div>
+                  <InfoItem
+                    label="RFC"
+                    value={
+                      [contribuyente?.rfc].filter(Boolean).join(" ") ||
+                      "No seleccionado"
+                    }
+                  />
+                </div>
+                <div>
+                  <InfoItem
+                    label="Clave Catastral"
+                    value={
+                      [contribuyente?.id_contribuyente]
+                        .filter(Boolean)
+                        .join(" ") || "No seleccionado"
+                    }
+                  />
+                </div>
+                <div>
+                  <InfoItem
+                    label="Dirección"
+                    value={
+                      [contribuyente?.barrio].filter(Boolean).join(" ") ||
+                      "No seleccionado"
+                    }
+                  />
+                </div>
+              </Grid>
+            </CardCobro>
+
+            {/* RESUMEN DEL RECIBO */}
+            <ResumenRecibo />
           </div>
         </div>
       </Stack>

@@ -75,7 +75,9 @@ export const buscarContribuyentesPorNombre = async (search) => {
       "id_contribuyente",
       "nombre",
       "apellido_paterno",
-      "apellido_materno"
+      "apellido_materno",
+      "rfc",
+      "barrio"
     ],
     where: where(
       fn(

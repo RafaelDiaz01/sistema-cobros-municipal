@@ -13,6 +13,8 @@ import TextArea from "../../components/modals/components/TextArea.jsx";
 import InfoItem from "../../components/cobros/InfoItem.jsx";
 import { User } from "lucide-react";
 import { useState } from "react";
+import Descuento from "../../components/cobros/Descuento.jsx";
+
 
 export default function Cobrar() {
   const total = 1200;
@@ -47,6 +49,7 @@ export default function Cobrar() {
                   placeholder="Ej. Predial 2024"
                 />
               </Grid>
+              <Descuento />
               <TextArea
                 label="Descripción"
                 placeholder="Ej. Pago de Predial correspondiente al año 2024"

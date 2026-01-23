@@ -16,7 +16,13 @@ const ResumenRecibo = () => {
           <div className="flex justify-between items-center">
             <p className="text-gray-500 uppercase font-semibold">FECHA:</p>
             <p className="font-mono font-bold text-gray-700">
-              24 de Mayo, 2024
+              09 de Febrero, 2026
+            </p>
+          </div>
+          <div className="flex justify-between items-center">
+            <p className="text-gray-500 uppercase font-semibold">EJERCICIO FISCAL:</p>
+            <p className="font-mono font-bold text-gray-700">
+              2026
             </p>
           </div>
         </div>

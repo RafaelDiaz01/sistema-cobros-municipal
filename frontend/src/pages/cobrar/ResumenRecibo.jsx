@@ -10,12 +10,12 @@ const ResumenRecibo = () => {
         {/* Información del folio y fecha */}
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <p className="text-sm text-gray-500 font-medium">FOLIO:</p>
-            <p className="text-lg font-semibold text-gray-800">2024-00123</p>
+            <p className="text-gray-500 uppercase font-semibold">FOLIO:</p>
+            <p className="font-mono font-bold text-gray-700">2024-00123</p>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-sm text-gray-500 font-medium">FECHA:</p>
-            <p className="text-lg font-semibold text-gray-800">
+            <p className="text-gray-500 uppercase font-semibold">FECHA:</p>
+            <p className="font-mono font-bold text-gray-700">
               24 de Mayo, 2024
             </p>
           </div>
@@ -51,26 +51,22 @@ const ResumenRecibo = () => {
         <hr className="border-gray-300" />
 
         {/* Total a pagar */}
-        <div className="text-center">
-          <p className="text-sm text-gray-500 font-medium">TOTAL A PAGAR</p>
-          <p
-            className="text-3xl font-bold"
-            style={{ color: "var(--color-primario)" }}
-          >
-            $1,125.00
-          </p>
-        </div>
-
-        {/* Total en letra */}
-        <div className="text-center p-3 bg-gray-50 rounded-lg border border-gray-200">
-          <p className="text-gray-700 font-medium">
-            MIL CIENTO VEINTICINCO PESOS 00/100 M.N.
-          </p>
+        <div class="bg-[var(--color-terciario)] p-4 rounded-lg mt-4 border border-[var(--color-borde)]">
+          <div class="flex justify-between items-center text-[var(--color-texto)] mb-2">
+            <span class="text-sm font-bold uppercase tracking-widest">TOTAL A PAGAR</span>
+            <span class="text-2xl font-black">$1,125.00</span>
+          </div>
+          <div class="pt-2 border-t border-[var(--color-borde)]">
+            <p class="text-[10px] font-bold text-primary/70 uppercase mb-1">Total en letra:</p>
+            <p class="text-[11px] leading-relaxed font-bold text-gray-700 dark:text-gray-200 uppercase">
+              MIL CIENTO VEINTICINCO PESOS 00/100 M.N.
+            </p>
+          </div>
         </div>
 
         {/* Botones de acción */}
         <div className="flex gap-4 pt-4">
-          <button className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gray-800 text-white font-medium rounded-lg hover:bg-gray-900 transition-colors">
+          <button className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-[var(--color-primario)] text-white ext-white font-medium rounded-lg hover:bg-gray-900 transition-colors">
             <Printer size={20} />
             Imprimir
           </button>
@@ -80,7 +76,7 @@ const ResumenRecibo = () => {
           </button>
         </div>
       </Stack>
-    </CardCobro>
+    </CardCobro >
   );
 };
 

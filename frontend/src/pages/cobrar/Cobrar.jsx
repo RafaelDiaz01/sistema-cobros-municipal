@@ -14,11 +14,16 @@ import InfoItem from "../../components/cobros/InfoItem.jsx";
 import { User } from "lucide-react";
 import { useState } from "react";
 import Descuento from "../../components/cobros/Descuento.jsx";
-
+import BuscarConceptoPago from "../../components/cobros/BuscarConceptoPago.jsx";
+import { searchConceptoPagoAPI } from "../../api/conceptoPago.js";
 
 export default function Cobrar() {
   const total = 1200;
   const [contribuyente, setContribuyente] = useState(null);
+
+  const handleSelectConcepto = (concepto) => {
+    setConceptoSeleccionado(concepto);
+  };
 
   return (
     <PageLayout>
@@ -32,11 +37,7 @@ export default function Cobrar() {
             </CardCobro>
 
             <CardCobro title="Detalles del Pago">
-              <Select
-                label="Concepto de Pago"
-                options={["Predial", "Estacionamiento", "Conexión", "Multas"]}
-                // {...register("barrio", { required: true })}
-              />
+              <BuscarConceptoPago onSelect={handleSelectConcepto} searchFn={searchConceptoPagoAPI} />
               <Grid cols={2}>
                 <Input
                   // {...register("nombre", { required: true })}

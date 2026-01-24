@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import PageLayout from "../../components/layouts/PageLayout";
 import Stack from "../../components/layouts/Stack";
@@ -5,21 +6,16 @@ import SectionTitleSimple from "../../components/titles/SectionTitleSimple";
 import CardCobro from "../../components/cards/CardCobro";
 import Grid from "../../components/modals/components/Grid";
 import BuscarContribuyente from "./BuscarContribuyente";
-import ContribuyenteCard from "./ContribuyenteCard";
 import ResumenRecibo from "./ResumenRecibo";
 import Input from "../../components/modals/components/Input.jsx";
-import Select from "../../components/modals/components/Select.jsx";
 import TextArea from "../../components/modals/components/TextArea.jsx";
 import InfoItem from "../../components/cobros/InfoItem.jsx";
-import { User } from "lucide-react";
-import { useState } from "react";
-import Descuento from "../../components/cobros/Descuento.jsx";
 import BuscarConceptoPago from "../../components/cobros/BuscarConceptoPago.jsx";
 import { searchConceptoPagoAPI } from "../../api/conceptoPago.js";
 
 export default function Cobrar() {
-  const total = 1200;
   const [contribuyente, setContribuyente] = useState(null);
+  const [conceptoSeleccionado, setConceptoSeleccionado] = useState(null);
 
   const handleSelectConcepto = (concepto) => {
     setConceptoSeleccionado(concepto);
@@ -37,8 +33,11 @@ export default function Cobrar() {
             </CardCobro>
 
             <CardCobro title="Detalles del Pago">
-              <BuscarConceptoPago onSelect={handleSelectConcepto} searchFn={searchConceptoPagoAPI} />
-              <Grid cols={2}>
+              <BuscarConceptoPago
+                onSelect={handleSelectConcepto}
+                searchFn={searchConceptoPagoAPI}
+              />
+              <Grid cols={3}>
                 <Input
                   // {...register("nombre", { required: true })}
                   label="Monto a Pagar"
@@ -47,10 +46,14 @@ export default function Cobrar() {
                 <Input
                   // {...register("nombre", { required: true })}
                   label="Periodo de Pago"
-                  placeholder="Ej. Predial 2024"
+                  placeholder="Ej. Enero - Diciembre 2024"
                 />
+                <Input label="Descuento Regular" placeholder="Ej. 50%" />
               </Grid>
-              <Descuento />
+              <p class="mt-1.5 text-[11px] text-gray-500 dark:text-gray-400 italic">
+                Nota: El descuento adicional por pronto pago solo aplica en los
+                meses de enero y febrero.
+              </p>
               <TextArea
                 label="Descripción"
                 placeholder="Ej. Pago de Predial correspondiente al año 2024"
@@ -108,7 +111,7 @@ export default function Cobrar() {
             </CardCobro>
 
             {/* RESUMEN DEL RECIBO */}
-            <ResumenRecibo />
+            <ResumenRecibo concepto={conceptoSeleccionado} />
           </div>
         </div>
       </Stack>

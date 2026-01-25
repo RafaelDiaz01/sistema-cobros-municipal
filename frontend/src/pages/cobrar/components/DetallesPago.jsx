@@ -8,7 +8,9 @@ import BuscarConceptoPago from "../../../components/cobros/BuscarConceptoPago.js
 export default function DetallesPago({
   onSelectConcepto,
   searchConceptoPagoAPI,
+  form,
 }) {
+  const { register } = form;
   return (
     <CardCobro title="Detalles del Pago">
       <label className="text-sm font-medium">
@@ -19,15 +21,25 @@ export default function DetallesPago({
         searchFn={searchConceptoPagoAPI}
       />
       <Grid cols={4}>
-        <Input label="Monto a Pagar" placeholder="Ej. 1,250.00" />
+        <Input
+          label="Monto a Pagar"
+          placeholder="Ej. 1,250.00"
+          {...register("monto")}
+        />
         <Input
           label="Periodo de Pago"
           placeholder="Ej. Enero - Diciembre 2024"
+          {...register("periodo")}
         />
-        <Input label="Descuento Regular" placeholder="Ej. 50%" />
+        <Input
+          label="Descuento Regular"
+          placeholder="Ej. 50%"
+          {...register("descuento")}
+        />
         <Select
           label="Método de Pago"
           options={["Efectivo", "Transferencia Bancaria"]}
+          {...register("metodo_pago")}
         />
       </Grid>
       <p class="text-[11px] text-gray-400 italic">

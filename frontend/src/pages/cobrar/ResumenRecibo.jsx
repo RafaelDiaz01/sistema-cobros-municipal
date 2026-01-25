@@ -13,7 +13,8 @@ const fechaActual = today.toLocaleDateString("es-MX", {
   year: "numeric",
 });
 
-const ResumenRecibo = ({ concepto, contribuyente }) => {
+const ResumenRecibo = ({ concepto, contribuyente, form }) => {
+  const values = form.watch();
   return (
     <CardCobro title="Resumen del Recibo">
       <Stack size="md">
@@ -32,8 +33,14 @@ const ResumenRecibo = ({ concepto, contribuyente }) => {
               [concepto?.nombre].filter(Boolean).join(" ") || "No Seleccionado"
             }
           />
-          <InfoItem label="Periodo de Pago" value="Enero - Diciembre 2024" />
-          <InfoItem label="Método de Pago" value="Efectivo" />
+          <InfoItem
+            label="Periodo de Pago"
+            value={values.periodo || "No Seleccionado"}
+          />
+          <InfoItem
+            label="Método de Pago"
+            value={values.metodo_pago || "No Seleccionado"}
+          />
 
           <hr className="border-gray-300" />
 
@@ -52,10 +59,7 @@ const ResumenRecibo = ({ concepto, contribuyente }) => {
           />
           <InfoItem
             label="Subtotal"
-            value={
-              [concepto?.monto_base].filter(Boolean).join(" ") ||
-              "$0.00"
-            }
+            value={[concepto?.monto_base].filter(Boolean).join(" ") || "$0.00"}
           />
           <InfoItem label="Descuento Aplicado" value="-$125.00" />
         </Stack>
@@ -73,9 +77,7 @@ const ResumenRecibo = ({ concepto, contribuyente }) => {
               <span class="text-2xl font-black">$1,125.00</span>
             </div>
             <div class="pt-2 border-t border-[var(--color-borde)] flex justify-between items-center">
-              <p class="text-xs text-primary/70 uppercase">
-                Total en letra
-              </p>
+              <p class="text-xs text-primary/70 uppercase">Total en letra</p>
               <p class="text-xs leading-relaxed text-[var(--color-texto)] uppercase">
                 MIL CIENTO VEINTICINCO PESOS 00/100 M.X.N.
               </p>

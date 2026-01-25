@@ -14,6 +14,17 @@ export default function Cobrar() {
   const [contribuyente, setContribuyente] = useState(null);
   const [conceptoSeleccionado, setConceptoSeleccionado] = useState(null);
 
+  // React Hook Form
+  const form = useForm({
+    defaultValues: {
+      monto: "",
+      periodo: "",
+      descuento: "",
+      metodo_pago: "",
+      descripcion: "",
+    },
+  });
+
   const handleSelectConcepto = (concepto) => {
     setConceptoSeleccionado(concepto);
   };
@@ -35,12 +46,17 @@ export default function Cobrar() {
             <DetallesPago
               onSelectConcepto={handleSelectConcepto}
               searchConceptoPagoAPI={searchConceptoPagoAPI}
+              form={form}
             />
           </div>
 
           {/* DERECHA */}
           <div className="flex flex-col gap-6">
-            <ResumenRecibo concepto={conceptoSeleccionado} contribuyente={contribuyente} />
+            <ResumenRecibo
+              concepto={conceptoSeleccionado}
+              contribuyente={contribuyente}
+              form={form}
+            />
           </div>
         </div>
       </Stack>

@@ -33,30 +33,19 @@ export default function BuscarConceptoPago({ onSelect, searchFn }) {
     <Autocomplete
       options={options}
       loading={loading}
-      fullWidth
       getOptionLabel={(option) => option.nombre}
       onChange={(_, value) => value && onSelect(value)}
       inputValue={inputValue}
       onInputChange={(_, value) => setInputValue(value)}
-      renderOption={(props, option) => (
-        <li {...props} key={option.id} className="px-3 py-2">
-          <div className="text-sm font-medium text-gray-800">
-            {option.nombre}
-          </div>
-
-          <div className="text-xs text-gray-500">
-            {option.monto_base} → {option.id} → {option.tipo}
-          </div>
-        </li>
-      )}
       renderInput={(params) => (
         <TextField
           {...params}
-          placeholder="Buscar concepto de pago"
+          placeholder="Ej. Predial, Agua, Impuestos"
+          variant="outlined"
           InputProps={{
             ...params.InputProps,
             startAdornment: (
-              <Search size={18} className="text-green-600 mr-2" />
+              <Search size={18} className="text-[var(--color-primario)] mr-2" />
             ),
             endAdornment: (
               <>
@@ -65,7 +54,16 @@ export default function BuscarConceptoPago({ onSelect, searchFn }) {
               </>
             ),
             className:
-              "bg-[#F9FAFB] border border-[#E5E7EB] rounded-lg text-sm",
+              "w-full pl-10 pr-3 py-2 rounded-lg bg-[#F9FAFB] " +
+              "border border-[#E5E7EB] text-sm focus:outline-none",
+          }}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "0.5rem",
+            },
+            "& .MuiOutlinedInput-notchedOutline": {
+              border: "none",
+            },
           }}
         />
       )}

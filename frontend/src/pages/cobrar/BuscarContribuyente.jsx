@@ -1,25 +1,6 @@
-// import { Search } from "lucide-react";
-
-// export default function BuscarContribuyente() {
-//   return (
-//     <div className="relative">
-//       <Search
-//         size={18}
-//         className="absolute left-3 top-1/2 -translate-y-1/2 text-green-600"
-//       />
-//       <input
-//         placeholder="Buscar contribuyente..."
-//         className="w-full pl-10 pr-3 py-2 rounded-lg bg-[#F9FAFB]
-//         border border-[#E5E7EB] text-sm"
-//       />
-//     </div>
-//   );
-// }
-
 import { Autocomplete, TextField, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { searchContribuyentes } from "../../services/contribuyentesService.jsx";
-import { Search } from "lucide-react";
 
 export default function BuscarContribuyente({ onSelect }) {
   const [options, setOptions] = useState([]);
@@ -53,12 +34,12 @@ export default function BuscarContribuyente({ onSelect }) {
         `${option.nombre} ${option.apellido_paterno} ${option.apellido_materno}`
       }
       onInputChange={(_, value) => setInputValue(value)}
-      onChange={(_, value) => onSelect(value)} // 👈 clave
+      onChange={(_, value) => onSelect(value)}
       filterOptions={(x) => x}
       renderInput={(params) => (
         <TextField
           {...params}
-          placeholder="Rafael Díaz"
+          placeholder="Ej. Rafael Díaz López"
           variant="outlined"
           InputProps={{
             ...params.InputProps,
@@ -73,8 +54,11 @@ export default function BuscarContribuyente({ onSelect }) {
             ),
           }}
           sx={{
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "0.5rem",
+            },
             "& .MuiOutlinedInput-notchedOutline": {
-              border: "none", // 🔥 quitamos borde de MUI
+              border: "none",
             },
           }}
         />

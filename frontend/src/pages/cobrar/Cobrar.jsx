@@ -18,6 +18,8 @@ export default function Cobrar() {
   const form = useForm({
     defaultValues: {
       id_contribuyente: "",
+      tipo_referencia: "",
+      concepto_pago: "",
       monto: "",
       periodo: "",
       descuento: "",
@@ -34,6 +36,9 @@ export default function Cobrar() {
 
   const handleSelectConcepto = (concepto) => {
     setConceptoSeleccionado(concepto);
+    form.setValue("tipo_referencia", concepto?.tipo);
+    form.setValue("concepto_pago", concepto?.nombre);
+    form.setValue("monto", concepto?.monto_base);
   };
 
   return (

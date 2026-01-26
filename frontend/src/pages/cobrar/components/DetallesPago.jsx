@@ -49,6 +49,7 @@ export default function DetallesPago({
       <TextArea
         label="Descripción"
         placeholder="Ej. Pago de Predial correspondiente al año 2024"
+        {...register("descripcion")}
       />
     </CardCobro>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { searchConceptoPagoAPI } from "../../api/conceptoPago.js";
 import PageLayout from "../../components/layouts/PageLayout";
@@ -17,6 +17,7 @@ export default function Cobrar() {
   // React Hook Form
   const form = useForm({
     defaultValues: {
+      id_contribuyente: "",
       monto: "",
       periodo: "",
       descuento: "",
@@ -24,6 +25,12 @@ export default function Cobrar() {
       descripcion: "",
     },
   });
+
+  useEffect(() => {
+    if (contribuyente?.id_contribuyente) {
+      form.setValue("id_contribuyente", contribuyente.id_contribuyente);
+    }
+  }, [contribuyente, form]);
 
   const handleSelectConcepto = (concepto) => {
     setConceptoSeleccionado(concepto);

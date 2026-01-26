@@ -14,12 +14,12 @@ const Pago = sequelize.define("pago", {
   },
 
   tipo_referencia: {
-    type: DataTypes.ENUM("SUBCUENTA", "SECCION", "CONCEPTO", "SUBCONCEPTO"),
+    type: DataTypes.STRING(20),
     allowNull: false,
   },
 
-  id_referencia: {
-    type: DataTypes.INTEGER,
+  concepto_pago: {
+    type: DataTypes.STRING(250),
     allowNull: false,
   },
 
@@ -40,11 +40,11 @@ const Pago = sequelize.define("pago", {
   },
 
   forma_pago: {
-    type: DataTypes.ENUM("EFECTIVO", "TRANSFERENCIA"),
+    type: DataTypes.STRING(20),
     allowNull: false,
   },
 
-  observaciones: {
+  descripcion: {
     type: DataTypes.STRING(255),
   },
 });

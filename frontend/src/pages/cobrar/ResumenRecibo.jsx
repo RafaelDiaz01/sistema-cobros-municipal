@@ -3,7 +3,7 @@ import { HandCoins } from "lucide-react";
 import Stack from "../../components/layouts/Stack.jsx";
 import CardCobro from "../../components/cards/CardCobro.jsx";
 import InfoItem from "../../components/cobros/InfoItem.jsx";
-import Grid from "../../components/modals/components/Grid.jsx";
+import { createPagoAPI } from "../../api/pago.js";
 
 const today = new Date();
 const ejercicioFiscal = today.getFullYear();
@@ -16,9 +16,15 @@ const fechaActual = today.toLocaleDateString("es-MX", {
 const ResumenRecibo = ({ concepto, contribuyente, form }) => {
   const values = form.watch();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("Formulario enviado con datos:", data);
-    // Aquí puedes agregar la lógica para procesar el cobro
+    try {
+      await createPagoAPI(data);
+      alert("Pago registrado exitosamente");
+    } catch (error) {
+      console.error("Error al guardar el pago", error);
+      alert(`Error: ${error.message}`);
+    }
   };
   return (
     <CardCobro title="Resumen del Recibo">

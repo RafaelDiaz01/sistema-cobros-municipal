@@ -12,7 +12,8 @@ class PagoController {
       });
     } catch (error) {
       res.status(400).json({
-        message: error.message,
+        message: "Error al registrar el pago",
+        error: error.message,
       });
     }
   }

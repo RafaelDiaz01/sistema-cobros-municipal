@@ -16,7 +16,7 @@ class conceptoPagoService {
     });
 
     if (resultados.length) {
-      return this.formatearRespuesta("SUBCONCEPTO", resultados);
+      return this.formatearRespuesta("subconcepto", resultados);
     }
 
     // Buscar en CONCEPTOS
@@ -28,7 +28,7 @@ class conceptoPagoService {
     });
 
     if (resultados.length) {
-      return this.formatearRespuesta("CONCEPTO", resultados);
+      return this.formatearRespuesta("concepto", resultados);
     }
 
     // Buscar en SECCIONES
@@ -40,7 +40,7 @@ class conceptoPagoService {
     });
 
     if (resultados.length) {
-      return this.formatearRespuesta("SECCION", resultados);
+      return this.formatearRespuesta("seccion", resultados);
     }
 
     // Buscar en SUBCUENTAS
@@ -52,7 +52,7 @@ class conceptoPagoService {
     });
 
     if (resultados.length) {
-      return this.formatearRespuesta("SUBCUENTA", resultados);
+      return this.formatearRespuesta("subcuenta", resultados);
     }
   }
 

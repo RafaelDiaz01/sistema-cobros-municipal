@@ -44,8 +44,9 @@ class PagoService {
       tipo_referencia,
       concepto_pago,
       monto,
-      forma_pago,
-      folio,
+      periodo,
+      descuento,
+      metodo_pago,
       descripcion,
       fecha_pago,
     } = data;
@@ -57,9 +58,9 @@ class PagoService {
     // );
 
     // Validar monto
-    if (Number(monto) <= 0) {
-      throw new Error("El monto debe ser mayor a cero");
-    }
+    // if (Number(monto) <= 0) {
+    //   throw new Error("El monto debe ser mayor a cero");
+    // }
 
     // Crear pago
     const pago = await Pago.create({
@@ -67,11 +68,20 @@ class PagoService {
       tipo_referencia,
       concepto_pago,
       monto,
-      forma_pago,
-      folio,
+      periodo,
+      descuento,
+      metodo_pago,
+      folio: "REC-TEMP",
       descripcion,
       fecha_pago,
     });
+
+    const year = new Date().getFullYear();
+    const folio = `REC-${year}-${pago.id_pago}`;
+
+    // Actualizar folio con el id_pago
+    pago.folio = folio;
+    await pago.save();
 
     return {
       pago,

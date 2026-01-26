@@ -42,18 +42,19 @@ class PagoService {
     const {
       id_contribuyente,
       tipo_referencia,
-      id_referencia,
+      concepto_pago,
       monto,
       forma_pago,
-      observaciones,
       folio,
+      descripcion,
+      fecha_pago,
     } = data;
 
     // Validar referencia
-    const referencia = await this.obtenerReferencia(
-      tipo_referencia,
-      id_referencia,
-    );
+    // const referencia = await this.obtenerReferencia(
+    //   tipo_referencia,
+    //   id_referencia,
+    // );
 
     // Validar monto
     if (Number(monto) <= 0) {
@@ -64,16 +65,17 @@ class PagoService {
     const pago = await Pago.create({
       id_contribuyente,
       tipo_referencia,
-      id_referencia,
+      concepto_pago,
       monto,
       forma_pago,
-      observaciones,
       folio,
+      descripcion,
+      fecha_pago,
     });
 
     return {
       pago,
-      referencia,
+      //referencia,
     };
   }
 

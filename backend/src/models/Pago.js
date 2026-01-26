@@ -28,6 +28,21 @@ const Pago = sequelize.define("pago", {
     allowNull: false, // monto FINAL pagado
   },
 
+  periodo: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+  },
+
+  descuento: {
+    type: DataTypes.STRING(20),
+    defaultValue: 0.0,
+  },
+
+  metodo_pago: {
+    type: DataTypes.STRING(20),
+    allowNull: false,
+  },
+
   fecha_pago: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
@@ -37,11 +52,6 @@ const Pago = sequelize.define("pago", {
     type: DataTypes.STRING(30),
     allowNull: false,
     unique: true,
-  },
-
-  forma_pago: {
-    type: DataTypes.STRING(20),
-    allowNull: false,
   },
 
   descripcion: {

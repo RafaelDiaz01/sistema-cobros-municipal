@@ -1,7 +1,7 @@
 import { Autocomplete, TextField, CircularProgress } from "@mui/material";
 import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
-import { useDebounce } from "../../hooks/useDebounce.js";
+import { useDebounce } from "../../../hooks/useDebounce.js";
 
 export default function BuscarConceptoPago({ onSelect, searchFn }) {
   const [inputValue, setInputValue] = useState("");

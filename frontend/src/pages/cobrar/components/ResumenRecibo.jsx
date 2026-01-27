@@ -2,7 +2,7 @@ import React from "react";
 import { HandCoins } from "lucide-react";
 import Stack from "../../../components/layouts/Stack.jsx";
 import CardCobro from "../../../components/cards/CardCobro.jsx";
-import InfoItem from "../../../components/cobros/InfoItem.jsx";
+import InfoItem from "./InfoItem.jsx";
 import { createPagoAPI } from "../../../api/pago.js";
 
 const today = new Date();

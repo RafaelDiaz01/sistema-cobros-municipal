@@ -3,7 +3,7 @@ import Grid from "../../../components/modals/components/Grid.jsx";
 import Input from "../../../components/modals/components/Input.jsx";
 import Select from "../../../components/modals/components/Select.jsx";
 import TextArea from "../../../components/modals/components/TextArea.jsx";
-import BuscarConceptoPago from "../../../components/cobros/BuscarConceptoPago.jsx";
+import BuscarConceptoPago from "./BuscarConceptoPago.jsx";
 
 export default function DetallesPago({
   onSelectConcepto,

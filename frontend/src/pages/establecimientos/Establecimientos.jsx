@@ -1,21 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
-import {
-  Store,
-  MapPinCheckInside,
-  MapPinXInside,
-  IterationCcw,
-} from "lucide-react";
-import PageLayout from "../components/layouts/PageLayout";
-import Stack from "../components/layouts/Stack";
-import SectionTitle from "../components/titles/SectionTitle.jsx";
-import AddEstablecimientoModal from "../components/modals/AddEstablecimientoModal.jsx";
-import StatsCards from "../components/cards/StatsCards";
-import Table from "../components/table/Table.jsx";
-import { getEstablecimientos } from "../api/establecimientos.js";
-import { updateStatusEstablecimientoAPI } from "../api/establecimientos.js";
+import { Store, MapPinCheckInside, MapPinXInside, IterationCcw } from "lucide-react";
+import { getEstablecimientos } from "../../api/establecimientos.js";
+import { updateStatusEstablecimientoAPI } from "../../api/establecimientos.js";
+import { establecimientosColumns } from "./establecimientos.columns.jsx";
+import PageLayout from "../../components/layouts/PageLayout";
+import Stack from "../../components/layouts/Stack";
+import SectionTitle from "../../components/titles/SectionTitle.jsx";
+import AddEstablecimientoModal from "../../components/modals/AddEstablecimientoModal.jsx";
+import StatsCards from "../../components/cards/StatsCards";
+import Table from "../../components/table/Table.jsx";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { establecimientosColumns } from "./establecimientos/establecimientos.columns.jsx";
+
 
 const MySwal = withReactContent(Swal);
 
@@ -63,7 +59,6 @@ export default function Establecimientos() {
     try {
       setLoading(true);
       const data = await getEstablecimientos();
-      console.log("Establecimientos cargados:", data);
       setEstablecimientos(data);
     } catch (error) {
       console.error("Error al cargar establecimientos", error);

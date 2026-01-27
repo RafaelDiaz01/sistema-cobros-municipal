@@ -1,6 +1,6 @@
-import CardCobro from "../../components/cards/CardCobro";
-import Stack from "../../components/layouts/Stack.jsx";
-import Grid from "../../components/modals/components/Grid.jsx";
+import CardCobro from "../../../components/cards/CardCobro.jsx";
+import Stack from "../../../components/layouts/Stack.jsx";
+import Grid from "../../../components/modals/components/Grid.jsx";
 
 export default function ContribuyenteCard({ contribuyente }) {
   return (

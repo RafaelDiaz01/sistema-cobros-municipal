@@ -1,19 +1,15 @@
 import { useEffect, useState, useMemo } from "react";
 import { Users, UserCheck, UserX, IdCard } from "lucide-react";
-import {
-  getContribuyentes,
-  updateStatusContribuyenteAPI,
-} from "../api/contribuyentes.js";
-import StatsCards from "../components/cards/StatsCards.jsx";
-import PageLayout from "../components/layouts/PageLayout.jsx";
-import SectionTitle from "../components/titles/SectionTitle.jsx";
-import AddContribuyenteModal from "../components/modals/AddContribuyenteModal.jsx";
-import SearchBar from "../components/SearchBar.jsx";
-import Stack from "../components/layouts/Stack.jsx";
-import { showToast } from "../utils/alerts/toast.js";
-import { alertConfirmation } from "../utils/alerts/alert.js";
-import Table from "../components/table/Table.jsx";
-import { contribuyentesColumns } from "../pages/contribuyetes.columns.jsx";
+import { getContribuyentes, updateStatusContribuyenteAPI } from "../../api/contribuyentes.js";
+import { showToast } from "../../utils/alerts/toast.js";
+import { alertConfirmation } from "../../utils/alerts/alert.js";
+import { contribuyentesColumns } from "./contribuyetes.columns.jsx";
+import PageLayout from "../../components/layouts/PageLayout.jsx";
+import Stack from "../../components/layouts/Stack.jsx";
+import SectionTitle from "../../components/titles/SectionTitle.jsx";
+import AddContribuyenteModal from "../../components/modals/AddContribuyenteModal.jsx";
+import StatsCards from "../../components/cards/StatsCards.jsx";
+import Table from "../../components/table/Table.jsx";
 
 const Contribuyentes = () => {
   const [contribuyentes, setContribuyentes] = useState([]);
@@ -24,21 +20,6 @@ const Contribuyentes = () => {
   useEffect(() => {
     fetchContribuyentes();
   }, []);
-
-  const [search, setSearch] = useState("");
-
-  const filteredContribuyentes = useMemo(() => {
-    if (!search) return contribuyentes;
-
-    const term = search.toLowerCase();
-
-    return contribuyentes.filter((c) =>
-      [c.nombre, c.apellido_paterno, c.apellido_materno, c.rfc, c.telefono]
-        .join(" ")
-        .toLowerCase()
-        .includes(term),
-    );
-  }, [search, contribuyentes]);
 
   const stats = useMemo(() => {
     const total = contribuyentes.length;
@@ -74,7 +55,6 @@ const Contribuyentes = () => {
     try {
       setLoading(true);
       const data = await getContribuyentes();
-      console.log("Contribuyentes cargados:", data);
       setContribuyentes(data);
     } catch (error) {
       console.error("Error al cargar contribuyentes", error);
@@ -89,7 +69,6 @@ const Contribuyentes = () => {
       ? "¿Deseas activar este contribuyente?"
       : "¿Deseas desactivar este contribuyente?";
 
-    // El código espera aquí hasta que el usuario haga clic
     const confirmacion = await alertConfirmation(
       "Atención",
       mensaje,
@@ -138,22 +117,10 @@ const Contribuyentes = () => {
         )}
         {/* ESTADISTÍCAS DEL MÓDULO */}
         {loading ? (
-          <p>Cargando estadísticas...</p>
+          <p>Cargando Estadísticas</p>
         ) : (
           <StatsCards stats={stats} />
         )}
-        {/* BARRA DE BÚSQUEDA */}
-        <SearchBar
-          value={search}
-          onChange={setSearch}
-          placeholder="Buscar por nombre, RFC o clave catastral"
-        />
-        {/* <Table
-          contribuyentes={filteredContribuyentes}
-          loading={loading}
-          updateStatus={handleDelete}
-          onEdit={handleEdit}
-        /> */}
         <Table
           rows={contribuyentes}
           loading={loading}

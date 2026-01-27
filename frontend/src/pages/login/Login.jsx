@@ -2,13 +2,13 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User, Lock, Eye, EyeOff } from "lucide-react";
-import logoUrl from "../assets/images/logo-ixtlan.png";
-import Stack from "../components/layouts/Stack.jsx";
-import { login } from "../services/authService.jsx";
+import { login } from "../../services/authService.jsx";
+import logoUrl from "../../assets/images/logo-ixtlan.png";
+import Stack from "../../components/layouts/Stack.jsx";
 
 export default function Login() {
   const [loginError, setLoginError] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
   // Usando React Hook Form para manejar el formulario

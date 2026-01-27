@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
     Receipt,
     BookOpen,
@@ -10,18 +11,17 @@ import {
     Store,
     Map
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import SectionTitleSimple from "../components/titles/SectionTitleSimple.jsx";
-import SectionSubtitle from "../components/titles/SectionSubtitle.jsx";
-import PageLayout from "../components/layouts/PageLayout.jsx";
-import Stack from "../components/layouts/Stack.jsx";
-import CatalogCard from "../components/cards/CatalogCard.jsx";
+import SectionTitleSimple from "../../components/titles/SectionTitleSimple.jsx";
+import SectionSubtitle from "../../components/titles/SectionSubtitle.jsx";
+import PageLayout from "../../components/layouts/PageLayout.jsx";
+import Stack from "../../components/layouts/Stack.jsx";
+import CatalogCard from "../../components/cards/CatalogCard.jsx";
 
 export default function Mas() {
     const navigate = useNavigate();
     return (
         <PageLayout>
-            <Stack gap="gap-10">
+            <Stack size="lg">
                 <SectionTitleSimple text="Menú de Gestión General" />
                 {/* ================= FINANZAS ================= */}
                 <SectionSubtitle title="Finanzas y Contabilidad">

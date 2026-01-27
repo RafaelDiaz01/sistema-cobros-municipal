@@ -1,12 +1,11 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
-
-import Login from "../pages/Login";
+import Login from "../pages/login/Login";
 import Cobrar from "../pages/cobrar/Cobrar";
-import Contribuyentes from "../pages/Contribuyentes";
-import Mas from "../pages/Mas";
-import Establecimientos from "../pages/Establecimientos";
+import Contribuyentes from "../pages/contribuyentes/Contribuyentes";
+import Mas from "../pages/mas/Mas";
+import Establecimientos from "../pages/establecimientos/Establecimientos";
 
 const AppRouter = () => {
   return (

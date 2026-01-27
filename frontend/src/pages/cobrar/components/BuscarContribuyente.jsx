@@ -1,6 +1,6 @@
 import { Autocomplete, TextField, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
-import { searchContribuyentes } from "../../services/contribuyentesService.jsx";
+import { searchContribuyentes } from "../../../services/contribuyentesService.jsx";
 
 export default function BuscarContribuyente({ onSelect }) {
   const [options, setOptions] = useState([]);

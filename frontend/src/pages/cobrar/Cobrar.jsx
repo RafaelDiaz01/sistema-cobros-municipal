@@ -5,9 +5,9 @@ import PageLayout from "../../components/layouts/PageLayout";
 import Stack from "../../components/layouts/Stack";
 import SectionTitleSimple from "../../components/titles/SectionTitleSimple";
 import CardCobro from "../../components/cards/CardCobro";
-import BuscarContribuyente from "./BuscarContribuyente";
-import ResumenRecibo from "./ResumenRecibo";
-import ContribuyenteCard from "./ContribuyenteCard.jsx";
+import BuscarContribuyente from "./components/BuscarContribuyente.jsx";
+import ResumenRecibo from "./components/ResumenRecibo.jsx";
+import ContribuyenteCard from "./components/ContribuyenteCard.jsx";
 import DetallesPago from "./components/DetallesPago.jsx";
 
 export default function Cobrar() {

@@ -4,10 +4,13 @@ import Input from "../../../components/modals/components/Input.jsx";
 import Select from "../../../components/modals/components/Select.jsx";
 import TextArea from "../../../components/modals/components/TextArea.jsx";
 import BuscarConceptoPago from "./BuscarConceptoPago.jsx";
+import BuscarEstimuloFiscal from "./BuscarEstimuloFiscal.jsx";
 
 export default function DetallesPago({
   onSelectConcepto,
+  onSelectEstimulo,
   searchConceptoPagoAPI,
+  searchEstimuloFiscalAPI,
   form,
 }) {
   const { register } = form;
@@ -31,10 +34,9 @@ export default function DetallesPago({
           placeholder="Ej. Enero - Diciembre 2024"
           {...register("periodo")}
         />
-        <Input
-          label="Descuento Regular"
-          placeholder="Ej. 50%"
-          {...register("descuento")}
+        <BuscarEstimuloFiscal
+          onSelect={onSelectEstimulo}
+          searchFn={searchEstimuloFiscalAPI}
         />
         <Select
           label="Método de Pago"

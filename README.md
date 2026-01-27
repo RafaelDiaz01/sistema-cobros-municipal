@@ -31,7 +31,7 @@
 
 | **Cap** | **Tecnologías** |
 |---------|----------------|
-| **Frontend** | React 18 + Vite, JavaScript, Tailwind CSS, React Query |
+| **Frontend** | React 18 + Vite, JavaScript, Tailwind CSS |
 | **Backend** | Node.js, Express.js, Sequelize ORM, JWT Authentication |
 | **Base de Datos** | MySQL 8.0, Redis (cache) |
 | **Seguridad** | Bcrypt |

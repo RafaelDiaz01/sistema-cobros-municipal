@@ -1,16 +1,63 @@
-# React + Vite
+# 🏛️ Sistema de Cobros Municipales - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Frontend moderno para la gestión de cobros municipales**  
+Desarrollado con React.js + Vite y estilizado con Tailwind CSS.
 
-Currently, two official plugins are available:
+## 🚀 Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ⚡ **Rendimiento óptimo** con Vite
+- 🎨 **Diseño responsive** con Tailwind CSS
+- 🔐 **Autenticación** de usuarios
+- 💰 **Gestión de facturas** y pagos
+- 📊 **Dashboard** con métricas municipales
+- 📱 **Interfaz intuitiva** y amigable
+- 📄 **Generación de reportes**
 
-## React Compiler
+## 🛠️ Tecnologías
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 18** - Biblioteca principal
+- **Vite** - Build tool y bundler
+- **Tailwind CSS** - Framework de estilos
+- **React Router** - Navegación
+- **Axios** - Cliente HTTP
+- **React Hook Form** - Manejo de formularios
+- **Chart.js / Recharts** - Gráficos y visualizaciones
+- **date-fns** - Manejo de fechas
 
-## Expanding the ESLint configuration
+## 🏗️ Estructura del Proyecto
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+frontend/
+├── src/
+│   ├── components/     # Componentes reutilizables
+│   ├── pages/         # Páginas principales
+│   ├── layouts/       # Layouts de la aplicación
+│   ├── hooks/         # Custom hooks
+│   ├── context/       # Contextos de React
+│   ├── services/      # Servicios API
+│   ├── utils/         # Utilidades y helpers
+│   ├── styles/        # Estilos globales
+│   └── assets/        # Recursos estáticos
+├── public/            # Archivos públicos
+└── package.json       # Dependencias y scripts
+```
+
+## 📱 Módulos Principales
+
+- **Autenticación** - Login y gestión de sesión
+- **Dashboard** - Vista general de métricas
+- **Contribuyentes** - Gestión de contribuyentes
+- **Facturación** - Emisión y consulta de pagos
+- **Pagos** - Procesamiento de pagos
+- **Reportes** - Generación de reportes financieros
+- **Configuración** - Parámetros del sistema
+
+## 🎨 Diseño
+
+- **Paleta de colores municipal**
+- **Tipografía clara y legible**
+- **Componentes accesibles**
+- **Iconografía consistente**
+
+## 📄 Licencia
+© 2026 - [Kevin Rafael Díaz López](https://github.com/RafaelDiaz01). Todos los derechos reservados.

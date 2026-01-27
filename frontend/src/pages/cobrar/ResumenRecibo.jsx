@@ -21,10 +21,15 @@ const ResumenRecibo = ({ concepto, contribuyente, form }) => {
     try {
       await createPagoAPI(data);
       alert("Pago registrado exitosamente");
+      form.reset();
     } catch (error) {
       console.error("Error al guardar el pago", error);
       alert(`Error: ${error.message}`);
     }
+  };
+
+  const handleCancel = () => {
+    form.reset(); // Limpia el formulario
   };
   return (
     <CardCobro title="Resumen del Recibo">
@@ -109,7 +114,11 @@ const ResumenRecibo = ({ concepto, contribuyente, form }) => {
               <HandCoins size={20} />
               Cobrar
             </button>
-            <button className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-[var(--color-cancelar)] text-white font-medium rounded-lg hover:bg-red-700 transition-colors">
+            <button
+              type="button"
+              onClick={handleCancel}
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-[var(--color-cancelar)] text-white font-medium rounded-lg hover:bg-red-700 transition-colors"
+            >
               Cancelar
             </button>
           </div>

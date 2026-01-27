@@ -6,6 +6,7 @@ import establecimientoRoutes from "./routes/establecimientoRoute.js";
 import baseCatastralRoutes from "./routes/baseCatastralRoute.js";
 import pagoRoutes from "./routes/pagoRoute.js";
 import conceptoPagoRoute from "./routes/conceptoPagoRoute.js";
+import estimuloFiscalRoute from "./routes/estimuloFiscalRoute.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -33,5 +34,6 @@ app.use("/api/establecimientos", establecimientoRoutes);
 app.use("/api/bases-catastrales", baseCatastralRoutes);
 app.use("/api/pagos", pagoRoutes);
 app.use("/api/conceptos", conceptoPagoRoute);
+app.use("/api/estimulos", estimuloFiscalRoute);
 
 export default app;

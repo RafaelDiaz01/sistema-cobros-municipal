@@ -13,7 +13,13 @@ const fechaActual = today.toLocaleDateString("es-MX", {
   year: "numeric",
 });
 
-const ResumenRecibo = ({ concepto, contribuyente, form }) => {
+const ResumenRecibo = ({
+  concepto,
+  estimulo,
+  contribuyente,
+  form,
+  onClear,
+}) => {
   const values = form.watch();
 
   const onSubmit = async (data) => {
@@ -29,8 +35,9 @@ const ResumenRecibo = ({ concepto, contribuyente, form }) => {
   };
 
   const handleCancel = () => {
-    form.reset(); // Limpia el formulario
+    if (onClear) onClear(); // Limpia el formulario
   };
+
   return (
     <CardCobro title="Resumen del Recibo">
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -81,7 +88,15 @@ const ResumenRecibo = ({ concepto, contribuyente, form }) => {
                 [concepto?.monto_base].filter(Boolean).join(" ") || "$0.00"
               }
             />
-            <InfoItem label="Descuento Aplicado" value="-$125.00" />
+            <InfoItem
+              label="Descuento Aplicado"
+              value={
+                estimulo?.porcentaje_descuento !== undefined &&
+                estimulo?.porcentaje_descuento !== null
+                  ? `${estimulo.porcentaje_descuento}%`
+                  : "No Seleccionado"
+              }
+            />
           </Stack>
 
           {/* Línea divisoria */}

@@ -12,7 +12,7 @@ class estimuloFiscalController {
         });
       }
 
-      const resultados = await estimuloFiscalService.buscarEstimulo(texto);
+      const resultados = await estimuloFiscalService.buscarEstimulosFiscales(texto);
 
       res.json(resultados);
     } catch (error) {

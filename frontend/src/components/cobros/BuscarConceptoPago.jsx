@@ -37,6 +37,7 @@ export default function BuscarConceptoPago({ onSelect, searchFn }) {
       onChange={(_, value) => value && onSelect(value)}
       inputValue={inputValue}
       onInputChange={(_, value) => setInputValue(value)}
+      filterOptions={(x) => x}
       renderInput={(params) => (
         <TextField
           {...params}

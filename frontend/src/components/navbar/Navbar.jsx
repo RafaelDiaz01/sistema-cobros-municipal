@@ -28,9 +28,9 @@ export default function Navbar() {
             Contribuyentes
           </NavLink>
 
-          <button className="hover:text-[var(--color-primario)] transition">
+          <NavLink to="/corte-caja" className={linkClass}>
             Corte de Caja
-          </button>
+          </NavLink>
 
           <NavLink to="/mas" className={linkClass}>
             Más

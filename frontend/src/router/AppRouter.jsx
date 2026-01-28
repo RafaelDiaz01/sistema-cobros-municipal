@@ -6,6 +6,7 @@ import Cobrar from "../pages/cobrar/Cobrar";
 import Contribuyentes from "../pages/contribuyentes/Contribuyentes";
 import Mas from "../pages/mas/Mas";
 import Establecimientos from "../pages/establecimientos/Establecimientos";
+import Corte from "../pages/corte-de-caja/Corte"
 
 const AppRouter = () => {
   return (
@@ -22,6 +23,7 @@ const AppRouter = () => {
       {/* Rutas Privadas */}
       <Route element={<PrivateRoute />}>
         <Route path="/cobrar" element={<Cobrar />} />
+        <Route path="/corte-caja" element={<Corte />} />
         <Route path="/contribuyentes" element={<Contribuyentes />} />
         <Route path="/mas" element={<Mas />} />
         <Route path="/establecimientos" element={<Establecimientos />} />

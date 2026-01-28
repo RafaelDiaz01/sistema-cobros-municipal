@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { searchConceptoPagoAPI } from "../../api/conceptoPago.js";
+import { searchEstimuloFiscalAPI } from "../../api/estimulosFiscales.js";
 import PageLayout from "../../components/layouts/PageLayout";
 import Stack from "../../components/layouts/Stack";
 import SectionTitleSimple from "../../components/titles/SectionTitleSimple";
@@ -13,6 +14,7 @@ import DetallesPago from "./components/DetallesPago.jsx";
 export default function Cobrar() {
   const [contribuyente, setContribuyente] = useState(null);
   const [conceptoSeleccionado, setConceptoSeleccionado] = useState(null);
+  const [estimuloSeleccionado, setEstimuloSeleccionado] = useState(null);
 
   // React Hook Form
   const form = useForm({
@@ -39,7 +41,12 @@ export default function Cobrar() {
     form.setValue("tipo_referencia", concepto?.tipo);
     form.setValue("concepto_pago", concepto?.nombre);
     form.setValue("monto", concepto?.monto_base);
+    form.setValue("descuento", concepto?.porcentaje_descuento || "");
   };
+
+  const handleSelectEstimulo = (estimulo) => {
+    setEstimuloSeleccionado(estimulo);
+  }
 
   return (
     <PageLayout>
@@ -57,7 +64,9 @@ export default function Cobrar() {
 
             <DetallesPago
               onSelectConcepto={handleSelectConcepto}
+              onSelectEstimulo={handleSelectEstimulo}
               searchConceptoPagoAPI={searchConceptoPagoAPI}
+              searchEstimuloFiscalAPI={searchEstimuloFiscalAPI}
               form={form}
             />
           </div>
@@ -66,8 +75,15 @@ export default function Cobrar() {
           <div className="flex flex-col gap-6">
             <ResumenRecibo
               concepto={conceptoSeleccionado}
+              estimulo={estimuloSeleccionado}
               contribuyente={contribuyente}
               form={form}
+              onClear={() => {
+                setContribuyente(null);
+                setConceptoSeleccionado(null);
+                setEstimuloSeleccionado(null);
+                form.reset();
+              }}
             />
           </div>
         </div>

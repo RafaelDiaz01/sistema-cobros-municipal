@@ -8,6 +8,8 @@ import Seccion from "./Seccion.js";
 import Concepto from "./Concepto.js";
 import Subconcepto from "./Subconcepto.js";
 import Pago from "./Pago.js";
+import CorteCaja from "./CorteCaja.js";
+import Usuario from "./UsuarioModel.js";
 
 // =============================
 // RELACIÓN CONTRIBUYENTE - ESTABLECIMIENTOS
@@ -127,6 +129,34 @@ Pago.belongsTo(Contribuyente, {
   foreignKey: "id_contribuyente",
 });
 
+// =============================
+// RELACIÓN CORTE DE CAJA - PAGO
+// =============================
+
+// Un Corte de Caja tiene muchos Pagos
+CorteCaja.hasMany(Pago, {
+  foreignKey: "id_corte_caja",
+});
+
+// Un Pago pertenece a un Corte de Caja
+Pago.belongsTo(CorteCaja, {
+  foreignKey: "id_corte_caja",
+});
+
+// =============================
+// RELACIÓN USUARIO - CORTE DE CAJA
+// =============================
+
+// Un Usuario tiene muchos Cortes de Caja
+Usuario.hasMany(CorteCaja, {
+  foreignKey: "id_usuario",
+});
+
+// Un Corte de Caja pertenece a un Usuario
+CorteCaja.belongsTo(Usuario, {
+  foreignKey: "id_usuario",
+});
+
 export {
   Contribuyente,
   Establecimiento,
@@ -138,4 +168,6 @@ export {
   Concepto,
   Subconcepto,
   Pago,
+  CorteCaja,
+  Usuario,
 };

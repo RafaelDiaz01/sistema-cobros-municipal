@@ -20,12 +20,12 @@ class PagoController {
 
   static async listar(req, res) {
     try {
-      const pagos = await PagoService.listarPagos(req.query);
-
+      const pagos = await PagoService.listarPagos();
       res.json(pagos);
     } catch (error) {
       res.status(500).json({
         message: "Error al obtener pagos",
+        error: error.message,
       });
     }
   }
@@ -39,6 +39,21 @@ class PagoController {
     } catch (error) {
       res.status(404).json({
         message: error.message,
+      });
+    }
+  }
+
+  // Obtener pagos por corte de caja
+  static async obtenerPagosPorCorte(req, res) {
+    try {
+      const { id_corte } = req.params;
+      const pagos = await PagoService.obtenerPagosPorCorte(id_corte);
+
+      res.json(pagos);
+    } catch (error) {
+      res.status(500).json({
+        message: "Error al obtener pagos por corte",
+        error: error.message,
       });
     }
   }

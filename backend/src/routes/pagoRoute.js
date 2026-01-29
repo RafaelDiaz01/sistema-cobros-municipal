@@ -4,19 +4,16 @@ import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 const router = Router();
 
-/*
-  POST /api/pagos
-*/
+// Crear un nuevo pago
 router.post("/", authMiddleware, PagoController.registrar);
 
-/*
-  GET /api/pagos
-*/
+// Obtener todos los pagos
 router.get("/", authMiddleware, PagoController.listar);
 
-/*
-  GET /api/pagos/:id
-*/
+// Obtener un pago por ID
 router.get("/:id", authMiddleware, PagoController.obtenerPorId);
+
+// Obtener pagos por corte de caja
+router.get("/corte/:id_corte", authMiddleware, PagoController.obtenerPagosPorCorte);
 
 export default router;

@@ -13,6 +13,11 @@ const Pago = sequelize.define("pago", {
     allowNull: false,
   },
 
+  id_corte_caja: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+
   tipo_referencia: {
     type: DataTypes.STRING(20),
     allowNull: false,

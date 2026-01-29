@@ -3,6 +3,7 @@ import Subcuenta from "../models/Subcuenta.js";
 import Seccion from "../models/Seccion.js";
 import Concepto from "../models/Concepto.js";
 import Subconcepto from "../models/Subconcepto.js";
+import Contribuyente from "../models/ContribuyenteModel.js";
 
 const MODELOS_COBRO = {
   SUBCUENTA: Subcuenta,
@@ -12,9 +13,7 @@ const MODELOS_COBRO = {
 };
 
 class PagoService {
-  /**
-   * Obtiene el concepto cobrable y valida que exista
-   */
+  // Obtener referencia cobrable
   static async obtenerReferencia(tipo_referencia, id_referencia) {
     const Modelo = MODELOS_COBRO[tipo_referencia];
 
@@ -35,12 +34,11 @@ class PagoService {
     return referencia;
   }
 
-  /**
-   * Registra un pago
-   */
+  // Registrar un pago
   static async registrarPago(data) {
     const {
       id_contribuyente,
+      id_corte_caja,
       tipo_referencia,
       concepto_pago,
       monto,
@@ -65,6 +63,7 @@ class PagoService {
     // Crear pago
     const pago = await Pago.create({
       id_contribuyente,
+      id_corte_caja,
       tipo_referencia,
       concepto_pago,
       monto,
@@ -89,19 +88,14 @@ class PagoService {
     };
   }
 
-  /**
-   * Listar pagos (para corte de caja / historial)
-   */
-  static async listarPagos(filtros = {}) {
+  // Listar todos los pagos
+  static async listarPagos() {
     return await Pago.findAll({
-      where: filtros,
       order: [["fecha_pago", "DESC"]],
     });
   }
 
-  /**
-   * Obtener pago por ID
-   */
+  // Obtener pago por ID
   static async obtenerPagoPorId(id_pago) {
     const pago = await Pago.findByPk(id_pago);
 
@@ -110,6 +104,21 @@ class PagoService {
     }
 
     return pago;
+  }
+
+  // Obtener pagos por corte de caja
+  static async obtenerPagosPorCorte(id_corte) {
+    return await Pago.findAll({
+      where: { id_corte_caja: id_corte },
+      order: [["fecha_pago", "DESC"]],
+      include: [
+        {
+          model: Contribuyente,
+          as: "contribuyente",
+          attributes: ["nombre", "apellido_paterno", "apellido_materno"],
+        },
+      ],
+    });
   }
 }
 

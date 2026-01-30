@@ -10,6 +10,7 @@ import { useState, useEffect, useMemo } from "react";
 import { getCorteActivoAPI } from "../../api/corteCaja.js";
 import { getPagosPorCorteAPI } from "../../api/corteCaja.js";
 import { corteColumns } from "./corte.columns.jsx";
+import { cerrarCorteCajaAPI } from "../../api/corteCaja.js";
 import PageLayout from "../../components/layouts/PageLayout.jsx";
 import Stack from "../../components/layouts/Stack.jsx";
 import Grid from "../../components/modals/components/Grid.jsx";
@@ -17,6 +18,7 @@ import SectionSimpleTitle from "../../components/titles/SectionTitleSimple.jsx";
 import InfoBadge from "./components/InfoBadge.jsx";
 import StatsCards from "../../components/cards/StatsCards.jsx";
 import Table from "../../components/table/Table.jsx";
+import CajaCierreCard from "./components/CajaCierreCard.jsx";
 
 export default function Corte() {
   const [cortes, setCortes] = useState([]);
@@ -30,7 +32,7 @@ export default function Corte() {
   const stats = useMemo(() => {
     const totalPagos = Number(cortes.total_pagos) || 0;
     const totalEfectivo = Number(cortes.total_efectivo) || 0;
-    const totalTransferencias = Number(cortes.total_transferencias) || 0;
+    const totalTransferencias = Number(cortes.total_transferencia) || 0;
     const finalEsperado = Number(cortes.saldo_final_esperado) || 0;
 
     return [
@@ -73,6 +75,24 @@ export default function Corte() {
     }
   };
 
+  const handleCerrarCaja = (data) => {
+    try {
+      const userStr = localStorage.getItem("user");
+      const user = userStr ? JSON.parse(userStr) : null;
+      const id_usuario = user ? user.id : null;
+
+      cerrarCorteCajaAPI(
+        cortes.id_corte_caja,
+        id_usuario,
+        Number(data.saldo_real),
+        data.observaciones,
+      );
+      fetchCorteActivo();
+    } catch (error) {
+      console.error("Error al cerrar la caja", error);
+    }
+  };
+
   return (
     <PageLayout>
       <Stack size="xl">
@@ -97,6 +117,10 @@ export default function Corte() {
           loading={loading}
           columns={corteColumns()}
           getRowId={(row) => row.id_pago}
+        />
+        <CajaCierreCard
+          totalEfectivo={cortes.total_efectivo}
+          onCerrarCaja={handleCerrarCaja}
         />
       </Stack>
     </PageLayout>

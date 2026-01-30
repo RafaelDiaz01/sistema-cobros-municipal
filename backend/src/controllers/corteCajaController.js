@@ -6,7 +6,10 @@ class CorteCajaController {
     try {
       const { id_usuario, saldo_inicial } = req.body;
 
-      const corte = await CorteCajaService.abrirCorte(id_usuario, saldo_inicial);
+      const corte = await CorteCajaService.abrirCorte(
+        id_usuario,
+        saldo_inicial,
+      );
 
       res.status(201).json(corte);
     } catch (error) {
@@ -18,13 +21,21 @@ class CorteCajaController {
   static async cerrar(req, res) {
     try {
       const { id } = req.params;
-      const { id_usuario } = req.body;
-
-      const corte = await CorteCajaService.cerrarCorte(id, id_usuario);
+      const { id_usuario, saldo_real, observaciones } = req.body;
+      
+      const corte = await CorteCajaService.cerrarCorte(
+        id,
+        id_usuario,
+        saldo_real,
+        observaciones,
+      );
 
       res.json(corte);
     } catch (error) {
-      res.status(400).json({ message: error.message });
+      res.status(400).json({
+        message: "Error al cerrar el corte de caja",
+        error: error.message,
+      });
     }
   }
 

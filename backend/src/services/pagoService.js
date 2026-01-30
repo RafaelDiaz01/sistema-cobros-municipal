@@ -4,6 +4,7 @@ import Seccion from "../models/Seccion.js";
 import Concepto from "../models/Concepto.js";
 import Subconcepto from "../models/Subconcepto.js";
 import Contribuyente from "../models/ContribuyenteModel.js";
+import CorteCaja from "../models/CorteCaja.js";
 
 const MODELOS_COBRO = {
   SUBCUENTA: Subcuenta,
@@ -38,7 +39,6 @@ class PagoService {
   static async registrarPago(data) {
     const {
       id_contribuyente,
-      id_corte_caja,
       tipo_referencia,
       concepto_pago,
       monto,
@@ -60,10 +60,23 @@ class PagoService {
     //   throw new Error("El monto debe ser mayor a cero");
     // }
 
+    // Buscar corte abierto
+    const corte = await CorteCaja.findOne({
+      where: {
+        estado: true,
+      },
+    });
+
+    if (!corte) {
+      return res.status(400).json({
+        message: "No hay un corte de caja abierto",
+      });
+    }
+
     // Crear pago
     const pago = await Pago.create({
       id_contribuyente,
-      id_corte_caja,
+      id_corte_caja: corte.id_corte_caja,
       tipo_referencia,
       concepto_pago,
       monto,

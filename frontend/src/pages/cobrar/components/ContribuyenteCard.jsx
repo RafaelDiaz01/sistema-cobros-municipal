@@ -54,11 +54,16 @@ export default function ContribuyenteCard({ contribuyente }) {
 
 // Componente para mostrar los datos del contribuyente seleccionado
 function ItemContribuyente({ label, value }) {
+  const isNotSelected = value === "No Seleccionado";
   return (
     <Stack size="xs">
-      <p className="text-sm text-gray-500">{label}</p>
-      <div className="border border-dashed border-gray-300 rounded-md p-3 bg-gray-50 flex items-center gap-2">
-        <p className="text-sm font-semibold">{value}</p>
+      <label className="text-sm font-medium">{label}</label>
+      <div className="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-lg px-3 py-2 outline-none">
+        <p
+          className={`text-sm ${isNotSelected ? "text-gray-400" : "text-gray-800"}`}
+        >
+          {value}
+        </p>
       </div>
     </Stack>
   );

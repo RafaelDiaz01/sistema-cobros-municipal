@@ -29,13 +29,16 @@ class CorteCajaService {
       total_pagos: 0,
       total_efectivo: 0,
       total_transferencia: 0,
+      saldo_total: 0,
       saldo_final_esperado: saldo_inicial,
+      saldo_real: 0,
+      diferencia: 0,
       estado: true,
     });
   }
 
   // Cerrar un corte de caja existente
-  static async cerrarCorte(id_corte_caja, id_usuario) {
+  static async cerrarCorte(id_corte_caja, id_usuario, saldo_real, observaciones) {
     const corte = await CorteCaja.findOne({
       where: {
         id_corte_caja,
@@ -54,23 +57,30 @@ class CorteCajaService {
 
     let efectivo = 0;
     let transferencia = 0;
+    let saldoTotal = 0;
 
     pagos.forEach((pago) => {
-      const monto = Number(pago.monto_total);
-      if (pago.metodo_pago === "EFECTIVO") efectivo += monto;
-      if (pago.metodo_pago === "TRANSFERENCIA") transferencia += monto;
+      const monto = Number(pago.monto);
+      saldoTotal += monto;
+      if (pago.metodo_pago === "Efectivo") efectivo += monto;
+      if (pago.metodo_pago === "Transferencia") transferencia += monto;
     });
 
-    const total = efectivo + transferencia;
+    const totalPagos = pagos.length;
     const saldoFinalEsperado = Number(corte.saldo_inicial) + efectivo;
+    const diferencia = saldo_real - saldoFinalEsperado;
 
     await corte.update({
       fecha_fin: new Date(),
-      total_pagos: total,
+      total_pagos: totalPagos,
       total_efectivo: efectivo,
       total_transferencia: transferencia,
+      saldo_total: saldoTotal,
       saldo_final_esperado: saldoFinalEsperado,
+      saldo_real: saldo_real,
+      diferencia: diferencia,
       estado: false,
+      observaciones: observaciones,
     });
 
     return corte;
@@ -91,13 +101,45 @@ class CorteCajaService {
         id_usuario,
         estado: true,
       },
+      include: [
+        {
+          model: Pago,
+          as: "pagos",
+          where: {
+            id_corte_caja: CorteCaja.sequelize.col("corte_caja.id_corte_caja"),
+          },
+          required: false,
+        },
+      ],
     });
 
     if (!corte) {
       throw new Error("No hay un corte de caja activo para este usuario");
     }
 
-    return corte;
+    // Calcular los totales
+    let total_efectivo = 0;
+    let total_transferencia = 0;
+    let saldo_total = 0;
+
+    if (corte.pagos && corte.pagos.length > 0) {
+      corte.pagos.forEach((pago) => {
+        const monto = Number(pago.monto || 0);
+        saldo_total += monto;
+        if (pago.metodo_pago === "Efectivo") total_efectivo += monto;
+        if (pago.metodo_pago === "Transferencia") total_transferencia += monto;
+      });
+    }
+
+    // Devuelve los datos del corte, pero con los totales calculados
+    return {
+      ...corte.toJSON(),
+      total_efectivo,
+      total_transferencia,
+      saldo_total,
+      total_pagos: corte.pagos ? corte.pagos.length : 0,
+      saldo_final_esperado: Number(corte.saldo_inicial) + total_efectivo,
+    };
   }
 }
 

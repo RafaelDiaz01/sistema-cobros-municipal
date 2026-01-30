@@ -96,6 +96,7 @@ export default function Cobrar() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <CardCobro title="Buscar Contribuyente">
                 <BuscarContribuyente onSelect={setContribuyente} />
+                <Nota />
               </CardCobro>
               <ContribuyenteCard contribuyente={contribuyente} />
             </div>
@@ -127,5 +128,17 @@ export default function Cobrar() {
         </div>
       </Stack>
     </PageLayout>
+  );
+}
+
+// Componente para mostrar una nota en buscar contribuyente
+function Nota() {
+  return (
+    <div className="bg-[var(--color-terciario)] p-4 rounded-lg border border-[var(--color-borde)]">
+      <p className="text-sm text-gray-400 italic">
+        Nota: Si el contribuyente no está registrado, favor de registrarlo en el
+        módulo de Contribuyentes.
+      </p>
+    </div>
   );
 }

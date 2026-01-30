@@ -43,7 +43,22 @@ const CorteCaja = sequelize.define("corte_caja", {
     allowNull: false,
   },
 
+  saldo_total : {
+    type: DataTypes.DECIMAL(12, 2),
+    allowNull: false,
+  },
+
   saldo_final_esperado: {
+    type: DataTypes.DECIMAL(12, 2),
+    allowNull: false,
+  },
+
+  saldo_real: {
+    type: DataTypes.DECIMAL(12, 2),
+    allowNull: false,
+  },
+
+  diferencia: {
     type: DataTypes.DECIMAL(12, 2),
     allowNull: false,
   },

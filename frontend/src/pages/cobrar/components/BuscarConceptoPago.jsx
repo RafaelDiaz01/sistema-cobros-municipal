@@ -20,7 +20,7 @@ export default function BuscarConceptoPago({ onSelect, searchFn }) {
       setLoading(true);
       try {
         const data = await searchFn(debouncedSearch);
-        setOptions(data);
+        setOptions(Array.isArray(data) ? data : []);
       } finally {
         setLoading(false);
       }

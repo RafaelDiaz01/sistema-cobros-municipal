@@ -1,4 +1,5 @@
 import Navbar from "../navbar/Navbar.jsx";
+import Footer from "../footer/Footer.jsx";
 
 const PageLayout = ({ children }) => {
   return (
@@ -8,6 +9,9 @@ const PageLayout = ({ children }) => {
 
       {/* CONTENIDO PRINCIPAL */}
       <main className="flex-1 w-full px-8">{children}</main>
+
+      {/* FOOTER */}
+      <Footer />
     </div>
   );
 };

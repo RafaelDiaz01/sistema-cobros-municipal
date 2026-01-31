@@ -28,7 +28,7 @@ export default function Login() {
       localStorage.setItem("token", response.token);
       localStorage.setItem("user", JSON.stringify(response.usuario));
 
-      navigate("/contribuyentes");
+      navigate("/cobrar");
     } catch (error) {
       if (error.response?.status === 400 || error.response?.status === 401) {
         setLoginError("Usuario y/o contraseña incorrectos");

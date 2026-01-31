@@ -1,5 +1,6 @@
 import React from "react";
 import { HandCoins } from "lucide-react";
+import NumeroALetras from "@vigilio/numeros-a-letras";
 import Stack from "../../../components/layouts/Stack.jsx";
 import CardCobro from "../../../components/cards/CardCobro.jsx";
 import InfoItem from "./InfoItem.jsx";
@@ -37,6 +38,21 @@ const ResumenRecibo = ({
   const handleCancel = () => {
     if (onClear) onClear(); // Limpia el formulario
   };
+
+  const montoBase = Number(concepto?.monto_base) || 0;
+  const porcentajeDescuento = Number(estimulo?.porcentaje_descuento) || 0;
+  const total = montoBase - (montoBase * porcentajeDescuento) / 100;
+  let totalEnLetras;
+  if (total === 0) {
+    totalEnLetras = "CERO PESOS 00/100";
+  } else {
+    totalEnLetras = NumeroALetras(total, {
+      plural: "PESOS",
+      singular: "PESO",
+      centPlural: "CENTAVOS",
+      centSingular: "CENTAVO",
+    });
+  }
 
   return (
     <CardCobro title="Resumen del Recibo">
@@ -109,12 +125,14 @@ const ResumenRecibo = ({
                 <span class="text-sm font-bold uppercase tracking-widest">
                   TOTAL
                 </span>
-                <span class="text-2xl font-black">$1,125.00</span>
+                <span className="text-2xl font-black">
+                  ${total.toLocaleString("es-MX", { minimumFractionDigits: 2 })}
+                </span>
               </div>
               <div class="pt-2 border-t border-[var(--color-borde)] flex justify-between items-center">
                 <p class="text-xs text-primary/70 uppercase">Total en letra</p>
                 <p class="text-xs leading-relaxed text-[var(--color-texto)] uppercase">
-                  MIL CIENTO VEINTICINCO PESOS 00/100 M.X.N.
+                  {totalEnLetras}
                 </p>
               </div>
             </Stack>

@@ -9,6 +9,7 @@ import { iniciarCorteCajaAPI } from "../../api/corteCaja.js";
 import PageLayout from "../../components/layouts/PageLayout";
 import Stack from "../../components/layouts/Stack";
 import SectionTitleCobrar from "./components/SectionTitleCobrar.jsx";
+import CajaInactivaOverlay from "../../components/overlays/CajaInactivaOverlay.jsx";
 import CardCobro from "../../components/cards/CardCobro";
 import BuscarContribuyente from "./components/BuscarContribuyente.jsx";
 import ResumenRecibo from "./components/ResumenRecibo.jsx";
@@ -54,7 +55,7 @@ export default function Cobrar() {
           alertConfirmation(
             "No hay un corte activo",
             "¿Desea iniciar un nuevo turno?",
-            "warning"
+            "warning",
           ).then((confirmed) => {
             if (confirmed) {
               handleIniciarTurno();
@@ -103,42 +104,52 @@ export default function Cobrar() {
           corteActivo={corteActivo}
           onAdd={handleIniciarTurno}
         />
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* IZQUIERDA */}
-          <div className="lg:col-span-2 flex flex-col gap-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <CardCobro title="Buscar Contribuyente">
-                <BuscarContribuyente onSelect={setContribuyente} disabled={!corteActivo} />
-                <Nota />
-              </CardCobro>
-              <ContribuyenteCard contribuyente={contribuyente} disabled={!corteActivo} />
+        <div className="relative">
+          {/* OVERLAY PARA INDICAR QUE NO HAY CAJA ACTIVA */}
+          {!corteActivo && <CajaInactivaOverlay />}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* IZQUIERDA */}
+            <div className="lg:col-span-2 flex flex-col gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <CardCobro title="Buscar Contribuyente">
+                  <BuscarContribuyente
+                    onSelect={setContribuyente}
+                    disabled={!corteActivo}
+                  />
+                  <Nota />
+                </CardCobro>
+                <ContribuyenteCard
+                  contribuyente={contribuyente}
+                  disabled={!corteActivo}
+                />
+              </div>
+
+              <DetallesPago
+                onSelectConcepto={handleSelectConcepto}
+                onSelectEstimulo={handleSelectEstimulo}
+                searchConceptoPagoAPI={searchConceptoPagoAPI}
+                searchEstimuloFiscalAPI={searchEstimuloFiscalAPI}
+                form={form}
+                disabled={!corteActivo}
+              />
             </div>
 
-            <DetallesPago
-              onSelectConcepto={handleSelectConcepto}
-              onSelectEstimulo={handleSelectEstimulo}
-              searchConceptoPagoAPI={searchConceptoPagoAPI}
-              searchEstimuloFiscalAPI={searchEstimuloFiscalAPI}
-              form={form}
-              disabled={!corteActivo}
-            />
-          </div>
-
-          {/* DERECHA */}
-          <div className="flex flex-col gap-6">
-            <ResumenRecibo
-              concepto={conceptoSeleccionado}
-              estimulo={estimuloSeleccionado}
-              contribuyente={contribuyente}
-              form={form}
-              onClear={() => {
-                setContribuyente(null);
-                setConceptoSeleccionado(null);
-                setEstimuloSeleccionado(null);
-                form.reset();
-              }}
-              disabled={!corteActivo}
-            />
+            {/* DERECHA */}
+            <div className="flex flex-col gap-6">
+              <ResumenRecibo
+                concepto={conceptoSeleccionado}
+                estimulo={estimuloSeleccionado}
+                contribuyente={contribuyente}
+                form={form}
+                onClear={() => {
+                  setContribuyente(null);
+                  setConceptoSeleccionado(null);
+                  setEstimuloSeleccionado(null);
+                  form.reset();
+                }}
+                disabled={!corteActivo}
+              />
+            </div>
           </div>
         </div>
       </Stack>

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useDebounce } from "../../../hooks/useDebounce.js";
 import Stack from "../../../components/layouts/Stack.jsx";
 
-export default function BuscarEstimuloFiscal({ onSelect, searchFn }) {
+export default function BuscarEstimuloFiscal({ onSelect, searchFn, disabled }) {
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -35,6 +35,7 @@ export default function BuscarEstimuloFiscal({ onSelect, searchFn }) {
         Descuento <span className="text-red-500">*</span>
       </label>
       <Autocomplete
+        disabled={disabled}
         options={options}
         loading={loading}
         getOptionLabel={(option) => option.nombre}

@@ -12,6 +12,7 @@ export default function DetallesPago({
   searchConceptoPagoAPI,
   searchEstimuloFiscalAPI,
   form,
+  disabled,
 }) {
   const { register } = form;
   return (
@@ -22,24 +23,29 @@ export default function DetallesPago({
       <BuscarConceptoPago
         onSelect={onSelectConcepto}
         searchFn={searchConceptoPagoAPI}
+        disabled={disabled}
       />
       <Grid cols={4}>
         <Input
           label="Monto a Pagar"
+          disabled={disabled}
           placeholder="Ej. 1,250.00"
           {...register("monto")}
         />
         <Input
           label="Periodo de Pago"
+          disabled={disabled}
           placeholder="Ej. Enero - Diciembre 2024"
           {...register("periodo")}
         />
         <BuscarEstimuloFiscal
           onSelect={onSelectEstimulo}
           searchFn={searchEstimuloFiscalAPI}
+          disabled={disabled}
         />
         <Select
           label="Método de Pago"
+          disabled={disabled}
           options={["Efectivo", "Transferencia Bancaria"]}
           {...register("metodo_pago")}
         />
@@ -50,6 +56,7 @@ export default function DetallesPago({
       </p>
       <TextArea
         label="Descripción"
+        disabled={disabled}
         placeholder="Ej. Pago de Predial correspondiente al año 2024"
         {...register("descripcion")}
       />

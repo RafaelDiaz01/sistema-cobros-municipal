@@ -2,7 +2,7 @@ import { Autocomplete, TextField, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { searchContribuyentes } from "../../../services/contribuyentesService.jsx";
 
-export default function BuscarContribuyente({ onSelect }) {
+export default function BuscarContribuyente({ onSelect, disabled }) {
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -28,6 +28,7 @@ export default function BuscarContribuyente({ onSelect }) {
 
   return (
     <Autocomplete
+      disabled={disabled}
       options={options}
       loading={loading}
       getOptionLabel={(option) =>

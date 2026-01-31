@@ -108,10 +108,10 @@ export default function Cobrar() {
           <div className="lg:col-span-2 flex flex-col gap-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <CardCobro title="Buscar Contribuyente">
-                <BuscarContribuyente onSelect={setContribuyente} />
+                <BuscarContribuyente onSelect={setContribuyente} disabled={!corteActivo} />
                 <Nota />
               </CardCobro>
-              <ContribuyenteCard contribuyente={contribuyente} />
+              <ContribuyenteCard contribuyente={contribuyente} disabled={!corteActivo} />
             </div>
 
             <DetallesPago
@@ -120,6 +120,7 @@ export default function Cobrar() {
               searchConceptoPagoAPI={searchConceptoPagoAPI}
               searchEstimuloFiscalAPI={searchEstimuloFiscalAPI}
               form={form}
+              disabled={!corteActivo}
             />
           </div>
 
@@ -136,6 +137,7 @@ export default function Cobrar() {
                 setEstimuloSeleccionado(null);
                 form.reset();
               }}
+              disabled={!corteActivo}
             />
           </div>
         </div>

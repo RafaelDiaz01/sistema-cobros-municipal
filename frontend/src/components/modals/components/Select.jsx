@@ -1,18 +1,20 @@
 import Stack from "../../layouts/Stack.jsx";
 
-function Select({ label, options = [], ...props }) {
+function Select({ label, options = [], disabled, ...props }) {
   return (
     <Stack size="xs">
       <label className="text-sm font-medium">
         {label} <span className="text-red-500">*</span>{" "}
       </label>
       <select
+        disabled={disabled}
         {...props}
-        className="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-lg px-3 py-2 text-sm text-gray-800 placeholder:text-gray-400
-            outline-none
-            focus:border-[var(--color-acento)]
-            focus:ring-1
-            focus:ring-[var(--color-acento)]"
+        className={`w-full border rounded-lg px-3 py-2 text-sm placeholder:text-gray-400 outline-none
+    ${
+      disabled
+        ? "bg-gray-200 text-gray-400 border-gray-300 cursor-not-allowed"
+        : "bg-[#F9FAFB] border-[#E5E7EB] text-gray-800 focus:border-[var(--color-acento)] focus:ring-1 focus:ring-[var(--color-acento)]"
+    }`}
       >
         <option value="">Seleccione una opción</option>
 

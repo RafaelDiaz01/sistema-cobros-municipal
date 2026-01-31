@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import { useDebounce } from "../../../hooks/useDebounce.js";
 
-export default function BuscarConceptoPago({ onSelect, searchFn }) {
+export default function BuscarConceptoPago({ onSelect, searchFn, disabled }) {
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -31,6 +31,7 @@ export default function BuscarConceptoPago({ onSelect, searchFn }) {
 
   return (
     <Autocomplete
+      disabled={disabled}
       options={options}
       loading={loading}
       getOptionLabel={(option) => option.nombre}
@@ -45,9 +46,6 @@ export default function BuscarConceptoPago({ onSelect, searchFn }) {
           variant="outlined"
           InputProps={{
             ...params.InputProps,
-            startAdornment: (
-              <Search size={18} className="text-[var(--color-primario)] mr-2" />
-            ),
             endAdornment: (
               <>
                 {loading && <CircularProgress size={20} />}

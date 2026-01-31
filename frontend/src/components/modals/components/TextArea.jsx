@@ -47,10 +47,7 @@ function TextArea({
         rows={rows}
         maxLength={maxLength}
         style={{ resize }}
-        className={`w-full border rounded-lg px-3 py-2 text-sm placeholder:text-gray-400 outline-none 
-          ${disabled
-            ? "bg-gray-200 text-gray-400 border-gray-300 cursor-not-allowed"
-            : "bg-[#F9FAFB] text-gray-800"}
+        className={`w-full border rounded-lg px-3 py-2 text-sm placeholder:text-gray-400 outline-none bg-[#F9FAFB] text-gray-800
           ${error ? "border-red-400 focus:border-red-500 focus:ring-red-100" : "border-[#E5E7EB] focus:border-[var(--color-acento)] focus:ring-1 focus:ring-[var(--color-acento)]"}
           ${className}`}
       />

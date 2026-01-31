@@ -118,10 +118,7 @@ export default function Cobrar() {
                   />
                   <Nota />
                 </CardCobro>
-                <ContribuyenteCard
-                  contribuyente={contribuyente}
-                  disabled={!corteActivo}
-                />
+                <ContribuyenteCard contribuyente={contribuyente} />
               </div>
 
               <DetallesPago

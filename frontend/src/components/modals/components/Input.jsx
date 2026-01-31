@@ -12,12 +12,7 @@ function Input({ label, helper, disabled, ...props }) {
       <input
         {...props}
         disabled={disabled}
-        className={`w-full border rounded-lg px-3 py-2 text-sm placeholder:text-gray-400 outline-none
-    ${
-      disabled
-        ? "bg-gray-200 text-gray-400 border-gray-300 cursor-not-allowed"
-        : "bg-[#F9FAFB] border-[#E5E7EB] text-gray-800 focus:border-[var(--color-acento)] focus:ring-1 focus:ring-[var(--color-acento)]"
-    }`}
+        className="w-full border rounded-lg px-3 py-2 text-sm placeholder:text-gray-400 outline-none bg-[#F9FAFB] border-[#E5E7EB] text-gray-800 focus:border-[var(--color-acento)] focus:ring-1 focus:ring-[var(--color-acento)]"
       />
 
       {/* HELPER */}

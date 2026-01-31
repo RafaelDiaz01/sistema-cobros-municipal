@@ -1,10 +1,9 @@
-import React from "react";
-import { HandCoins } from "lucide-react";
+import { createPagoAPI } from "../../../api/pago.js";
+import { showToast } from "../../../utils/alerts/toast.js";
 import NumeroALetras from "@vigilio/numeros-a-letras";
 import Stack from "../../../components/layouts/Stack.jsx";
 import CardCobro from "../../../components/cards/CardCobro.jsx";
 import InfoItem from "./InfoItem.jsx";
-import { createPagoAPI } from "../../../api/pago.js";
 
 const today = new Date();
 const ejercicioFiscal = today.getFullYear();
@@ -20,6 +19,7 @@ const ResumenRecibo = ({
   contribuyente,
   form,
   onClear,
+  disabled,
 }) => {
   const values = form.watch();
 
@@ -27,11 +27,11 @@ const ResumenRecibo = ({
     console.log("Formulario enviado con datos:", data);
     try {
       await createPagoAPI(data);
-      alert("Pago registrado exitosamente");
+      showToast("success", "Pago registrado exitosamente");
       form.reset();
     } catch (error) {
       console.error("Error al guardar el pago", error);
-      alert(`Error: ${error.message}`);
+      showToast("error", "Error al registrar el pago");
     }
   };
 
@@ -139,18 +139,21 @@ const ResumenRecibo = ({
           </div>
 
           {/* Botones de acción */}
-          <div className="flex gap-4">
+          <div className="flex gap-5">
             <button
               type="submit"
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-[var(--color-primario)] text-white ext-white font-medium rounded-lg hover:bg-green-700 transition-colors"
+              disabled={disabled}
+              className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 font-medium rounded-lg transition-colors  bg-[var(--color-primario)] text-white hover:bg-green-700
+                ${disabled ? "opacity-60 cursor-not-allowed hover:bg-[var(--color-primario)]" : ""}`}
             >
-              <HandCoins size={20} />
               Cobrar
             </button>
             <button
               type="button"
+              disabled={disabled}
               onClick={handleCancel}
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-[var(--color-cancelar)] text-white font-medium rounded-lg hover:bg-red-700 transition-colors"
+              className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 font-medium rounded-lg transition-colors bg-[var(--color-cancelar)] text-white hover:bg-red-700
+                ${disabled ? "opacity-60 cursor-not-allowed hover:bg-[var(--color-cancelar)]" : ""}`}
             >
               Cancelar
             </button>

@@ -15,6 +15,7 @@
     "@mui/icons-material": "^7.3.7",
     "@mui/material": "^7.3.7",
     "@mui/x-data-grid": "^8.25.0",
+    "@vigilio/numeros-a-letras": "^0.0.7",
     "axios": "^1.13.2",
     "lucide-react": "^0.554.0",
     "react": "^19.1.1",

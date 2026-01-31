@@ -5,6 +5,7 @@ export const alertConfirmation = async (title, text, icon) => {
     title,
     text,
     icon,
+    iconColor: "var(--color-primario)",
     showCancelButton: true,
     reverseButtons: true,
     confirmButtonColor: "var(--color-acento)",

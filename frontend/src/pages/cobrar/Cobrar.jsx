@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { showToast } from "../../utils/alerts/toast.js";
+import { alertConfirmation } from "../../utils/alerts/alert.js";
 import { searchConceptoPagoAPI } from "../../api/conceptoPago.js";
 import { searchEstimuloFiscalAPI } from "../../api/estimulosFiscales.js";
 import { getCorteActivoAPI } from "../../api/corteCaja.js";
@@ -49,7 +50,19 @@ export default function Cobrar() {
         const data = await getCorteActivoAPI(id_usuario);
         setCorteActivo(data);
       } catch (error) {
-        console.error("Error al cargar los datos del corte activo", error);
+        if (error?.response?.status === 404) {
+          alertConfirmation(
+            "No hay un corte activo",
+            "¿Desea iniciar un nuevo turno?",
+            "warning"
+          ).then((confirmed) => {
+            if (confirmed) {
+              handleIniciarTurno();
+            }
+          });
+        } else {
+          console.error("Error al cargar los datos del corte activo", error);
+        }
       }
     };
 

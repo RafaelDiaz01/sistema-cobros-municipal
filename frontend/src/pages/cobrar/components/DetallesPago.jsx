@@ -24,11 +24,14 @@ export default function DetallesPago({
         onSelect={onSelectConcepto}
         searchFn={searchConceptoPagoAPI}
         getOptionLabel={(option) => option.nombre}
-        renderOption={(props, option) => (
-          <li {...props} key={option.id_concepto_pago}>
-            {option.nombre}
-          </li>
-        )}
+        renderOption={(props, option) => {
+          const { key, ...rest } = props;
+          return (
+            <li key={key} {...rest}>
+              {option.nombre}
+            </li>
+          );
+        }}
         placeholder="Ej. Predial, Agua, Impuestos"
         disabled={disabled}
       />
@@ -55,10 +58,18 @@ export default function DetallesPago({
             getOptionLabel={(option) => option.nombre}
             renderOption={(props, option) => (
               <li {...props} key={option.id_estimulo}>
-                {option.nombre}
+                <div>
+                  <span className="font-semibold">{option.nombre}</span>
+                  <span className="text-xs text-[var(--color-acento)]">
+                    {option.porcentaje_descuento
+                      ? ` (${option.porcentaje_descuento}% descuento)`
+                      : ""}
+                  </span>
+                  <div className="text-xs text-gray-400">{option.resumen}</div>
+                </div>
               </li>
             )}
-            placeholder="Ej. Certificado"
+            placeholder="Ej. Impuesto Predial - Mayores de 60 años"
             disabled={disabled}
           />
         </Stack>

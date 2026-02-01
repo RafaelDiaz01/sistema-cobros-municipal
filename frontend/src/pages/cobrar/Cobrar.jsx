@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { showToast } from "../../utils/alerts/toast.js";
 import { alertConfirmation } from "../../utils/alerts/alert.js";
+import { searchContribuyentes } from "../../services/contribuyentesService.jsx";
 import { searchConceptoPagoAPI } from "../../api/conceptoPago.js";
 import { searchEstimuloFiscalAPI } from "../../api/estimulosFiscales.js";
 import { getCorteActivoAPI } from "../../api/corteCaja.js";
@@ -11,7 +12,7 @@ import Stack from "../../components/layouts/Stack";
 import SectionTitleCobrar from "./components/SectionTitleCobrar.jsx";
 import CajaInactivaOverlay from "../../components/overlays/CajaInactivaOverlay.jsx";
 import CardCobro from "../../components/cards/CardCobro";
-import BuscarContribuyente from "./components/BuscarContribuyente.jsx";
+import AsyncAutocomplete from "../../components/ui/AsyncAutocomplete.jsx";
 import ResumenRecibo from "./components/ResumenRecibo.jsx";
 import ContribuyenteCard from "./components/ContribuyenteCard.jsx";
 import DetallesPago from "./components/DetallesPago.jsx";
@@ -112,8 +113,19 @@ export default function Cobrar() {
             <div className="lg:col-span-2 flex flex-col gap-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <CardCobro title="Buscar Contribuyente">
-                  <BuscarContribuyente
+                  <AsyncAutocomplete
                     onSelect={setContribuyente}
+                    searchFn={searchContribuyentes}
+                    getOptionLabel={(option) =>
+                      `${option.nombre} ${option.apellido_paterno} ${option.apellido_materno}`
+                    }
+                    renderOption={(props, option) => (
+                      <li {...props} key={option.id_contribuyente}>
+                        {option.nombre} {option.apellido_paterno}{" "}
+                        {option.apellido_materno}
+                      </li>
+                    )}
+                    placeholder="Ej. Rafael Díaz López"
                     disabled={!corteActivo}
                   />
                   <Nota />

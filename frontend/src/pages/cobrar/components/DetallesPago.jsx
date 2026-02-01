@@ -3,8 +3,8 @@ import Grid from "../../../components/modals/components/Grid.jsx";
 import Input from "../../../components/modals/components/Input.jsx";
 import Select from "../../../components/modals/components/Select.jsx";
 import TextArea from "../../../components/modals/components/TextArea.jsx";
-import BuscarConceptoPago from "./BuscarConceptoPago.jsx";
-import BuscarEstimuloFiscal from "./BuscarEstimuloFiscal.jsx";
+import AsyncAutocomplete from "../../../components/ui/AsyncAutocomplete.jsx";
+import Stack from "../../../components/layouts/Stack.jsx";
 
 export default function DetallesPago({
   onSelectConcepto,
@@ -20,9 +20,16 @@ export default function DetallesPago({
       <label className="text-sm font-medium">
         {"Concepto de Pago"} <span className="text-red-500">*</span>
       </label>
-      <BuscarConceptoPago
+      <AsyncAutocomplete
         onSelect={onSelectConcepto}
         searchFn={searchConceptoPagoAPI}
+        getOptionLabel={(option) => option.nombre}
+        renderOption={(props, option) => (
+          <li {...props} key={option.id_concepto_pago}>
+            {option.nombre}
+          </li>
+        )}
+        placeholder="Ej. Predial, Agua, Impuestos"
         disabled={disabled}
       />
       <Grid cols={4}>
@@ -38,11 +45,23 @@ export default function DetallesPago({
           placeholder="Ej. Enero - Diciembre 2024"
           {...register("periodo")}
         />
-        <BuscarEstimuloFiscal
-          onSelect={onSelectEstimulo}
-          searchFn={searchEstimuloFiscalAPI}
-          disabled={disabled}
-        />
+        <Stack size="xs">
+          <label className="text-sm font-medium">
+            {"Descuento"} <span className="text-red-500">*</span>
+          </label>
+          <AsyncAutocomplete
+            onSelect={onSelectEstimulo}
+            searchFn={searchEstimuloFiscalAPI}
+            getOptionLabel={(option) => option.nombre}
+            renderOption={(props, option) => (
+              <li {...props} key={option.id_estimulo}>
+                {option.nombre}
+              </li>
+            )}
+            placeholder="Ej. Certificado"
+            disabled={disabled}
+          />
+        </Stack>
         <Select
           label="Método de Pago"
           disabled={disabled}

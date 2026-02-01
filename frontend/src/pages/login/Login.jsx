@@ -48,7 +48,7 @@ export default function Login() {
    ${
      hasError
        ? "border-red-500 focus:ring-2 focus:ring-red-400"
-       : "border-[#E5E7EB] focus:border-green-500 focus:ring-1 focus:ring-green-200"
+       : "border-[#E5E7EB] focus:border-[var(--color-acento)] focus:ring-1 focus:ring-[var(--color-acento)]"
    }`;
 
   return (
@@ -88,7 +88,7 @@ export default function Login() {
               <h1 className="text-xl font-bold text-gray-900">
                 Sistema de Cobros
               </h1>
-              <p className="text-sm text-green-600">
+              <p className="text-sm text-[var(--color-acento)]">
                 H. Ayuntamiento de Ixtlán de Juárez
               </p>
 
@@ -110,7 +110,7 @@ export default function Login() {
                   <div className="relative">
                     <User
                       size={18}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-green-600"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-primario)]"
                     />
                     <input
                       type="text"
@@ -130,7 +130,7 @@ export default function Login() {
                     </label>
                     <button
                       type="button"
-                      className="text-xs text-green-600 hover:underline"
+                      className="text-xs text-[var(--color-acento)] hover:underline"
                     >
                       ¿Olvidó su contraseña?
                     </button>
@@ -139,7 +139,7 @@ export default function Login() {
                   <div className="relative">
                     <Lock
                       size={18}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-green-600"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-primario)]"
                     />
                     <input
                       type={showPassword ? "text" : "password"}
@@ -160,12 +160,12 @@ export default function Login() {
                       {showPassword ? (
                         <Eye
                           size={18}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600 cursor-pointer"
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-primario)] cursor-pointer"
                         />
                       ) : (
                         <EyeOff
                           size={18}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600 cursor-pointer"
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-primario)] cursor-pointer"
                         />
                       )}
                     </button>
@@ -173,10 +173,10 @@ export default function Login() {
                 </div>
 
                 {/* RECORDAR SESIÓN */}
-                <div className="flex items-center gap-2 text-sm text-green-700">
+                <div className="flex items-center gap-2 text-sm text-[var(--color-acento)]">
                   <input
                     type="checkbox"
-                    className="rounded border-gray-300 text-green-600 focus:ring-green-500"
+                    className="rounded border-gray-300 text-[var(--color-primario)] focus:ring-[var(--color-acento)]"
                   />
                   Mantener sesión iniciada
                 </div>
@@ -187,9 +187,9 @@ export default function Login() {
                   onClick={handleSubmit(onSubmit)}
                   className="
                 w-full py-3 rounded-lg
-                bg-green-500
+                bg-[var(--color-primario)]
                 text-white font-semibold text-sm
-                hover:bg-green-600
+                hover:bg-[var(--color-acento)]
                 transition
               "
                 >
@@ -199,7 +199,7 @@ export default function Login() {
             </form>
 
             {/* FOOTER*/}
-            <p className="text-xs text-green-700">
+            <p className="text-xs text-[var(--color-acento)]">
               © 2026 Tesorería Municipal Ixtlán de Juárez.
               <br />
               Todos los derechos reservados.

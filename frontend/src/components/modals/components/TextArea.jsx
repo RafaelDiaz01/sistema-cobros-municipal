@@ -4,7 +4,7 @@ import Stack from "../../layouts/Stack.jsx";
 function TextArea({
   label,
   helper,
-  rows = 4,
+  rows = 2,
   maxLength,
   showCount = Boolean(maxLength),
   resize = "vertical", // 'none' | 'vertical' | 'both'

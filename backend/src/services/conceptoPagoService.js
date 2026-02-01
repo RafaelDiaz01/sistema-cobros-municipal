@@ -35,7 +35,7 @@ class conceptoPagoService {
     resultados = await Seccion.findAll({
       where: {
         nombre: { [Op.like]: `%${texto}%` },
-        es_cobrable: true,
+        //es_cobrable: true,
       },
     });
 

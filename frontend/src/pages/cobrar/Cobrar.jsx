@@ -31,7 +31,7 @@ export default function Cobrar() {
       concepto_pago: "",
       monto: "",
       periodo: "",
-      descuento: "",
+      porcentaje_descuento: "",
       metodo_pago: "",
       descripcion: "",
     },
@@ -76,11 +76,11 @@ export default function Cobrar() {
     form.setValue("tipo_referencia", concepto?.tipo);
     form.setValue("concepto_pago", concepto?.nombre);
     form.setValue("monto", concepto?.monto_base);
-    form.setValue("descuento", concepto?.porcentaje_descuento || "");
   };
 
   const handleSelectEstimulo = (estimulo) => {
     setEstimuloSeleccionado(estimulo);
+    form.setValue("porcentaje_descuento", estimulo?.porcentaje_descuento);
   };
 
   const handleIniciarTurno = async () => {

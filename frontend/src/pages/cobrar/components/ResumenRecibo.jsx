@@ -59,7 +59,7 @@ const ResumenRecibo = ({
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Stack size="md">
           {/* Información del folio y fecha */}
-          <Stack size="md">
+          <Stack size="sm">
             <InfoItem label="Folio del Recibo" value="REC-PENDIENTE" />
             <InfoItem label="Fecha" value={fechaActual} />
             <InfoItem label="Ejercicio Fiscal" value={ejercicioFiscal} />

@@ -53,15 +53,7 @@ export default function Cobrar() {
         setCorteActivo(data);
       } catch (error) {
         if (error?.response?.status === 404) {
-          alertConfirmation(
-            "No hay un corte activo",
-            "¿Desea iniciar un nuevo turno?",
-            "warning",
-          ).then((confirmed) => {
-            if (confirmed) {
-              handleIniciarTurno();
-            }
-          });
+          handleIniciarTurno();
         } else {
           console.error("Error al cargar los datos del corte activo", error);
         }
@@ -85,13 +77,23 @@ export default function Cobrar() {
 
   const handleIniciarTurno = async () => {
     try {
-      const userStr = localStorage.getItem("user");
-      const user = userStr ? JSON.parse(userStr) : null;
-      const id_usuario = user ? user.id : null;
-      const corte = await iniciarCorteCajaAPI(id_usuario, 0);
-      setCorteActivo(corte);
+      const montoInicial = await alertConfirmation(
+        "Corte de Caja Inactivo",
+        "¿Deseas iniciar un nuevo corte de caja?",
+        "warning",
+        "Iniciar",
+        "Cancelar",
+        true,
+      );
 
-      showToast("success", "Caja Iniciada");
+      if (montoInicial) {
+        const userStr = localStorage.getItem("user");
+        const user = userStr ? JSON.parse(userStr) : null;
+        const id_usuario = user ? user.id : null;
+        const corte = await iniciarCorteCajaAPI(id_usuario, montoInicial);
+        setCorteActivo(corte);
+        showToast("success", "Caja Iniciada");
+      }
     } catch (error) {
       alert("Error al iniciar turno");
     }

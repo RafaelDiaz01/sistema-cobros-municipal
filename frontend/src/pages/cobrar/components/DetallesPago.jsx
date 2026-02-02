@@ -7,6 +7,12 @@ import AsyncAutocomplete from "../../../components/ui/AsyncAutocomplete.jsx";
 import Stack from "../../../components/layouts/Stack.jsx";
 
 export default function DetallesPago({
+  conceptoSeleccionado,
+  conceptoInput,
+  setConceptoInput,
+  estimuloSeleccionado,
+  estimuloInput,
+  setEstimuloInput,
   onSelectConcepto,
   onSelectEstimulo,
   searchConceptoPagoAPI,
@@ -21,7 +27,10 @@ export default function DetallesPago({
         {"Concepto de Pago"} <span className="text-red-500">*</span>
       </label>
       <AsyncAutocomplete
+        value={conceptoSeleccionado}
+        inputValue={conceptoInput}
         onSelect={onSelectConcepto}
+        onInputChange={setConceptoInput}
         searchFn={searchConceptoPagoAPI}
         getOptionLabel={(option) => option.nombre}
         renderOption={(props, option) => {
@@ -53,7 +62,10 @@ export default function DetallesPago({
             {"Descuento"} <span className="text-red-500">*</span>
           </label>
           <AsyncAutocomplete
+            value={estimuloSeleccionado}
+            inputValue={estimuloInput}
             onSelect={onSelectEstimulo}
+            onInputChange={setEstimuloInput}
             searchFn={searchEstimuloFiscalAPI}
             getOptionLabel={(option) => option.nombre}
             renderOption={(props, option) => (

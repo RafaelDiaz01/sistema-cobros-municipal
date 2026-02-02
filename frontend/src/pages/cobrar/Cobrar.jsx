@@ -19,8 +19,11 @@ import DetallesPago from "./components/DetallesPago.jsx";
 
 export default function Cobrar() {
   const [contribuyente, setContribuyente] = useState(null);
+  const [contribuyenteInput, setContribuyenteInput] = useState("");
   const [conceptoSeleccionado, setConceptoSeleccionado] = useState(null);
+  const [conceptoInput, setConceptoInput] = useState("");
   const [estimuloSeleccionado, setEstimuloSeleccionado] = useState(null);
+  const [estimuloInput, setEstimuloInput] = useState("");
   const [corteActivo, setCorteActivo] = useState(null);
 
   // React Hook Form
@@ -116,7 +119,10 @@ export default function Cobrar() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <CardCobro title="Buscar Contribuyente">
                   <AsyncAutocomplete
+                    value={contribuyente}
+                    inputValue={contribuyenteInput}
                     onSelect={setContribuyente}
+                    onInputChange={setContribuyenteInput}
                     searchFn={searchContribuyentes}
                     getOptionLabel={(option) =>
                       `${option.nombre} ${option.apellido_paterno} ${option.apellido_materno}`
@@ -136,6 +142,12 @@ export default function Cobrar() {
               </div>
 
               <DetallesPago
+                conceptoSeleccionado={conceptoSeleccionado}
+                conceptoInput={conceptoInput}
+                setConceptoInput={setConceptoInput}
+                estimuloSeleccionado={estimuloSeleccionado}
+                estimuloInput={estimuloInput}
+                setEstimuloInput={setEstimuloInput}
                 onSelectConcepto={handleSelectConcepto}
                 onSelectEstimulo={handleSelectEstimulo}
                 searchConceptoPagoAPI={searchConceptoPagoAPI}
@@ -154,8 +166,11 @@ export default function Cobrar() {
                 form={form}
                 onClear={() => {
                   setContribuyente(null);
+                  setContribuyenteInput("");
                   setConceptoSeleccionado(null);
+                  setConceptoInput("");
                   setEstimuloSeleccionado(null);
+                  setEstimuloInput("");
                   form.reset();
                 }}
                 disabled={!corteActivo}

@@ -3,14 +3,16 @@ import { useState, useEffect } from "react";
 import { useDebounce } from "../../hooks/useDebounce.js";
 
 export default function AsyncAutocomplete({
+  value,
+  inputValue,
   onSelect,
+  onInputChange,
   searchFn,
   disabled = false,
   getOptionLabel,
   renderOption,
   placeholder = "",
 }) {
-  const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -41,9 +43,10 @@ export default function AsyncAutocomplete({
       options={options}
       loading={loading}
       getOptionLabel={getOptionLabel}
-      onChange={(_, value) => value && onSelect(value)}
+      value={value}
       inputValue={inputValue}
-      onInputChange={(_, value) => setInputValue(value)}
+      onChange={(_, newValue) => onSelect(newValue)}
+      onInputChange={(_, newInputValue) => onInputChange(newInputValue)}
       filterOptions={(x) => x}
       renderOption={renderOption}
       renderInput={(params) => (

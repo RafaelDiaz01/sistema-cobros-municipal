@@ -29,14 +29,15 @@ const ResumenRecibo = ({
       await createPagoAPI(data);
       showToast("success", "Pago registrado exitosamente");
       form.reset();
+      limpiarRecibo(); // Limpia el recibo después de cobrar
     } catch (error) {
       console.error("Error al guardar el pago", error);
       showToast("error", "Error al registrar el pago");
     }
   };
 
-  const handleCancel = () => {
-    if (onClear) onClear(); // Limpia el formulario
+  const limpiarRecibo = () => {
+    if (onClear) onClear(); // Limpia el recibo llamando a la función pasada por props
   };
 
   const montoBase = Number(concepto?.monto_base) || 0;
@@ -151,7 +152,7 @@ const ResumenRecibo = ({
             <button
               type="button"
               disabled={disabled}
-              onClick={handleCancel}
+              onClick={limpiarRecibo}
               className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 font-medium rounded-lg transition-colors bg-[var(--color-cancelar)] text-white hover:bg-red-700
                 ${disabled ? "opacity-60 cursor-not-allowed hover:bg-[var(--color-cancelar)]" : ""}`}
             >

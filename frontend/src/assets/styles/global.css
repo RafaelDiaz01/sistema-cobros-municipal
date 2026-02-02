@@ -15,11 +15,12 @@ body {
 
 /* Estilos personalizados para SweetAlert2 de Iniciar Corte de Caja */
 .swal-custom-input {
-  width: 12rem;
+  width: 8rem;
   margin-left: auto;
   margin-right: auto;
   border-radius: 0.5rem;
-  padding: 0.5rem 0.75rem;
+  padding: 1rem;
+  text-align: center;
   font-size: 0.875rem;
   color: #374151;
   background: #f9fafb;
@@ -28,6 +29,21 @@ body {
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
+}
+.swal2-input-label {
+  font-size: 0.875rem;
+  color: #374151;
+  font-weight: 400;
+  display: block;
+  text-align: center;
+}
+.swal-custom-input::-webkit-outer-spin-button,
+.swal-custom-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.swal-custom-input[type="number"] {
+  appearance: textfield;
 }
 .swal-custom-input:focus {
   border-color: var(--color-acento);

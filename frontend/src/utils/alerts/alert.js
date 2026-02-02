@@ -28,15 +28,20 @@ export const alertConfirmation = async (
     swalOptions.inputPlaceholder = "Ej. 1000";
     swalOptions.inputAttributes = {
       min: 0,
-      step: 0.01,
+      step: 1,
       autocomplete: "off",
+      inputMode: "numeric",
     };
     swalOptions.inputValidator = (value) => {
       if (!value) {
         return "Debe ingresar un monto inicial";
       }
-      if (isNaN(value) || Number(value) <= 0) {
-        return "El monto debe ser un número mayor a 0";
+      if (
+        isNaN(value) ||
+        Number(value) < 0 ||
+        !Number.isInteger(Number(value))
+      ) {
+        return "El monto debe ser un número entero positivo";
       }
       return null;
     };

@@ -7,13 +7,11 @@ import Contribuyentes from "../pages/contribuyentes/Contribuyentes";
 import Mas from "../pages/mas/Mas";
 import Establecimientos from "../pages/establecimientos/Establecimientos";
 import Corte from "../pages/corte-de-caja/Corte"
+import NotFound from "../pages/not-found/NotFound";
 
 const AppRouter = () => {
   return (
     <Routes>
-      {/* Rutas No Encontradas */}
-      <Route path="*" element={<h1>Página no encontrada</h1>} />
-
       {/* Rutas Publicas */}
       <Route element={<PublicRoute />}>
         <Route path="/" element={<Navigate to="/login" replace />} />
@@ -28,6 +26,9 @@ const AppRouter = () => {
         <Route path="/mas" element={<Mas />} />
         <Route path="/establecimientos" element={<Establecimientos />} />
       </Route>
+
+      {/* Rutas No Encontradas */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

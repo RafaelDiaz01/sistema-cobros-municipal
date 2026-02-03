@@ -36,7 +36,7 @@ class PagoService {
   }
 
   // Registrar un pago
-  static async registrarPago(data) {
+  static async registrarPago(id_usuario, data, res) {
     const {
       id_contribuyente,
       tipo_referencia,
@@ -77,11 +77,12 @@ class PagoService {
     const pago = await Pago.create({
       id_contribuyente,
       id_corte_caja: corte.id_corte_caja,
+      id_usuario: id_usuario,
       tipo_referencia,
       concepto_pago,
       monto,
       periodo,
-      porcentaje_descuento,
+      descuento: porcentaje_descuento,
       metodo_pago,
       folio: "REC-TEMP",
       descripcion,

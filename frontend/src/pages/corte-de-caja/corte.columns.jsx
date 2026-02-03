@@ -10,7 +10,7 @@ export const corteColumns = () => [
   {
     field: "contribuyente",
     headerName: "Contribuyente",
-    flex: 1,
+    width: 330,
     valueGetter: (params, row) =>
       `${row.contribuyente.nombre} ${row.contribuyente.apellido_paterno} ${row.contribuyente.apellido_materno}`,
   },
@@ -21,10 +21,10 @@ export const corteColumns = () => [
     renderCell: (params) => (
       <Tooltip title={params.value} arrow>
         <span className="flex items-center gap-1">
-          {params.value.length > 60
-            ? `${params.value.substring(0, 60)}...`
+          {params.value.length > 130
+            ? `${params.value.substring(0, 130)} ...`
             : params.value}
-          {params.value.length > 60 && <Info size={14} />}
+          {params.value.length > 130 && <Info size={14} />}
         </span>
       </Tooltip>
     ),

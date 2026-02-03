@@ -11,7 +11,7 @@ class conceptoPagoService {
     let resultados = await Subconcepto.findAll({
       where: {
         nombre: { [Op.like]: `%${texto}%` },
-        es_cobrable: true,
+        //es_cobrable: true,
       },
     });
 
@@ -23,7 +23,7 @@ class conceptoPagoService {
     resultados = await Concepto.findAll({
       where: {
         nombre: { [Op.like]: `%${texto}%` },
-        es_cobrable: true,
+        //es_cobrable: true,
       },
     });
 

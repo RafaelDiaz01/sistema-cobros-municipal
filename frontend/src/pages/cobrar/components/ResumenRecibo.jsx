@@ -108,10 +108,9 @@ const ResumenRecibo = ({
             <InfoItem
               label="Descuento Aplicado"
               value={
-                estimulo?.porcentaje_descuento !== undefined &&
-                estimulo?.porcentaje_descuento !== null
-                  ? `${estimulo.porcentaje_descuento}%`
-                  : "No Seleccionado"
+                [estimulo?.nombre, `- ${porcentajeDescuento}%`]
+                  .filter(Boolean)
+                  .join(" ") || "No Seleccionado"
               }
             />
           </Stack>

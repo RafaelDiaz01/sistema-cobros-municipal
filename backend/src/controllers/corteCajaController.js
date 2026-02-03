@@ -4,8 +4,9 @@ class CorteCajaController {
   // Abrir un nuevo corte de caja
   static async abrir(req, res) {
     try {
-      const { id_usuario, saldo_inicial } = req.body;
-
+      const id_usuario = req.user.id_usuario;
+      const { saldo_inicial } = req.body;
+    
       const corte = await CorteCajaService.abrirCorte(
         id_usuario,
         saldo_inicial,
@@ -13,7 +14,7 @@ class CorteCajaController {
 
       res.status(201).json(corte);
     } catch (error) {
-      res.status(400).json({ message: error.message });
+      res.status(400).json({ message: "Error al abrir el corte de caja", error: error.message });
     }
   }
 

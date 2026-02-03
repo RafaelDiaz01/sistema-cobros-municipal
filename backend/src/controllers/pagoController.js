@@ -3,7 +3,8 @@ import PagoService from "../services/pagoService.js";
 class PagoController {
   static async registrar(req, res) {
     try {
-      const resultado = await PagoService.registrarPago(req.body);
+      const id_usuario = req.user.id_usuario;
+      const resultado = await PagoService.registrarPago(id_usuario, req.body, res);
 
       res.status(201).json({
         message: "Pago registrado correctamente",

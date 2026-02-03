@@ -157,6 +157,16 @@ CorteCaja.belongsTo(Usuario, {
   foreignKey: "id_usuario",
 });
 
+// =============================
+// RELACIÓN USUARIO - PAGO
+// =============================
+
+// Un Usuario tiene muchos Pagos
+Usuario.hasMany(Pago, { foreignKey: "id_usuario" });
+
+// Un Pago pertenece a un Usuario
+Pago.belongsTo(Usuario, { foreignKey: "id_usuario" });
+
 export {
   Contribuyente,
   Establecimiento,

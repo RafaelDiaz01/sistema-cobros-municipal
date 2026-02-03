@@ -39,7 +39,7 @@ export const loginService = async (usuario, password) => {
   }
 
   const token = generateToken({
-    id: usuarioEncontrado.id_usuario,
+    id_usuario: usuarioEncontrado.id_usuario,
     usuario: usuarioEncontrado.nombre_usuario,
   });
 

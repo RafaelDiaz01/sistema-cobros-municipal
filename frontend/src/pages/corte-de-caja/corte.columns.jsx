@@ -1,5 +1,5 @@
 import { Tooltip } from "@mui/material";
-import { User } from "lucide-react";
+import { Info } from "lucide-react";
 
 export const corteColumns = () => [
   {
@@ -21,10 +21,10 @@ export const corteColumns = () => [
     renderCell: (params) => (
       <Tooltip title={params.value} arrow>
         <span className="flex items-center gap-1">
-          {params.value.length > 30
-            ? `${params.value.substring(0, 30)}...`
+          {params.value.length > 60
+            ? `${params.value.substring(0, 60)}...`
             : params.value}
-          {params.value.length > 30 && <User size={14} />}
+          {params.value.length > 60 && <Info size={14} />}
         </span>
       </Tooltip>
     ),

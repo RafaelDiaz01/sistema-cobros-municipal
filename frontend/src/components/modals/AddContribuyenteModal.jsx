@@ -57,7 +57,7 @@ export default function AddContribuyenteModal({
     } catch (error) {
       console.error(
         "Error al guardar contribuyente (AddContribuyenteModal)",
-        error
+        error,
       );
       alert(`Error: ${error.message}`);
     }
@@ -122,7 +122,6 @@ export default function AddContribuyenteModal({
                     })}
                     label="RFC"
                     placeholder="DILK040315MQ7"
-                    helper="Ingrese la homoclave si está disponible."
                   />
                   <Input
                     {...register("telefono", { required: true })}
@@ -170,21 +169,23 @@ export default function AddContribuyenteModal({
           </div>
 
           {/* FOOTER */}
-          <div className="flex justify-end gap-4 px-8 py-5 border-t border-[var(--color-borde)] bg-white">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-5 py-2 rounded-lg bg-[var(--color-cancelar)] text-[var(--color-text-secundario)] text-sm"
-            >
-              Cancelar
-            </button>
+          <div className="px-8 pb-5 border-t border-[var(--color-borde)]">
+            <div className="flex justify-end gap-4 bg-white rounded-b-2xl pt-5 pb-0">
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-5 py-2 rounded-lg bg-[var(--color-cancelar)] text-[var(--color-text-secundario)] text-sm"
+              >
+                Cancelar
+              </button>
 
-            <button
-              type="submit"
-              className="px-6 py-2 rounded-lg bg-[var(--color-acento)] text-[var(--color-text-secundario)] text-sm font-medium"
-            >
-              {isEdit ? "Actualizar Contribuyente" : "Guardar Contribuyente"}
-            </button>
+              <button
+                type="submit"
+                className="px-6 py-2 rounded-lg bg-[var(--color-acento)] text-[var(--color-text-secundario)] text-sm font-medium"
+              >
+                {isEdit ? "Actualizar Contribuyente" : "Guardar Contribuyente"}
+              </button>
+            </div>
           </div>
         </form>
       </div>

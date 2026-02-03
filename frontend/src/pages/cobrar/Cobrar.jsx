@@ -90,15 +90,13 @@ export default function Cobrar() {
       );
 
       if (montoInicial) {
-        const userStr = localStorage.getItem("user");
-        const user = userStr ? JSON.parse(userStr) : null;
-        const id_usuario = user ? user.id : null;
-        const corte = await iniciarCorteCajaAPI(id_usuario, montoInicial);
+        const corte = await iniciarCorteCajaAPI(montoInicial);
         setCorteActivo(corte);
         showToast("success", "Caja Iniciada");
       }
     } catch (error) {
-      alert("Error al iniciar turno");
+      showToast("error", "Error al iniciar el corte de caja");
+      console.error("Error al iniciar el corte de caja", error);
     }
   };
 

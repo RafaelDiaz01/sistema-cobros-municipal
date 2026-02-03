@@ -28,10 +28,9 @@ export const cerrarCorteCajaAPI = async (
 };
 
 // Iniciar nuevo corte de caja
-export const iniciarCorteCajaAPI = async (id_usuario, saldo_inicial) => {
+export const iniciarCorteCajaAPI = async (monto_inicial) => {
   const response = await api.post(`/corte-caja/abrir`, {
-    id_usuario,
-    saldo_inicial,
+    monto_inicial,
   });
   return response.data;
 };

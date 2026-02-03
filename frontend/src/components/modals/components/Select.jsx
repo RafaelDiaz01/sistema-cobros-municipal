@@ -9,7 +9,7 @@ function Select({ label, options = [], disabled, ...props }) {
       <select
         disabled={disabled}
         {...props}
-        className="w-full border rounded-lg px-3 py-2 text-sm placeholder:text-gray-400 outline-none bg-[#F9FAFB] border-[#E5E7EB] text-gray-800 focus:border-[var(--color-acento)] focus:ring-1 focus:ring-[var(--color-acento)]"
+        className="w-full h-10 border rounded-lg px-3 py-2 text-sm placeholder:text-gray-400 outline-none bg-[#F9FAFB] border-[#E5E7EB] text-gray-800 focus:border-[var(--color-acento)] focus:ring-1 focus:ring-[var(--color-acento)]"
       >
         <option value="">Seleccione una opción</option>
 

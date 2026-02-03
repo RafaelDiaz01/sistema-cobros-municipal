@@ -1,33 +1,40 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
-const Concepto = sequelize.define("concepto", {
-  id_concepto: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
+const Concepto = sequelize.define(
+  "concepto",
+  {
+    id_concepto: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    clave_concepto: {
+      type: DataTypes.STRING(20),
+      allowNull: false,
+      unique: true,
+    },
+    nombre: {
+      type: DataTypes.STRING(200),
+      allowNull: false,
+    },
+    es_cobrable: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    monto_base: {
+      type: DataTypes.DECIMAL(12, 2),
+      allowNull: true,
+      defaultValue: 0.0,
+    },
+    activo: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
   },
-  clave_concepto: {
-    type: DataTypes.STRING(20),
-    allowNull: false,
-    unique: true,
+  {
+    freezeTableName: true, // Evita que Sequelize pluralice el nombre de la tabla
   },
-  nombre: {
-    type: DataTypes.STRING(200),
-    allowNull: false,
-  },
-  es_cobrable: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
-  },
-  monto_base: {
-    type: DataTypes.DECIMAL(12, 2),
-    allowNull: true,
-  },
-  activo: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true,
-  },
-});
+);
 
 export default Concepto;

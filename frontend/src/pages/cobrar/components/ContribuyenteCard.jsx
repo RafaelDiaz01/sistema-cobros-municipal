@@ -33,13 +33,15 @@ export default function ContribuyenteCard({ contribuyente }) {
           <ItemContribuyente
             label="Dirección"
             value={
-              [
-                contribuyente?.calle,
-                `${contribuyente?.numero_calle},`,
-                contribuyente?.barrio,
-              ]
-                .filter(Boolean)
-                .join(" ") || "No Seleccionado"
+              contribuyente
+                ? [
+                    contribuyente.calle,
+                   `${contribuyente.numero_calle}, `,
+                    contribuyente.barrio,
+                  ]
+                    .filter(Boolean)
+                    .join(" ") || "No Seleccionado"
+                : "No Seleccionado"
             }
           />
         </div>

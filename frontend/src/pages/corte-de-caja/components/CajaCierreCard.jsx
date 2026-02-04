@@ -15,8 +15,11 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja }) {
   });
 
   const saldoReal = watch("saldo_real");
+  const saldoRealNumber = Number(saldoReal);
   const diferencia =
-    saldoReal !== "" ? Number(saldoReal || 0) - totalEfectivo : 0;
+    saldoReal !== "" && !isNaN(saldoRealNumber)
+      ? saldoRealNumber - totalEfectivo
+      : 0;
 
   const onSubmit = (data) => {
     onCerrarCaja?.(data);

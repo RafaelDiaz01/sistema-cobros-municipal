@@ -90,7 +90,7 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onR
                 Efectivo Contado (Físico)
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-2.5 font-bold text-[var(--color-acento)]">
+                <span className="absolute left-3 top-2.5 font-bold text-[var(--color-primario)]">
                   $
                 </span>
                 <input
@@ -141,7 +141,7 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onR
                     ? "text-red-500"
                     : diferencia > 0
                       ? "text-yellow-500"
-                      : "text-green-600"
+                      : "text-[var(--color-primario)]"
                 }`}
               >
                 ${diferencia.toLocaleString()}

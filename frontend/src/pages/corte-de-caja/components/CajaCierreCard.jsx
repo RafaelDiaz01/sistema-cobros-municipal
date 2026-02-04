@@ -2,7 +2,7 @@ import { Scale, AlertTriangle, CheckCircle2, Printer } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 
-export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onResetDone }) {
+export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onResetDone, activo }) {
   const {
     register,
     watch,
@@ -104,7 +104,8 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onR
                     validate: (value) =>
                       Number(value) >= 0 || "No se permiten valores negativos",
                   })}
-                  className="
+                  disabled={!activo}
+                  className={`
                     w-full h-11 pl-7
                     bg-white
                     border border-[var(--color-borde)]
@@ -112,7 +113,8 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onR
                     font-black text-lg
                     outline-none
                     focus:border-[var(--color-acento)]
-                  "
+                    ${!activo ? 'opacity-60 cursor-not-allowed' : ''}
+                  `}
                 />
               </div>
               {errors.saldo_real && (
@@ -169,7 +171,8 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onR
               rows={3}
               {...register("observaciones")}
               placeholder="Escriba aquí cualquier detalle sobre faltantes, sobrantes o incidentes del turno"
-              className="
+              disabled={!activo}
+              className={`
                 w-full rounded-xl
                 border border-[var(--color-borde)]
                 bg-white
@@ -179,7 +182,8 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onR
                 focus:border-[var(--color-acento)]
                 focus:ring-1
                 focus:ring-[var(--color-acento)]
-              "
+                ${!activo ? 'opacity-60 cursor-not-allowed' : ''}
+              `}
             />
           </div>
 
@@ -187,7 +191,8 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onR
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <button
               type="submit"
-              className="
+              disabled={!activo}
+              className={`
                 w-full py-3.5
                 bg-[var(--color-acento)]
                 text-white
@@ -197,7 +202,8 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onR
                 hover:scale-[1.01]
                 transition
                 flex items-center justify-center gap-2
-              "
+                ${!activo ? 'opacity-60 cursor-not-allowed' : ''}
+              `}
             >
               <CheckCircle2 size={18} />
               FINALIZAR Y CERRAR CAJA
@@ -205,7 +211,8 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onR
 
             <button
               type="button"
-              className="
+              disabled={!activo}
+              className={`
                 w-full py-3
                 border border-[var(--color-borde)]
                 text-[var(--color-primario)]
@@ -214,7 +221,8 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onR
                 hover:bg-[var(--color-terciario)]
                 transition
                 flex items-center justify-center gap-2
-              "
+                ${!activo ? 'opacity-60 cursor-not-allowed' : ''}
+              `}
             >
               <Printer size={18} />
               Imprimir Resumen

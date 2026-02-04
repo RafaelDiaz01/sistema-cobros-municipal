@@ -5,6 +5,7 @@ import {
   DollarSign,
   HandCoins,
   Smartphone,
+  AlertCircleIcon,
 } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 import { getCorteActivoAPI } from "../../api/corteCaja.js";
@@ -109,6 +110,7 @@ export default function Corte() {
           <SectionSimpleTitle text="Corte de Caja" />
           <Grid cols={4}>
             <InfoBadge
+              icon={AlertCircleIcon}
               label={`Estado: ${cortes.estado === true ? "Activo" : "Inactivo"}`}
               status={cortes.estado}
             />

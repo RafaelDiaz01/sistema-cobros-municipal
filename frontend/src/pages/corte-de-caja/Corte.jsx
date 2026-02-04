@@ -21,9 +21,10 @@ import InfoBadge from "./components/InfoBadge.jsx";
 import StatsCards from "../../components/cards/StatsCards.jsx";
 import Table from "../../components/table/Table.jsx";
 import CajaCierreCard from "./components/CajaCierreCard.jsx";
+import CajaInactivaOverlay from "../../components/overlays/CajaInactivaOverlay.jsx";
 
 export default function Corte() {
-  const [cortes, setCortes] = useState([]);
+  const [cortes, setCortes] = useState({});
   const [pagos, setPagos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [resetCierreCard, setResetCierreCard] = useState(false); // Para resetear CajaCierreCard
@@ -122,19 +123,27 @@ export default function Corte() {
             <InfoBadge icon={Calendar} label="27/01/2026" />
           </Grid>
         </Grid>
-        <StatsCards stats={stats} />
-        <Table
-          rows={pagos}
-          loading={loading}
-          columns={corteColumns()}
-          getRowId={(row) => row.id_pago}
-        />
-        <CajaCierreCard
-          totalEfectivo={cortes.total_efectivo}
-          onCerrarCaja={handleCerrarCaja}
-          reset={resetCierreCard}
-          onResetDone={() => setResetCierreCard(false)}
-        />
+        <div className="relative">
+          {(cortes.estado === false || cortes.estado === undefined) && (
+            <CajaInactivaOverlay />
+          )}
+          <Stack size="lg">
+            <StatsCards stats={stats} />
+            <Table
+              rows={pagos}
+              loading={loading}
+              columns={corteColumns()}
+              getRowId={(row) => row.id_pago}
+            />
+            <CajaCierreCard
+              totalEfectivo={cortes.total_efectivo}
+              onCerrarCaja={handleCerrarCaja}
+              reset={resetCierreCard}
+              onResetDone={() => setResetCierreCard(false)}
+              activo={cortes.estado}
+            />
+          </Stack>
+        </div>
       </Stack>
     </PageLayout>
   );

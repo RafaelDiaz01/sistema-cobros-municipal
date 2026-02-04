@@ -1,18 +1,27 @@
 import { Scale, AlertTriangle, CheckCircle2, Printer } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
-export default function CajaCierreCard({ totalEfectivo, onCerrarCaja }) {
+export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onResetDone }) {
   const {
     register,
     watch,
     handleSubmit,
     formState: { errors },
+    reset: resetForm,
   } = useForm({
     defaultValues: {
       saldo_real: "",
       observaciones: "",
     },
   });
+
+  useEffect(() => {
+    if (reset) {
+      resetForm({ saldo_real: "", observaciones: "" });
+      onResetDone?.();
+    }
+  }, [reset, resetForm, onResetDone]);
 
   const saldoReal = watch("saldo_real");
   const saldoRealNumber = Number(saldoReal);

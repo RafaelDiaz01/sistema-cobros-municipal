@@ -11,6 +11,7 @@ import { getCorteActivoAPI } from "../../api/corteCaja.js";
 import { getPagosPorCorteAPI } from "../../api/corteCaja.js";
 import { corteColumns } from "./corte.columns.jsx";
 import { cerrarCorteCajaAPI } from "../../api/corteCaja.js";
+import { showToast } from "../../utils/alerts/toast.js";
 import PageLayout from "../../components/layouts/PageLayout.jsx";
 import Stack from "../../components/layouts/Stack.jsx";
 import Grid from "../../components/modals/components/Grid.jsx";
@@ -24,6 +25,7 @@ export default function Corte() {
   const [cortes, setCortes] = useState([]);
   const [pagos, setPagos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [resetCierreCard, setResetCierreCard] = useState(false); // Para resetear CajaCierreCard
 
   useEffect(() => {
     fetchCorteActivo();
@@ -75,20 +77,27 @@ export default function Corte() {
     }
   };
 
-  const handleCerrarCaja = (data) => {
+  const handleCerrarCaja = async (data) => {
     try {
       const userStr = localStorage.getItem("user");
       const user = userStr ? JSON.parse(userStr) : null;
       const id_usuario = user ? user.id : null;
 
-      cerrarCorteCajaAPI(
+      await cerrarCorteCajaAPI(
         cortes.id_corte_caja,
         id_usuario,
         Number(data.saldo_real),
         data.observaciones,
       );
-      fetchCorteActivo();
+
+      // Limpiar datos de la página
+      setCortes([]);
+      setPagos([]);
+      setResetCierreCard(true); // Indicar a CajaCierreCard que limpie sus campos
+
+      showToast("success", "Caja cerrada correctamente");
     } catch (error) {
+      showToast("error", "Error al cerrar la caja");
       console.error("Error al cerrar la caja", error);
     }
   };
@@ -121,6 +130,8 @@ export default function Corte() {
         <CajaCierreCard
           totalEfectivo={cortes.total_efectivo}
           onCerrarCaja={handleCerrarCaja}
+          reset={resetCierreCard}
+          onResetDone={() => setResetCierreCard(false)}
         />
       </Stack>
     </PageLayout>

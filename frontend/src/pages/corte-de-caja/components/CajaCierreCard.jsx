@@ -2,7 +2,12 @@ import { Scale, AlertTriangle, CheckCircle2, Printer } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 export default function CajaCierreCard({ totalEfectivo, onCerrarCaja }) {
-  const { register, watch, handleSubmit } = useForm({
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       saldo_real: "",
       observaciones: "",
@@ -80,7 +85,12 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja }) {
                   placeholder="0.00"
                   {...register("saldo_real", {
                     required: true,
-                    min: 0,
+                    min: {
+                      value: 0,
+                      message: "No se permiten valores negativos",
+                    },
+                    validate: (value) =>
+                      Number(value) >= 0 || "No se permiten valores negativos",
                   })}
                   className="
                     w-full h-11 pl-7
@@ -93,6 +103,11 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja }) {
                   "
                 />
               </div>
+              {errors.saldo_real && (
+                <span className="text-red-500 text-xs font-bold">
+                  {errors.saldo_real.message}
+                </span>
+              )}
             </div>
           </div>
 

@@ -29,6 +29,8 @@ export default function Corte() {
   const [loading, setLoading] = useState(true);
   const [resetCierreCard, setResetCierreCard] = useState(false); // Para resetear CajaCierreCard
 
+  const fechaActual = new Date().toLocaleDateString("es-MX");
+
   useEffect(() => {
     fetchCorteActivo();
   }, []);
@@ -120,7 +122,7 @@ export default function Corte() {
 
             <InfoBadge icon={Clock} label="Turno: Matutino" />
 
-            <InfoBadge icon={Calendar} label="27/01/2026" />
+            <InfoBadge icon={Calendar} label={`Fecha: ${fechaActual}`} />
           </Grid>
         </Grid>
         <div className="relative">

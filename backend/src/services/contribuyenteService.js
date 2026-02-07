@@ -1,4 +1,4 @@
-import Contribuyente from "../models/ContribuyenteModel.js";
+import Contribuyente from "../models/Contribuyente.js";
 import { Op, fn, col, where } from "sequelize";
 
 // Función para generar una clave única para el contribuyente

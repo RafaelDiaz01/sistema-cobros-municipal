@@ -1,7 +1,7 @@
-import Contribuyente from "./ContribuyenteModel.js";
-import Establecimiento from "./EstablecimientoModel.js";
-import BaseCatastral from "./BaseCatastralModel.js";
-import Conexion from "./ConexionModel.js";
+import Contribuyente from "./Contribuyente.js";
+import Establecimiento from "./Establecimiento.js";
+import BaseCatastral from "./BaseCatastral.js";
+import Conexion from "./Conexion.js";
 import CuentaContable from "./CuentaContable.js";
 import Subcuenta from "./Subcuenta.js";
 import Seccion from "./Seccion.js";
@@ -9,7 +9,7 @@ import Concepto from "./Concepto.js";
 import Subconcepto from "./Subconcepto.js";
 import Pago from "./Pago.js";
 import CorteCaja from "./CorteCaja.js";
-import Usuario from "./UsuarioModel.js";
+import Usuario from "./Usuario.js";
 
 // =============================
 // RELACIÓN CONTRIBUYENTE - ESTABLECIMIENTOS

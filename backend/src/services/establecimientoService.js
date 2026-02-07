@@ -1,5 +1,5 @@
-import Establecimiento from "../models/EstablecimientoModel.js";
-import Contribuyente from "../models/ContribuyenteModel.js";
+import Establecimiento from "../models/Establecimiento.js";
+import Contribuyente from "../models/Contribuyente.js";
 
 // Obtener todos los establecimientos con su contribuyente
 export const obtenerEstablecimientos = async () => {

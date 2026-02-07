@@ -3,7 +3,7 @@ import Subcuenta from "../models/Subcuenta.js";
 import Seccion from "../models/Seccion.js";
 import Concepto from "../models/Concepto.js";
 import Subconcepto from "../models/Subconcepto.js";
-import Contribuyente from "../models/ContribuyenteModel.js";
+import Contribuyente from "../models/Contribuyente.js";
 import CorteCaja from "../models/CorteCaja.js";
 
 const MODELOS_COBRO = {

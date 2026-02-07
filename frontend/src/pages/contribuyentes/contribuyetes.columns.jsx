@@ -4,15 +4,22 @@ import { Pencil, ToggleRight, ToggleLeft } from "lucide-react";
 export const contribuyentesColumns = (onEdit, onToggleStatus) => [
   {
     field: "id_contribuyente",
-    headerName: "ID",
-    width: 90,
+    headerName: "Clave Única",
+    width: 120,
   },
   {
     field: "nombre",
     headerName: "Nombre Completo",
-    flex: 1,
+    width: 400,
     valueGetter: (params, row) =>
       `${row.nombre} ${row.apellido_paterno} ${row.apellido_materno}`,
+  },
+  {
+    field: "fecha_nacimiento",
+    headerName: "Fecha de Nacimiento",
+    width: 200,
+    renderCell: (params) =>
+      new Date(params.row.fecha_nacimiento).toLocaleDateString("es-MX"),
   },
   {
     field: "direccion",
@@ -25,6 +32,13 @@ export const contribuyentesColumns = (onEdit, onToggleStatus) => [
     field: "telefono",
     headerName: "Teléfono",
     width: 140,
+  },
+  {
+    field: "updatedAt",
+    headerName: "Última Actualización",
+    width: 200,
+    renderCell: (params) =>
+      new Date(params.row.updatedAt).toLocaleString("es-MX"),
   },
   {
     field: "activo",

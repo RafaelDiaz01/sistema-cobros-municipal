@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
 const BaseCatastral = sequelize.define(
-  "bases_catastrales",
+  "base_catastral",
   {
     id_base_catastral: {
       type: DataTypes.INTEGER,
@@ -12,10 +12,6 @@ const BaseCatastral = sequelize.define(
     id_contribuyente: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: "contribuyentes", // nombre de la tabla padre
-        key: "id_contribuyente",
-      },
     },
     cuenta: {
       // Número de cuenta catastral

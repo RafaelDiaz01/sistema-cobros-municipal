@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 import app from "./app.js";
 import sequelize from "./config/database.js";
-import "./models/ContribuyenteModel.js";
 
 dotenv.config();
 

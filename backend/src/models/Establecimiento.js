@@ -12,10 +12,6 @@ const Establecimiento = sequelize.define(
     id_contribuyente: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: "contribuyentes", // nombre de la tabla padre
-        key: "id_contribuyente",
-      },
     },
     nombre: {
       type: DataTypes.STRING(100),

@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
 const Conexion = sequelize.define(
-  "conexiones",
+  "conexion",
   {
     id_conexion: {
       type: DataTypes.INTEGER,
@@ -12,10 +12,6 @@ const Conexion = sequelize.define(
     id_contribuyente: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: "contribuyentes", // nombre de la tabla padre
-        key: "id_contribuyente",
-      },
     },
     cuenta: {
       // Número de cuenta asociado a la conexión

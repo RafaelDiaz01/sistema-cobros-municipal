@@ -1,45 +1,51 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
-const Establecimiento = sequelize.define("establecimiento", {
-  id_estableciemiento: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  id_contribuyente: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: "contribuyentes", // nombre de la tabla padre
-      key: "id_contribuyente",
+const Establecimiento = sequelize.define(
+  "establecimiento",
+  {
+    id_estableciemiento: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    id_contribuyente: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "contribuyentes", // nombre de la tabla padre
+        key: "id_contribuyente",
+      },
+    },
+    nombre: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
+    calle: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    numero_calle: {
+      type: DataTypes.STRING(20),
+    },
+    barrio: {
+      type: DataTypes.STRING(20),
+      allowNull: false,
+    },
+    fecha_apertura: {
+      type: DataTypes.DATEONLY,
+    },
+    giro: {
+      type: DataTypes.STRING(50),
+    },
+    activo: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true, // Activo por defecto
     },
   },
-  nombre: {
-    type: DataTypes.STRING(100),
-    allowNull: false,
-  },
-  calle: {
-    type: DataTypes.STRING(50),
-    allowNull: false,
-  },
-  numero_calle: {
-    type: DataTypes.STRING(20),
-  },
-  barrio: {
-    type: DataTypes.STRING(20),
-    allowNull: false,
-  },
-  fecha_apertura: {
-    type: DataTypes.DATEONLY
-  },
-  giro: {
-    type: DataTypes.STRING(50)
-  },
-  activo: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true, // Activo por defecto
+  {
+    freezeTableName: true, // Evita que Sequelize pluralice el nombre de la tabla
   }
-});
+);
 
 export default Establecimiento;

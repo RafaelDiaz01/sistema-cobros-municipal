@@ -1,6 +1,17 @@
 import Contribuyente from "../models/ContribuyenteModel.js";
 import { Op, fn, col, where } from "sequelize";
 
+// Función para generar una clave única para el contribuyente
+const generarClaveContribuyente = () => {
+  const year = new Date().getFullYear().toString().slice(-2); // "24"
+  const random = Math.random()
+    .toString(36)
+    .substring(2, 6)
+    .toUpperCase(); // X9P2
+
+  return `CTR-${year}-${random}`;
+};
+
 // Obtener todos los contribuyentes
 export const obtenerContribuyentes = async () => {
   return await Contribuyente.findAll();
@@ -8,6 +19,17 @@ export const obtenerContribuyentes = async () => {
 
 // Crear un nuevo contribuyente
 export const crearContribuyente = async (data) => {
+  let claveGenerada;
+  let existe = true;
+
+  // Bucle para evitar colisiones
+  while (existe) {
+    claveGenerada = generarClaveContribuyente();
+    existe = await Contribuyente.findOne({
+      where: { clave_unica: claveGenerada },
+    });
+  }
+
   // Validación nombre y apellido obligatorios
   if (!data.nombre || !data.apellido_paterno) {
     throw new Error("El nombre y el apellido paterno son obligatorios");
@@ -26,6 +48,7 @@ export const crearContribuyente = async (data) => {
 
   // Crear contribuyente
   const nuevoContribuyente = await Contribuyente.create({
+    clave_unica: claveGenerada,
     nombre: data.nombre,
     apellido_paterno: data.apellido_paterno,
     apellido_materno: data.apellido_materno,

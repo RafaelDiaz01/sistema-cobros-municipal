@@ -6,7 +6,7 @@ class CorteCajaController {
     try {
       const id_usuario = req.user.id_usuario;
       const { saldo_inicial } = req.body;
-    
+
       const corte = await CorteCajaService.abrirCorte(
         id_usuario,
         saldo_inicial,
@@ -14,7 +14,10 @@ class CorteCajaController {
 
       res.status(201).json(corte);
     } catch (error) {
-      res.status(400).json({ message: "Error al abrir el corte de caja", error: error.message });
+      res.status(400).json({
+        message: "Error al abrir el corte de caja",
+        error: error.message,
+      });
     }
   }
 
@@ -23,7 +26,7 @@ class CorteCajaController {
     try {
       const { id } = req.params;
       const { id_usuario, saldo_real, observaciones } = req.body;
-      
+
       const corte = await CorteCajaService.cerrarCorte(
         id,
         id_usuario,
@@ -54,11 +57,15 @@ class CorteCajaController {
   // Obtener datos de el corte activo de un usuario
   static async obtenerCorteActivo(req, res) {
     try {
-      const { id_usuario } = req.params;
+      const id_usuario = req.user.id_usuario;
       const corte = await CorteCajaService.obtenerCorteActivo(id_usuario);
+      if (!corte) {
+        return res.status(404).json({ message: "No hay corte activo" });
+      }
       res.json(corte);
     } catch (error) {
-      res.status(404).json({ message: error.message });
+      console.error("Error al obtener corte activo:", error);
+      res.status(500).json({ message: "Error del servidor" });
     }
   }
 }

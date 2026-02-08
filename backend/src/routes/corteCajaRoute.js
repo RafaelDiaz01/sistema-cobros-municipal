@@ -18,10 +18,6 @@ router.get(
 );
 
 // Obtener datos del corte activo de un usuario
-router.get(
-  "/activo/:id_usuario",
-  authMiddleware,
-  CorteCajaController.obtenerCorteActivo,
-);
+router.get("/activo", authMiddleware, CorteCajaController.obtenerCorteActivo);
 
 export default router;

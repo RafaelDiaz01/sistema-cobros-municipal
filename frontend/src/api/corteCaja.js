@@ -1,8 +1,8 @@
 import api from "./axios.js";
 
 // Obtener datos de el corte activo de un usuario
-export const getCorteActivoAPI = async (id_usuario) => {
-  const response = await api.get(`/corte-caja/activo/${id_usuario}`);
+export const getCorteActivoAPI = async () => {
+  const response = await api.get(`/corte-caja/activo`);
   return response.data;
 };
 

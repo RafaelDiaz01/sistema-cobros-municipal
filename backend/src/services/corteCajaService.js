@@ -114,7 +114,7 @@ class CorteCajaService {
     });
 
     if (!corte) {
-      throw new Error("No hay un corte de caja activo para este usuario");
+      return null;
     }
 
     // Calcular los totales

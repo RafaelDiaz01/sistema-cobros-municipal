@@ -25,7 +25,7 @@ const Contribuyentes = () => {
     const total = contribuyentes.length;
     const activos = contribuyentes.filter((c) => c.activo).length;
     const inactivos = total - activos;
-    const conIne = contribuyentes.filter((c) => c.copia_credencial).length;
+    const conRfc = contribuyentes.filter((c) => c.rfc).length;
 
     return [
       {
@@ -44,8 +44,8 @@ const Contribuyentes = () => {
         icon: <UserX size={26} />,
       },
       {
-        title: "Con INE",
-        value: conIne,
+        title: "Con RFC",
+        value: conRfc,
         icon: <IdCard size={26} />,
       },
     ];

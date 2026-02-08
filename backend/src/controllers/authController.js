@@ -4,7 +4,10 @@ export const login = async (req, res) => {
   try {
     const { nombre_usuario, password_usuario } = req.body;
 
-    const tokens = await AuthService.loginService(nombre_usuario, password_usuario);
+    const tokens = await AuthService.loginService(
+      nombre_usuario,
+      password_usuario,
+    );
 
     res
       .cookie("accessToken", tokens.accessToken, {
@@ -69,8 +72,21 @@ export const logout = async (req, res) => {
       })
       .status(200)
       .json({ message: "Sesión cerrada correctamente" });
-
   } catch (error) {
     res.status(500).json({ message: "Error al cerrar sesión" });
+  }
+};
+
+export const obtenerSesion = async (req, res) => {
+  try {
+    res.json({
+      autenticado: true,
+      usuario: {
+        id_usuario: req.user.id_usuario,
+        nombre_usuario: req.user.usuario,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error al obtener sesión" });
   }
 };

@@ -2,13 +2,16 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User, Lock, Eye, EyeOff } from "lucide-react";
-import { login } from "../../services/authService.jsx";
+import { login } from "../../services/authService.js";
+import { useAuth } from "../../context/authContext.jsx";
 import logoUrl from "../../assets/images/logo-ixtlan.png";
 import Stack from "../../components/layouts/Stack.jsx";
 
 export default function Login() {
   const [loginError, setLoginError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const { checkAuth, isAuthenticated } = useAuth();
 
   const navigate = useNavigate();
   // Usando React Hook Form para manejar el formulario
@@ -22,15 +25,18 @@ export default function Login() {
   const onSubmit = async (data) => {
     try {
       setLoginError("");
-      const response = await login(data);
-
-      // Guardar el token y la información del usuario en el almacenamiento local
-      localStorage.setItem("token", response.token);
-      localStorage.setItem("user", JSON.stringify(response.usuario));
-
-      navigate("/cobrar");
+      await login(data);
+      await checkAuth();
+      if (isAuthenticated) {
+        navigate("/cobrar", { replace: true });
+      }
     } catch (error) {
-      if (error.response?.status === 400 || error.response?.status === 401) {
+      if (!error.response) {
+        setLoginError("No se pudo conectar con el servidor");
+      } else if (
+        error.response.status === 400 ||
+        error.response.status === 401
+      ) {
         setLoginError("Usuario y/o contraseña incorrectos");
       } else {
         setLoginError("Error del servidor. Intente más tarde.");

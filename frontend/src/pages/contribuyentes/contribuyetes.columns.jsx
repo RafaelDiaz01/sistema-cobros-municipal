@@ -3,7 +3,7 @@ import { Pencil, ToggleRight, ToggleLeft } from "lucide-react";
 
 export const contribuyentesColumns = (onEdit, onToggleStatus) => [
   {
-    field: "id_contribuyente",
+    field: "clave_unica",
     headerName: "Clave Única",
     width: 120,
   },

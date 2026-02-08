@@ -119,19 +119,19 @@ const ResumenRecibo = ({
           <hr className="border-gray-300" />
 
           {/* Total a pagar */}
-          <div class="bg-[var(--color-terciario)] p-4 rounded-lg border border-[var(--color-borde)]">
+          <div className="bg-[var(--color-terciario)] p-4 rounded-lg border border-[var(--color-borde)]">
             <Stack size="sm">
-              <div class="flex justify-between items-center text-[var(--color-texto)]">
-                <span class="text-sm font-bold uppercase tracking-widest">
+              <div className="flex justify-between items-center text-[var(--color-texto)]">
+                <span className="text-sm font-bold uppercase tracking-widest">
                   TOTAL
                 </span>
                 <span className="text-2xl font-black">
                   ${total.toLocaleString("es-MX", { minimumFractionDigits: 2 })}
                 </span>
               </div>
-              <div class="pt-2 border-t border-[var(--color-borde)] flex justify-between items-center">
-                <p class="text-xs text-primary/70 uppercase">Total en letra</p>
-                <p class="text-xs leading-relaxed text-[var(--color-texto)] uppercase">
+              <div className="pt-2 border-t border-[var(--color-borde)] flex justify-between items-center">
+                <p className="text-xs text-primary/70 uppercase">Total en letra</p>
+                <p className="text-xs leading-relaxed text-[var(--color-texto)] uppercase">
                   {totalEnLetras}
                 </p>
               </div>

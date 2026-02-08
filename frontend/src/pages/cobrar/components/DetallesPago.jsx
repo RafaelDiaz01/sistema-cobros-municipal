@@ -92,7 +92,7 @@ export default function DetallesPago({
           {...register("metodo_pago")}
         />
       </Grid>
-      <p class="text-[11px] text-gray-400 italic">
+      <p className="text-[11px] text-gray-400 italic">
         Nota: El descuento adicional por pronto pago solo aplica en los meses de
         enero y febrero.
       </p>

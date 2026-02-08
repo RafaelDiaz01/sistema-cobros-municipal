@@ -1,5 +1,8 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
+import authRoutes from "./routes/authRoute.js";
 import contribuyenteRoutes from "./routes/contribuyenteRoute.js";
 import usuariosRoutes from "./routes/usuarioRoute.js";
 import establecimientoRoutes from "./routes/establecimientoRoute.js";
@@ -8,7 +11,6 @@ import pagoRoutes from "./routes/pagoRoute.js";
 import conceptoPagoRoute from "./routes/conceptoPagoRoute.js";
 import estimuloFiscalRoute from "./routes/estimuloFiscalRoute.js";
 import corteCajaRoute from "./routes/corteCajaRoute.js";
-import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -24,11 +26,15 @@ app.use(cors({
   credentials: true,
 }));
 
+// Configurar cookie-parser
+app.use(cookieParser());
+
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Sirve para parsear formularios
 
 // Rutas
+app.use("/api/auth", authRoutes);
 app.use("/api/contribuyentes", contribuyenteRoutes);
 app.use("/api/usuarios", usuariosRoutes);
 app.use("/api/establecimientos", establecimientoRoutes);

@@ -1,19 +1,17 @@
 import jwt from "jsonwebtoken";
 
 export const authMiddleware = (req, res, next) => {
-  const authHeader = req.headers.authorization;
+  const token = req.cookies.accessToken;
 
-  if (!authHeader) {
-    return res.status(401).json({ message: "Token requerido" });
+  if (!token) {
+    return res.status(401).json({ message: "No autenticado" });
   }
 
-  const token = authHeader.split(" ")[1];
-
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
     req.user = decoded;
     next();
   } catch {
-    res.status(401).json({ message: "Token inválido" });
+    return res.status(401).json({ message: "Token expirado" });
   }
 };

@@ -10,6 +10,7 @@ import Subconcepto from "./Subconcepto.js";
 import Pago from "./Pago.js";
 import CorteCaja from "./CorteCaja.js";
 import Usuario from "./Usuario.js";
+import RefreshToken from "./RefreshToken.js";
 
 // =============================
 // RELACIÓN CONTRIBUYENTE - ESTABLECIMIENTOS
@@ -160,6 +161,16 @@ Usuario.hasMany(Pago, { foreignKey: "id_usuario" });
 
 // Un Pago pertenece a un Usuario
 Pago.belongsTo(Usuario, { foreignKey: "id_usuario" });
+
+// =============================
+// RELACIÓN USUARIO - REFRESH TOKEN
+// =============================
+
+// Un Usuario tiene muchos Refresh Tokens
+Usuario.hasMany(RefreshToken, { foreignKey: "id_usuario" });
+
+// Un Refresh Token pertenece a un Usuario
+RefreshToken.belongsTo(Usuario, { foreignKey: "id_usuario" });
 
 export {
   Contribuyente,

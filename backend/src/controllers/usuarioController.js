@@ -18,26 +18,4 @@ export const crearUsuario = async (req, res) => {
   }
 };
 
-// Función para el login de usuarios
-export const login = async (req, res) => {
-  try {
-    const { nombre_usuario, password_usuario } = req.body;
 
-    if (!nombre_usuario || !password_usuario) {
-      return res.status(400).json({
-        message: "Usuario y contraseña son obligatorios",
-      });
-    }
-
-    const data = await UsuarioService.loginService(nombre_usuario, password_usuario);
-
-    res.json({
-      message: "Login exitoso",
-      ...data,
-    });
-  } catch (error) {
-    res.status(401).json({
-      message: error.message,
-    });
-  }
-};

@@ -8,12 +8,13 @@ import {
   LogOut,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../utils/auth.js";
+import { useAuth } from "../../context/authContext.jsx";
 
 export default function ProfileDropdown() {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   const navigate = useNavigate();
+  const { user, cerrarSesion } = useAuth();
 
   // Cerrar al hacer click fuera
   useEffect(() => {
@@ -25,11 +26,6 @@ export default function ProfileDropdown() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
 
   const goTo = (path) => {
     setOpen(false);
@@ -57,9 +53,12 @@ export default function ProfileDropdown() {
         <div className="absolute right-0 mt-3 w-72 rounded-xl bg-white shadow-xl border border-gray-100 z-50 overflow-hidden">
           {/* HEADER */}
           <div className="px-4 py-3 bg-[var(--color-primario)]/10">
-            <p className="text-xs text-gray-500">SESIÓN ACTIVA</p>
-            <p className="text-sm font-semibold text-gray-900">Juan Pérez</p>
-            <p className="text-xs text-gray-600">Administrador de Cobros</p>
+            <p className="text-sm font-semibold text-[var(--color-texto)]">
+              {user?.nombre_usuario || "Usuario"}
+            </p>
+            <p className="text-xs text-gray-600">
+              {user?.rol_usuario || "Rol"}
+            </p>
           </div>
 
           {/* OPCIONES */}
@@ -94,9 +93,9 @@ export default function ProfileDropdown() {
           </div>
 
           {/* FOOTER */}
-          <div className="p-2 border-t">
+          <div className="p-2 border-t border-gray-200">
             <button
-              onClick={handleLogout}
+              onClick={cerrarSesion}
               className="w-full flex items-center justify-center gap-2 py-2 rounded-lg
               bg-red-50 text-red-600 text-sm font-semibold hover:bg-red-100 transition"
             >

@@ -23,7 +23,8 @@ export const loginService = async (nombre_usuario, password_usuario) => {
 
   const payload = {
     id_usuario: usuario.id_usuario,
-    nombre: usuario.nombre_usuario,
+    nombre_usuario: usuario.nombre_usuario,
+    rol_usuario: usuario.rol_usuario,
   };
 
   const accessToken = generateAccessToken(payload);
@@ -57,7 +58,8 @@ export const refreshAccessTokenService = async (refreshToken) => {
 
   const newAccessToken = generateAccessToken({
     id_usuario: decoded.id_usuario,
-    nombre: decoded.nombre,
+    nombre_usuario: decoded.nombre_usuario,
+    rol_usuario: decoded.rol_usuario,
   });
 
   return newAccessToken;

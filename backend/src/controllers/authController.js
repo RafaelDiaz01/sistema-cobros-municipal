@@ -83,7 +83,8 @@ export const obtenerSesion = async (req, res) => {
       autenticado: true,
       usuario: {
         id_usuario: req.user.id_usuario,
-        nombre_usuario: req.user.usuario,
+        nombre_usuario: req.user.nombre_usuario,
+        rol_usuario: req.user.rol_usuario,
       },
     });
   } catch (error) {

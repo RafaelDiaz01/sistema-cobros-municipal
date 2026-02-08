@@ -1,21 +1,11 @@
-import { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import { isAuthenticated } from "../utils/auth";
-import { showToast } from "../utils/alerts/toast";
+import { Outlet, Navigate } from "react-router-dom";
+import { useAuth } from "../context/authContext.jsx";
 
 export default function PublicRoute() {
-  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
-  useEffect(() => {
-    if (isAuthenticated()) {
-      showToast("info", "Ya tienes una sesión activa");
-      navigate("/contribuyentes", { replace: true });
-    }
-  }, [navigate]);
-
-  if (isAuthenticated()) {
-    return null; // evita render mientras redirige
+  if (isAuthenticated) {
+    return <Navigate to="/cobrar" replace />;
   }
 
   return <Outlet />;

@@ -4,19 +4,22 @@ import { searchContribuyentes } from "../../services/contribuyentesService.jsx";
 import { showToast } from "../../utils/alerts/toast.js";
 import { X, Store, MapPin } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Stack from "../layouts/Stack.jsx";
 import Section from "./components/Section.jsx";
 import Grid from "./components/Grid.jsx";
 import Input from "./components/Input.jsx";
 import Select from "./components/Select.jsx";
-import SearchAutocomplete from "./components/SearchAutocomplete.jsx";
+import AsyncAutocomplete from "../ui/AsyncAutocomplete.jsx";
 
 export default function AddEstablecimientoModal({
   onClose,
   onSuccess,
   establecimiento,
 }) {
+  const [contribuyenteSeleccionado, setContribuyenteSeleccionado] =
+    useState(null);
+  const [contribuyenteInput, setContribuyenteInput] = useState("");
   const isEdit = Boolean(establecimiento);
 
   // Usando React Hook Form para manejar el formulario
@@ -25,6 +28,7 @@ export default function AddEstablecimientoModal({
     handleSubmit,
     reset,
     control,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm();
 
@@ -34,14 +38,15 @@ export default function AddEstablecimientoModal({
         // Inicializar los campos del formulario con los datos del establecimiento
         nombre: establecimiento.nombre,
         giro: establecimiento.giro,
-        id_contribuyente:
-          establecimiento.contribuyente.nombre +
-          " " +
-          establecimiento.contribuyente.apellido_paterno,
+        id_contribuyente: establecimiento.contribuyente.id_contribuyente,
         calle: establecimiento.calle,
         numero_calle: establecimiento.numero_calle,
         barrio: establecimiento.barrio,
       });
+      setContribuyenteSeleccionado(establecimiento.contribuyente);
+      setContribuyenteInput(
+        `${establecimiento.contribuyente.nombre} ${establecimiento.contribuyente.apellido_paterno}`,
+      );
     }
   }, [isEdit, establecimiento, reset]);
 
@@ -100,7 +105,7 @@ export default function AddEstablecimientoModal({
                 icon={<Store size={18} />}
                 title="Datos del Establecimiento"
               >
-                <Grid>
+                <Grid cols={2}>
                   <Input
                     label="Nombre del Establecimiento"
                     placeholder="Ej. La Roca"
@@ -117,29 +122,41 @@ export default function AddEstablecimientoModal({
                     })}
                     error={errors.giro?.message}
                   />
-                  {/* <Input
-                    label="Propietario"
-                    placeholder="Ej. Juan Pérez"
-                    {...register("propietario", {
-                      required: "Este campo es obligatorio",
-                    })}
-                    error={errors.propietario?.message}
-                  /> */}
-                  <SearchAutocomplete
-                    name="id_contribuyente"
-                    control={control}
-                    label="Propietario"
-                    placeholder="Buscar contribuyente por nombre..."
-                    searchFn={searchContribuyentes} // función para buscar contribuyentes
-                    getOptionLabel={(option) =>
-                      `${option.nombre} ${option.apellido_paterno}`
-                    }
-                    getOptionValue={(option) => option.id_contribuyente}
-                    // Integrar con react-hook-form
-                    {...register("id_contribuyente", {
-                      required: "Este campo es obligatorio",
-                    })}
-                  />
+                  <Stack size="xs">
+                    <label className="text-sm font-medium">
+                      {"Propietario"} <span className="text-red-500">*</span>
+                    </label>
+                    <AsyncAutocomplete
+                      value={contribuyenteSeleccionado}
+                      inputValue={contribuyenteInput}
+                      onSelect={(option) => {
+                        setContribuyenteSeleccionado(option);
+                        setValue("id_contribuyente", option.id_contribuyente);
+                      }}
+                      onInputChange={setContribuyenteInput}
+                      searchFn={searchContribuyentes}
+                      getOptionLabel={(option) =>
+                        option
+                          ? `${option.nombre} ${option.apellido_paterno} ${option.apellido_materno}`
+                          : ""
+                      }
+                      renderOption={(props, option) => {
+                        const { key, ...rest } = props;
+                        return (
+                          <li key={key} {...rest}>
+                            {option.nombre} {option.apellido_paterno} {option.apellido_materno}
+                          </li>
+                        );
+                      }}
+                      placeholder="Buscar contribuyente por nombre"
+                      disabled={isSubmitting}
+                    />
+                    {errors.id_contribuyente && (
+                      <span className="text-red-500 text-xs">
+                        {errors.id_contribuyente.message}
+                      </span>
+                    )}
+                  </Stack>
                   <Input
                     type="date"
                     label="Fecha de Apertura"
@@ -155,7 +172,7 @@ export default function AddEstablecimientoModal({
 
               {/* UBICACIÓN */}
               <Section icon={<MapPin size={18} />} title="Ubicación">
-                <Grid>
+                <Grid cols={3}>
                   <Input
                     {...register("calle", { required: true })}
                     label="Calle"
@@ -194,7 +211,9 @@ export default function AddEstablecimientoModal({
               type="submit"
               className="px-6 py-2 rounded-lg bg-[var(--color-acento)] text-[var(--color-text-secundario)] text-sm font-medium"
             >
-              {isEdit ? "Actualizar Establecimiento" : "Guardar Establecimiento"}
+              {isEdit
+                ? "Actualizar Establecimiento"
+                : "Guardar Establecimiento"}
             </button>
           </div>
         </form>

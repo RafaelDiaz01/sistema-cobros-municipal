@@ -1,4 +1,4 @@
-import { loginAPI } from "../api/auth.js";
+import { loginAPI, logoutAPI } from "../api/auth.js";
 
 export const login = async (credentials) => {
   return await loginAPI(credentials);
@@ -10,5 +10,5 @@ export const refreshToken = async () => {
 };
 
 export const logout = async () => {
-  await api.post("/auth/logout");
+  return await logoutAPI();
 };

@@ -159,12 +159,12 @@ export default function AddContribuyenteModal({
                 </Grid>
               </Section>
 
-              <hr className="border-[var(--color-borde)]" />
+              {/* <hr className="border-[var(--color-borde)]" /> */}
 
               {/* DOCUMENTACIÓN */}
-              <Section icon={<FolderUp size={18} />} title="Documentación">
+              {/* <Section icon={<FolderUp size={18} />} title="Documentación">
                 <Upload />
-              </Section>
+              </Section> */}
             </Stack>
           </div>
 

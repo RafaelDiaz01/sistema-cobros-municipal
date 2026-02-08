@@ -67,10 +67,7 @@ export default function Corte() {
 
   const fetchCorteActivo = async () => {
     try {
-      const userStr = localStorage.getItem("user");
-      const user = userStr ? JSON.parse(userStr) : null;
-      const id_usuario = user ? user.id : null;
-      const data = await getCorteActivoAPI(id_usuario);
+      const data = await getCorteActivoAPI();
       const payments = await getPagosPorCorteAPI(data.id_corte_caja);
       setCortes(data);
       setPagos(payments);

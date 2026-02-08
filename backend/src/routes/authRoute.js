@@ -1,10 +1,12 @@
 import { Router } from "express";
-import { login, refreshAccessToken, logout } from "../controllers/authController.js";
+import * as authController from "../controllers/authController.js";
+import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 const router = Router();
 
-router.post("/login", login);
-router.post("/refresh", refreshAccessToken);
-router.post("/logout", logout);
+router.post("/login", authController.login);
+router.post("/refresh", authController.refreshAccessToken);
+router.post("/logout", authController.logout);
+router.get("/me", authMiddleware, authController.obtenerSesion);
 
 export default router;

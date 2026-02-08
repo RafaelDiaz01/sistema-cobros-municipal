@@ -49,10 +49,7 @@ export default function Cobrar() {
   useEffect(() => {
     const loadCorte = async () => {
       try {
-        const userStr = localStorage.getItem("user");
-        const user = userStr ? JSON.parse(userStr) : null;
-        const id_usuario = user ? user.id : null;
-        const data = await getCorteActivoAPI(id_usuario);
+        const data = await getCorteActivoAPI();
         setCorteActivo(data);
       } catch (error) {
         if (error?.response?.status === 404) {

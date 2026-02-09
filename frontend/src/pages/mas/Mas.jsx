@@ -7,9 +7,11 @@ import {
     ListChecks,
     Sliders,
     Key,
-    Wifi,
     Store,
-    Map
+    Map,
+    FileText,
+    WalletCards,
+    Droplet
 } from "lucide-react";
 import SectionTitleSimple from "../../components/titles/SectionTitleSimple.jsx";
 import SectionSubtitle from "../../components/titles/SectionSubtitle.jsx";
@@ -33,14 +35,14 @@ export default function Mas() {
                             onClick={() => navigate("/gestion-recibos")}
                         />
                         <CatalogCard
-                            icon={<Receipt size={20} />}
+                            icon={<WalletCards size={20} />}
                             title="Gestión de Estímulo Fiscal"
-                            description="Administración, validación y emisión masiva de comprobantes oficiales."
+                            description="Control de beneficios y descuentos fiscales para contribuyentes."
                         />
                         <CatalogCard
-                            icon={<Receipt size={20} />}
+                            icon={<FileText size={20} />}
                             title="Gestión de Ejercicio Fiscal"
-                            description="Administración, validación y emisión masiva de comprobantes oficiales."
+                            description="Administración y seguimiento del ejercicio fiscal anual."
                         />
                         <CatalogCard
                             icon={<BookOpen size={20} />}
@@ -85,7 +87,7 @@ export default function Mas() {
                             description="Control de arrendamientos de espacios y bienes municipales públicos."
                         />
                         <CatalogCard
-                            icon={<Wifi size={20} />}
+                            icon={<Droplet size={20} />}
                             title="Gestión de Conexión"
                             description="Monitoreo y alta de tomas de servicios y conexiones de red."
                         />

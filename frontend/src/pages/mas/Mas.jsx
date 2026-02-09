@@ -30,6 +30,7 @@ export default function Mas() {
                             icon={<Receipt size={20} />}
                             title="Gestión de Recibos"
                             description="Administración, validación y emisión masiva de comprobantes oficiales."
+                            onClick={() => navigate("/gestion-recibos")}
                         />
                         <CatalogCard
                             icon={<Receipt size={20} />}

@@ -38,6 +38,7 @@ export default function Mas() {
                             icon={<WalletCards size={20} />}
                             title="Gestión de Estímulo Fiscal"
                             description="Control de beneficios y descuentos fiscales para contribuyentes."
+                            onClick={() => navigate("/gestion-estimulos")}
                         />
                         <CatalogCard
                             icon={<FileText size={20} />}

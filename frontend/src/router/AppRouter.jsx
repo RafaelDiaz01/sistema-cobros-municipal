@@ -8,6 +8,7 @@ import Mas from "../pages/mas/Mas";
 import Establecimientos from "../pages/establecimientos/Establecimientos";
 import Corte from "../pages/corte-de-caja/Corte";
 import GestionRecibos from "../pages/gestion-recibos/GestionRecibos";
+import GestionEstimulos from "../pages/gestion-estimulos/GestionEstimulos";
 import NotFound from "../pages/not-found/NotFound";
 
 const AppRouter = () => {
@@ -27,6 +28,7 @@ const AppRouter = () => {
         <Route path="/mas" element={<Mas />} />
         <Route path="/establecimientos" element={<Establecimientos />} />
         <Route path="/gestion-recibos" element={<GestionRecibos />} />
+        <Route path="/gestion-estimulos" element={<GestionEstimulos />} />
       </Route>
 
       {/* Rutas No Encontradas */}

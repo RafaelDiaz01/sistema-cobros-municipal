@@ -20,11 +20,13 @@ import "./models/associations.js";
 const app = express();
 
 // Habilitar CORS
-app.use(cors({
-  origin: process.env.URL_FRONTEND || "http://localhost:5173",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: process.env.URL_FRONTEND || "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true,
+  }),
+);
 
 // Configurar cookie-parser
 app.use(cookieParser());

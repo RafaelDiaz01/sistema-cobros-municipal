@@ -134,6 +134,21 @@ class PagoService {
       ],
     });
   }
+
+  // Obtener pagos hechos por usuario
+  static async obtenerPagosPorUsuario(id_usuario) {
+    return await Pago.findAll({
+      where: { id_usuario },
+      order: [["fecha_pago", "DESC"]],
+      include: [
+        {
+          model: Contribuyente,
+          as: "contribuyente",
+          attributes: ["nombre", "apellido_paterno", "apellido_materno"],
+        },
+      ],
+    });
+  }
 }
 
 export default PagoService;

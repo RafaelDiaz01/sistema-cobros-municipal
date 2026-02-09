@@ -16,4 +16,7 @@ router.get("/:id", authMiddleware, PagoController.obtenerPorId);
 // Obtener pagos por corte de caja
 router.get("/corte/:id_corte", authMiddleware, PagoController.obtenerPagosPorCorte);
 
+// Obtener pagos hechos por usuario
+router.get("/usuario/:id_usuario", authMiddleware, PagoController.obtenerPagosPorUsuario);
+
 export default router;

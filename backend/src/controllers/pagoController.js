@@ -4,7 +4,11 @@ class PagoController {
   static async registrar(req, res) {
     try {
       const id_usuario = req.user.id_usuario;
-      const resultado = await PagoService.registrarPago(id_usuario, req.body, res);
+      const resultado = await PagoService.registrarPago(
+        id_usuario,
+        req.body,
+        res,
+      );
 
       res.status(201).json({
         message: "Pago registrado correctamente",
@@ -54,6 +58,21 @@ class PagoController {
     } catch (error) {
       res.status(500).json({
         message: "Error al obtener pagos por corte",
+        error: error.message,
+      });
+    }
+  }
+
+  // Obtener pagos hechos por usuario
+  static async obtenerPagosPorUsuario(req, res) {
+    try {
+      const { id_usuario } = req.params;
+      const pagos = await PagoService.obtenerPagosPorUsuario(id_usuario);
+
+      res.json(pagos);
+    } catch (error) {
+      res.status(500).json({
+        message: "Error al obtener pagos por usuario",
         error: error.message,
       });
     }

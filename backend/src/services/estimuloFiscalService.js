@@ -26,6 +26,20 @@ class estimuloFiscalService {
   static async obtenerTodos() {
     return await EstimuloFiscal.findAll();
   }
+
+  // Actualizar el estado del estímulo fiscal
+  static async actualizarEstado(id, activo) {
+    const estimulo = await EstimuloFiscal.findByPk(id);
+
+    if (!estimulo) {
+      return null;
+    }
+
+    estimulo.activo = activo;
+    await estimulo.save();
+
+    return estimulo;
+  }
 }
 
 export default estimuloFiscalService;

@@ -37,12 +37,8 @@ export default function Navbar() {
           </NavLink>
         </nav>
 
-        {/* ICONO DE AJUSTES Y DE PERFIL */}
+        {/* ICONO DE PERFIL */}
         <div className="flex items-center gap-4">
-          <button className="w-10 h-10 flex items-center justify-center rounded-full border border-[var(--color-borde)] text-[var(--color-primario)]">
-            <Settings size={22} />
-          </button>
-
           <ProfileDropdown />
         </div>
       </div>

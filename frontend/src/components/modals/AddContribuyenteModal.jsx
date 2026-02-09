@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { X, User, MapPin, FolderUp } from "lucide-react";
-import withReactContent from "sweetalert2-react-content";
 import Section from "./components/Section.jsx";
 import Grid from "./components/Grid.jsx";
 import Input from "./components/Input.jsx";

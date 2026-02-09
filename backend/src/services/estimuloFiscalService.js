@@ -1,8 +1,7 @@
 import EstimuloFiscal from "../models/EstimuloFiscal.js";
 import { Op } from "sequelize";
-
-// Buscar estímulos fiscales por nombre o descripción
 class estimuloFiscalService {
+  // Buscar estímulos fiscales por texto
   static async buscarEstimulosFiscales(texto) {
     return await EstimuloFiscal.findAll({
       where: {

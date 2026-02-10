@@ -1,7 +1,7 @@
-export default function StatsCards({ stats = [] }) {
+export default function StatsCards({ stats = [], columns = 4 }) {
   return (
     /* CONTENEDOR PRINCIPAL */
-    <div className="w-full grid grid-cols-4 gap-4">
+    <div className={`w-full grid grid-cols-${columns} gap-4`}>
       {/* TARJETAS DE ESTADÍSTICAS */}
       {/* SE MAPEA PARA AGREGAR CONTENIDO DINÁMICO */}
       {stats.map((card, i) => (

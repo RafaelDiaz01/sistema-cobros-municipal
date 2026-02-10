@@ -11,7 +11,7 @@ import pagoRoutes from "./routes/pagoRoute.js";
 import conceptoPagoRoute from "./routes/conceptoPagoRoute.js";
 import estimuloFiscalRoute from "./routes/estimuloFiscalRoute.js";
 import corteCajaRoute from "./routes/corteCajaRoute.js";
-import cuentasContablesRoute from "./routes/cuentasContablesRoute.js";
+import cuentaContableRoute from "./routes/cuentaContableRoute.js";
 
 dotenv.config();
 
@@ -46,6 +46,6 @@ app.use("/api/pagos", pagoRoutes);
 app.use("/api/corte-caja", corteCajaRoute);
 app.use("/api/conceptos", conceptoPagoRoute);
 app.use("/api/estimulos", estimuloFiscalRoute);
-app.use("/api/cuentas", cuentasContablesRoute);
+app.use("/api/cuentas", cuentaContableRoute);
 
 export default app;

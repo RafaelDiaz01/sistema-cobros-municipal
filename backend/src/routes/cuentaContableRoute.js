@@ -1,5 +1,5 @@
 import express from "express";
-import * as cuentasController from "../controllers/cuentasContablesController.js";
+import * as cuentasController from "../controllers/cuentaContableController.js";
 
 const router = express.Router();
 

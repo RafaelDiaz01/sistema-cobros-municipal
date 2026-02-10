@@ -1,4 +1,4 @@
-import * as cuentasService from "../services/cuentasContablesService.js";
+import * as cuentasService from "../services/cuentaContableService.js";
 
 // Obtener todas las cuentas contables
 export const getAllCuentas = async (req, res) => {

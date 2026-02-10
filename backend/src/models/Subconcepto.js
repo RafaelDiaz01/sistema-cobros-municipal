@@ -23,6 +23,10 @@ const Subconcepto = sequelize.define(
       allowNull: false,
       defaultValue: 0.0,
     },
+    periodicidad: {
+      type: DataTypes.STRING(50),
+      allowNull: true,
+    },
     es_cobrable: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,

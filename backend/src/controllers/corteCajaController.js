@@ -25,7 +25,8 @@ class CorteCajaController {
   static async cerrar(req, res) {
     try {
       const { id } = req.params;
-      const { id_usuario, saldo_real, observaciones } = req.body;
+      const id_usuario = req.user.id_usuario;
+      const { saldo_real, observaciones } = req.body;
 
       const corte = await CorteCajaService.cerrarCorte(
         id,

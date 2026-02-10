@@ -35,7 +35,7 @@ export default function ModalBase({
 
         {/* FOOTER */}
         {footer && (
-          <div className="px-8 py-5 border-t border-[var(--color-borde)] bg-white">
+          <div className="px-8 pb-5 border-t border-[var(--color-borde)]">
             {footer}
           </div>
         )}

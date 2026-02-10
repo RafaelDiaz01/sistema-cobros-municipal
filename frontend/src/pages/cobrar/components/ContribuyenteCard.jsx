@@ -24,7 +24,7 @@ export default function ContribuyenteCard({ contribuyente }) {
           <ItemContribuyente
             label="Clave Única"
             value={
-              [contribuyente?.id_contribuyente].filter(Boolean).join(" ") ||
+              [contribuyente?.clave_unica].filter(Boolean).join(" ") ||
               "No Seleccionado"
             }
           />

@@ -10,7 +10,12 @@ export const subconceptosColumns = (onEdit, onToggleStatus) => [
   {
     field: "clave_subconcepto",
     headerName: "Clave de Subconcepto",
-    flex: 1,
+    width: 200,
+  },
+  {
+    field: "monto_base",
+    headerName: "Monto Base",
+    width: 120,
   },
   {
     field: "activo",

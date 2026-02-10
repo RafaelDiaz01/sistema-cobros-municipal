@@ -44,6 +44,7 @@ export default function Mas() {
               icon={<FileText size={20} />}
               title="Gestión de Ejercicio Fiscal"
               description="Administración y seguimiento del ejercicio fiscal anual."
+              onClick={() => navigate("/gestion-ejercicios")}
             />
             <CatalogCard
               icon={<BookOpen size={20} />}
@@ -61,21 +62,25 @@ export default function Mas() {
               icon={<Layers size={20} />}
               title="Subcuentas Contables"
               description="Desglose analítico de cuentas para un seguimiento detallado del presupuesto."
+              onClick={() => navigate("/gestion-subcuentas")}
             />
             <CatalogCard
               icon={<LayoutGrid size={20} />}
               title="Gestión de Sección"
               description="Organización y jerarquía de las secciones administrativas operativas."
+              onClick={() => navigate("/gestion-secciones")}
             />
             <CatalogCard
               icon={<ListChecks size={20} />}
               title="Gestión de Concepto"
               description="Definición de conceptos de cobro según la Ley de Ingresos vigente."
+              onClick={() => navigate("/gestion-conceptos")}
             />
             <CatalogCard
               icon={<Sliders size={20} />}
               title="Gestión de Subconcepto"
               description="Especificación de tarifas y variantes para cada concepto principal."
+              onClick={() => navigate("/gestion-subconceptos")}
             />
           </Grid>
         </SectionSubtitle>
@@ -87,11 +92,13 @@ export default function Mas() {
               icon={<Key size={20} />}
               title="Gestión de Alquiler"
               description="Control de arrendamientos de espacios y bienes municipales públicos."
+              onClick={() => navigate("/gestion-alquiler")}
             />
             <CatalogCard
               icon={<Droplet size={20} />}
               title="Gestión de Conexión"
               description="Monitoreo y alta de tomas de servicios y conexiones de red."
+              onClick={() => navigate("/gestion-conexion")}
             />
             <CatalogCard
               icon={<Store size={20} />}
@@ -103,6 +110,7 @@ export default function Mas() {
               icon={<Map size={20} />}
               title="Base Catastral"
               description="Actualización de predios, avalúos y zonificación del municipio."
+              onClick={() => navigate("/base-catastral")}
             />
           </Grid>
         </SectionSubtitle>

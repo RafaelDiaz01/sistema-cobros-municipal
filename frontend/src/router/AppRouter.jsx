@@ -9,7 +9,15 @@ import Establecimientos from "../pages/establecimientos/Establecimientos";
 import Corte from "../pages/corte-de-caja/Corte";
 import GestionRecibos from "../pages/gestion-recibos/GestionRecibos";
 import GestionEstimulos from "../pages/gestion-estimulos/GestionEstimulos";
+import GestionEjercicios from "../pages/gestion-ejercicios/GestionEjercicios";
 import GestionCuentas from "../pages/gestion-cuentas/GestionCuentas";
+import GestionSubcuentas from "../pages/gestion-subcuentas/GestionSubcuentas";
+import Secciones from "../pages/gestion-secciones/GestionSecciones";
+import Conceptos from "../pages/gestion-conceptos/GestionConceptos";
+import Subconceptos from "../pages/gestion-subconceptos/GestionSubconceptos";
+import GestionAlquiler from "../pages/gestion-alquiler/GestionAlquiler";
+import GestionConexion from "../pages/gestion-conexion/GestionConexion";
+import BaseCatastral from "../pages/base-catastral/BaseCatastral";
 import NotFound from "../pages/not-found/NotFound";
 
 const AppRouter = () => {
@@ -30,7 +38,15 @@ const AppRouter = () => {
         <Route path="/establecimientos" element={<Establecimientos />} />
         <Route path="/gestion-recibos" element={<GestionRecibos />} />
         <Route path="/gestion-estimulos" element={<GestionEstimulos />} />
+        <Route path="/gestion-ejercicios" element={<GestionEjercicios />} />
         <Route path="/gestion-cuentas" element={<GestionCuentas />} />
+        <Route path="/gestion-subcuentas" element={<GestionSubcuentas />} />
+        <Route path="/gestion-secciones" element={<Secciones />} />
+        <Route path="/gestion-conceptos" element={<Conceptos />} />
+        <Route path="/gestion-subconceptos" element={<Subconceptos />} />
+        <Route path="/gestion-alquiler" element={<GestionAlquiler />} />
+        <Route path="/gestion-conexion" element={<GestionConexion />} />
+        <Route path="/base-catastral" element={<BaseCatastral />} />
       </Route>
 
       {/* Rutas No Encontradas */}

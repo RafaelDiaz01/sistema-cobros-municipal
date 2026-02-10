@@ -9,6 +9,7 @@ import Establecimientos from "../pages/establecimientos/Establecimientos";
 import Corte from "../pages/corte-de-caja/Corte";
 import GestionRecibos from "../pages/gestion-recibos/GestionRecibos";
 import GestionEstimulos from "../pages/gestion-estimulos/GestionEstimulos";
+import GestionCuentas from "../pages/gestion-cuentas/GestionCuentas";
 import NotFound from "../pages/not-found/NotFound";
 
 const AppRouter = () => {
@@ -29,6 +30,7 @@ const AppRouter = () => {
         <Route path="/establecimientos" element={<Establecimientos />} />
         <Route path="/gestion-recibos" element={<GestionRecibos />} />
         <Route path="/gestion-estimulos" element={<GestionEstimulos />} />
+        <Route path="/gestion-cuentas" element={<GestionCuentas />} />
       </Route>
 
       {/* Rutas No Encontradas */}

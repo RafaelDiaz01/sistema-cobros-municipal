@@ -1,9 +1,8 @@
 import express from "express";
-import * as subcuentaController from "../controllers/subcuentaContableController.js";
-
+import * as seccionController from "../controllers/seccionController.js";
 const router = express.Router();
 
-// Obtener todas las subcuentas contables
-router.get("/", subcuentaController.getAllSubcuentas);
+// Obtener todas las secciones
+router.get("/", seccionController.getAllSecciones);
 
 export default router;

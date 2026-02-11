@@ -12,4 +12,7 @@ router.post("/", subconceptoController.createSubconcepto);
 // Actualizar un subconcepto existente
 router.patch("/:id", subconceptoController.updateSubconcepto);
 
+// Actualizar estado de un subconcepto
+router.patch("/:id/estado", subconceptoController.updateSubconceptoEstado);
+
 export default router;

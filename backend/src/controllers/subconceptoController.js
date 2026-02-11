@@ -35,3 +35,17 @@ export const updateSubconcepto = async (req, res) => {
     res.status(500).json({ error: "Error al actualizar el subconcepto" });
   }
 };
+
+// Actualizar estado de un subconcepto
+export const updateSubconceptoEstado = async (req, res) => {
+  try {
+    const subconcepto = await subconceptoService.updateSubconceptoEstado(
+      req.params.id,
+      req.body.estado,
+    );
+    res.json(subconcepto);
+  } catch (error) {
+    console.error("Error al actualizar el estado del subconcepto:", error);
+    res.status(500).json({ error: "Error al actualizar el estado del subconcepto" });
+  }
+};

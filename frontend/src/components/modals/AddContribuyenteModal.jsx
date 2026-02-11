@@ -94,7 +94,13 @@ export default function AddContribuyenteModal({
               <Section icon={<User size={18} />} title="Datos Personales">
                 <Grid cols={3}>
                   <Input
-                    {...register("nombre", { required: true })}
+                    {...register("nombre", {
+                      required: true,
+                      pattern: {
+                        value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/,
+                        message: "Solo se permiten letras",
+                      },
+                    })}
                     label="Nombre(s)"
                     placeholder="Ej. Juan Carlos"
                   />
@@ -123,7 +129,11 @@ export default function AddContribuyenteModal({
                     placeholder="DILK040315MQ7"
                   />
                   <Input
-                    {...register("telefono", { required: true })}
+                    {...register("telefono", {
+                      required: true,
+                      minLength: 10,
+                      maxLength: 10,
+                    })}
                     label="Teléfono"
                     placeholder="9515801224"
                   />

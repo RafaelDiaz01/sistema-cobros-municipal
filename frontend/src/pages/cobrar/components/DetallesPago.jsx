@@ -45,18 +45,50 @@ export default function DetallesPago({
         disabled={disabled}
       />
       <Grid cols={4}>
-        <Input
-          label="Monto a Pagar"
-          disabled={disabled}
-          placeholder="Ej. 1,250.00"
-          {...register("monto")}
-        />
-        <Input
-          label="Periodo de Pago"
-          disabled={disabled}
-          placeholder="Ej. Enero - Diciembre 2024"
-          {...register("periodo")}
-        />
+        <div className="col-span-1">
+          <Input
+            label="Monto a Pagar"
+            disabled={disabled}
+            placeholder="Ej. 1,250.00"
+            {...register("monto", {
+              required: "El monto es obligatorio",
+              pattern: {
+                value: /^[1-9]\d{0,4}(\.\d{1,2})?$/,
+                message: "Monto inválido",
+              },
+              validate: (value) =>
+                parseFloat(value) > 0 || "El monto debe ser mayor a cero",
+            })}
+          />
+          {form.formState.errors.monto && (
+            <span className="text-red-500 text-xs">
+              {form.formState.errors.monto.message}
+            </span>
+          )}
+        </div>
+        <div className="col-span-1">
+          <Input
+            label="Periodo de Pago"
+            disabled={disabled}
+            placeholder="Ej. Enero - Diciembre"
+            {...register("periodo", {
+              required: "El periodo es obligatorio",
+              maxLength: {
+                value: 30,
+                message: "No puede tener más de 30 caracteres",
+              },
+              pattern: {
+                value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s\-]+$/,
+                message: "Solo se permiten letras",
+              },
+            })}
+          />
+          {form.formState.errors.periodo && (
+            <span className="text-red-500 text-xs">
+              {form.formState.errors.periodo.message}
+            </span>
+          )}
+        </div>
         <Stack size="xs">
           <label className="text-sm font-medium">
             {"Descuento"} <span className="text-red-500">*</span>

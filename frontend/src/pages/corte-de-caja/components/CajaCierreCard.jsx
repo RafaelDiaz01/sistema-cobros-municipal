@@ -2,7 +2,13 @@ import { Scale, AlertTriangle, CheckCircle2, Printer } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 
-export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onResetDone, activo }) {
+export default function CajaCierreCard({
+  totalEfectivo,
+  onCerrarCaja,
+  reset,
+  onResetDone,
+  activo,
+}) {
   const {
     register,
     watch,
@@ -97,6 +103,10 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onR
                   placeholder="0.00"
                   {...register("saldo_real", {
                     required: true,
+                    pattern: {
+                      value: /^\d+(\.\d{1,2})?$/,
+                      message: "Solo se permiten números positivos",
+                    },
                     min: {
                       value: 0,
                       message: "No se permiten valores negativos",
@@ -113,7 +123,7 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onR
                     font-black text-lg
                     outline-none
                     focus:border-[var(--color-acento)]
-                    ${!activo ? 'opacity-60 cursor-not-allowed' : ''}
+                    ${!activo ? "opacity-60 cursor-not-allowed" : ""}
                   `}
                 />
               </div>
@@ -182,7 +192,7 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onR
                 focus:border-[var(--color-acento)]
                 focus:ring-1
                 focus:ring-[var(--color-acento)]
-                ${!activo ? 'opacity-60 cursor-not-allowed' : ''}
+                ${!activo ? "opacity-60 cursor-not-allowed" : ""}
               `}
             />
           </div>
@@ -202,7 +212,7 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onR
                 hover:scale-[1.01]
                 transition
                 flex items-center justify-center gap-2
-                ${!activo ? 'opacity-60 cursor-not-allowed' : ''}
+                ${!activo ? "opacity-60 cursor-not-allowed" : ""}
               `}
             >
               <CheckCircle2 size={18} />
@@ -221,7 +231,7 @@ export default function CajaCierreCard({ totalEfectivo, onCerrarCaja, reset, onR
                 hover:bg-[var(--color-terciario)]
                 transition
                 flex items-center justify-center gap-2
-                ${!activo ? 'opacity-60 cursor-not-allowed' : ''}
+                ${!activo ? "opacity-60 cursor-not-allowed" : ""}
               `}
             >
               <Printer size={18} />

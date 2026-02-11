@@ -17,3 +17,9 @@ export const updateSubconceptoAPI = async (id, data) => {
   const response = await api.patch(`/subconceptos/${id}`, data);
   return response.data;
 };
+
+// Actualizar estado de un subconcepto
+export const updateSubconceptoEstadoAPI = async (id, estado) => {
+  const response = await api.patch(`/subconceptos/${id}/estado`, { estado });
+  return response.data;
+};

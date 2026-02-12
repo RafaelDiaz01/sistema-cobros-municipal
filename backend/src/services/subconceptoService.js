@@ -40,7 +40,8 @@ export const updateSubconceptoEstado = async (id, estado) => {
   try {
     const subconcepto = await Subconcepto.findByPk(id);
     if (!subconcepto) throw new Error("Subconcepto no encontrado");
-    await subconcepto.update({ estado });
+    subconcepto.activo = estado;
+    await subconcepto.save();
     return subconcepto;
   } catch (error) {
     console.error("Error al actualizar el estado del subconcepto:", error);

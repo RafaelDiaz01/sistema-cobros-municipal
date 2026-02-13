@@ -51,7 +51,7 @@ const Pago = sequelize.define(
     },
 
     metodo_pago: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(25),
       allowNull: false,
     },
 

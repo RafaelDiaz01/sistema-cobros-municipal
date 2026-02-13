@@ -48,7 +48,7 @@ export const corteColumns = () => [
   {
     field: "metodo_pago",
     headerName: "Método de Pago",
-    width: 150,
+    width: 200,
   },
   {
     field: "monto",

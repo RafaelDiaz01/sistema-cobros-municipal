@@ -63,7 +63,7 @@ class CorteCajaService {
       const monto = Number(pago.monto);
       saldoTotal += monto;
       if (pago.metodo_pago === "Efectivo") efectivo += monto;
-      if (pago.metodo_pago === "Transferencia") transferencia += monto;
+      if (pago.metodo_pago === "Transferencia Bancaria") transferencia += monto;
     });
 
     const totalPagos = pagos.length;
@@ -127,7 +127,7 @@ class CorteCajaService {
         const monto = Number(pago.monto || 0);
         saldo_total += monto;
         if (pago.metodo_pago === "Efectivo") total_efectivo += monto;
-        if (pago.metodo_pago === "Transferencia") total_transferencia += monto;
+        if (pago.metodo_pago === "Transferencia Bancaria") total_transferencia += monto;
       });
     }
 

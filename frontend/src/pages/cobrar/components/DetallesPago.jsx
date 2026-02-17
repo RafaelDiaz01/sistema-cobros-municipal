@@ -36,7 +36,7 @@ export default function DetallesPago({
         renderOption={(props, option) => {
           const { key, ...rest } = props;
           return (
-            <li key={key} {...rest}>
+            <li key={option.id} {...rest}>
               {option.nombre}
             </li>
           );

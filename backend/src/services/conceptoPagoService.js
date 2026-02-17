@@ -59,6 +59,7 @@ class conceptoPagoService {
   // Formatear la respuesta para estandarizar la estructura de los datos
   static formatearRespuesta(tipo, registros) {
     return registros.map((item) => ({
+      id: item.id_subconcepto ?? item.id_concepto ?? item.id_seccion ?? item.id_subcuenta,
       tipo,
       nombre: item.nombre,
       monto_base: item.monto_base,

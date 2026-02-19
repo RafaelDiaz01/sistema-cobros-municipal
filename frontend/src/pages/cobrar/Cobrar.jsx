@@ -34,6 +34,7 @@ export default function Cobrar() {
       concepto_pago: "",
       monto: "",
       periodo: "",
+      periodos_pagados: "",
       porcentaje_descuento: "",
       metodo_pago: "",
       descripcion: "",

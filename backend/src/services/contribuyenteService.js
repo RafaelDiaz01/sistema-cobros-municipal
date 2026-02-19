@@ -96,6 +96,7 @@ export const buscarContribuyentesPorNombre = async (search) => {
   return await Contribuyente.findAll({
     attributes: [
       "id_contribuyente",
+      "clave_unica",
       "nombre",
       "apellido_paterno",
       "apellido_materno",

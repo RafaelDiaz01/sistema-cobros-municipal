@@ -3,7 +3,7 @@ import { createPagoAPI } from "../../../api/pago.js";
 import { showToast } from "../../../utils/alerts/toast.js";
 import { descargarReciboPDF } from "../../../services/pagoService.js";
 import { downloadBlob } from "../../../utils/downloadFile.js";
-import NumeroALetras from "@vigilio/numeros-a-letras";
+import numeroALetras from "@vigilio/numeros-a-letras";
 import Stack from "../../../components/layouts/Stack.jsx";
 import CardCobro from "../../../components/cards/CardCobro.jsx";
 import InfoItem from "./InfoItem.jsx";
@@ -54,11 +54,11 @@ const ResumenRecibo = ({
   if (total === 0) {
     totalEnLetras = "CERO PESOS 00/100";
   } else {
-    totalEnLetras = NumeroALetras(total, {
-      plural: "PESOS",
-      singular: "PESO",
-      centPlural: "CENTAVOS",
+    totalEnLetras = numeroALetras(total, true, {
+      Monedasingular: "PESO",
+      Monedaplural: "PESOS",
       centSingular: "CENTAVO",
+      centPlural: "CENTAVOS",
     });
   }
 

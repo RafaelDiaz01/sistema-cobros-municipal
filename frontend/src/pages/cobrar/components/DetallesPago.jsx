@@ -152,16 +152,16 @@ export default function DetallesPago({
           </Stack>
         </div>
       </Grid>
-      <p className="text-[11px] text-gray-400 italic">
-        Nota: El descuento adicional por pronto pago solo aplica en los meses de
-        enero y febrero.
-      </p>
       <TextArea
         label="Descripción"
         disabled={disabled}
         placeholder="Ej. Pago de Predial correspondiente al año 2024"
         {...register("descripcion")}
       />
+      <p className="text-[11px] text-gray-400 italic">
+        Nota: El descuento adicional por pronto pago solo aplica en los meses de
+        enero y febrero.
+      </p>
     </CardCobro>
   );
 }

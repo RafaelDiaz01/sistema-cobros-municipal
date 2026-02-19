@@ -57,7 +57,7 @@ const ResumenRecibo = ({
     totalEnLetras = numeroALetras(total, true, {
       Monedasingular: "PESO",
       Monedaplural: "PESOS",
-      centSingular: "CENTAVO",
+      centSingular: "CENTAVOS",
       centPlural: "CENTAVOS",
     });
   }
@@ -66,11 +66,22 @@ const ResumenRecibo = ({
     <CardCobro title="Resumen del Recibo">
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Stack size="md">
-          {/* Información del folio y fecha */}
+          {/* Información del folio, fecha y contribuyente */}
           <Stack size="sm">
-            <InfoItem label="Folio del Recibo" value="REC-PENDIENTE" />
             <InfoItem label="Fecha" value={fechaActual} />
             <InfoItem label="Ejercicio Fiscal" value={ejercicioFiscal} />
+            <InfoItem
+              label="Contribuyente"
+              value={
+                [
+                  contribuyente?.nombre,
+                  contribuyente?.apellido_paterno,
+                  contribuyente?.apellido_materno,
+                ]
+                  .filter(Boolean)
+                  .join(" ") || "No Seleccionado"
+              }
+            />
 
             <hr className="border-gray-300" />
 
@@ -94,18 +105,7 @@ const ResumenRecibo = ({
             <hr className="border-gray-300" />
 
             {/* Resumen financiero */}
-            <InfoItem
-              label="Contribuyente"
-              value={
-                [
-                  contribuyente?.nombre,
-                  contribuyente?.apellido_paterno,
-                  contribuyente?.apellido_materno,
-                ]
-                  .filter(Boolean)
-                  .join(" ") || "No Seleccionado"
-              }
-            />
+
             <InfoItem
               label="Subtotal"
               value={
@@ -115,9 +115,15 @@ const ResumenRecibo = ({
             <InfoItem
               label="Descuento Aplicado"
               value={
-                [estimulo?.nombre, `- ${porcentajeDescuento}%`]
-                  .filter(Boolean)
-                  .join(" ") || "No Seleccionado"
+                [estimulo?.nombre].filter(Boolean).join(" ") ||
+                "No Seleccionado"
+              }
+            />
+            <InfoItem
+              label="Porcentaje Aplicado"
+              value={
+                [`${porcentajeDescuento}%`].filter(Boolean).join(" ") ||
+                "No Seleccionado"
               }
             />
           </Stack>

@@ -5,7 +5,7 @@ export default function CardCobro({ title, children, className = "" }) {
     <div
       className={`bg-white rounded-2xl border border-[var(--color-borde)] p-6 ${className}`}
     >
-      <Stack size="sm">
+      <Stack size="md">
         <h2 className="text-lg font-bold uppercase tracking-wider text-gray-500">{title}</h2>
         {children}
       </Stack>

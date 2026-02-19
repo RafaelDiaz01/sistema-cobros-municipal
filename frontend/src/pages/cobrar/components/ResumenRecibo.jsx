@@ -27,9 +27,12 @@ const ResumenRecibo = ({
   const values = form.watch();
 
   const onSubmit = async (data) => {
-    console.log("Formulario enviado con datos:", data);
+    const periodosPagados = Number(data.periodos_pagados) || 1;
+    const montoFinal = total * periodosPagados;
+    const dataFinal = { ...data, monto: montoFinal };
+    console.log("Formulario enviado con datos:", dataFinal);
     try {
-      const response = await createPagoAPI(data);
+      const response = await createPagoAPI(dataFinal);
       const idPago = response.pago.id_pago;
       const folio = response.pago.folio;
       const pdfBlob = await descargarReciboPDF(idPago);
@@ -50,6 +53,9 @@ const ResumenRecibo = ({
   const montoBase = Number(concepto?.monto_base) || 0;
   const porcentajeDescuento = Number(estimulo?.porcentaje_descuento) || 0;
   const total = montoBase - (montoBase * porcentajeDescuento) / 100;
+  const periodosPagados = Number(values.periodos_pagados) || 1;
+  const montoFinal = total * periodosPagados;
+
   let totalEnLetras;
   if (total === 0) {
     totalEnLetras = "CERO PESOS 00/100";
@@ -139,7 +145,7 @@ const ResumenRecibo = ({
                   TOTAL
                 </span>
                 <span className="text-2xl font-black">
-                  ${total.toLocaleString("es-MX", { minimumFractionDigits: 2 })}
+                  ${montoFinal.toLocaleString("es-MX", { minimumFractionDigits: 2 })}
                 </span>
               </div>
               <div className="pt-2 border-t border-[var(--color-borde)] flex justify-between items-center">

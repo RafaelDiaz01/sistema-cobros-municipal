@@ -63,6 +63,7 @@ class conceptoPagoService {
       tipo,
       nombre: item.nombre,
       monto_base: item.monto_base,
+      periodicidad: item.periodicidad,
     }));
   }
 }

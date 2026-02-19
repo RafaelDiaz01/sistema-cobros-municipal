@@ -16,6 +16,7 @@ import subcuentaContableRoute from "./routes/subcuentaContableRoute.js";
 import seccionRoute from "./routes/seccionRoute.js";
 import conceptoRoute from "./routes/conceptoRoute.js";
 import subconceptoRoute from "./routes/subconceptoRoute.js";
+import configuracionRoute from "./routes/configuracionRoute.js";
 
 dotenv.config();
 
@@ -55,5 +56,6 @@ app.use("/api/subcuentas", subcuentaContableRoute);
 app.use("/api/secciones", seccionRoute);
 app.use("/api/conceptos", conceptoRoute);
 app.use("/api/subconceptos", subconceptoRoute);
+app.use("/api/configuracion", configuracionRoute);
 
 export default app;

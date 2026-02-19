@@ -14,7 +14,7 @@ export const login = async (req, res) => {
         httpOnly: true,
         sameSite: "strict",
         secure: false,
-        maxAge: 15 * 60 * 1000,
+        maxAge: 12 * 60 * 60 * 1000, // 12 horas
       })
       .cookie("refreshToken", tokens.refreshToken, {
         httpOnly: true,
@@ -44,7 +44,7 @@ export const refreshAccessToken = async (req, res) => {
       httpOnly: true,
       sameSite: "strict",
       secure: false,
-      maxAge: 15 * 60 * 1000,
+      maxAge: 12 * 60 * 60 * 1000, // 12 horas
     });
 
     res.status(200).json({ message: "Token renovado" });

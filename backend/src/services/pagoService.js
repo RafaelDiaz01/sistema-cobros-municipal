@@ -4,6 +4,7 @@ import Seccion from "../models/Seccion.js";
 import Concepto from "../models/Concepto.js";
 import Subconcepto from "../models/Subconcepto.js";
 import Contribuyente from "../models/Contribuyente.js";
+import Usuario from "../models/Usuario.js";
 import CorteCaja from "../models/CorteCaja.js";
 
 const MODELOS_COBRO = {
@@ -111,7 +112,12 @@ class PagoService {
 
   // Obtener pago por ID
   static async obtenerPagoPorId(id_pago) {
-    const pago = await Pago.findByPk(id_pago);
+    const pago = await Pago.findByPk(id_pago, {
+      include: [
+        { model: Contribuyente, as: "contribuyente" },
+        { model: Usuario, as: "usuario" },
+      ],
+    });
 
     if (!pago) {
       throw new Error("Pago no encontrado");

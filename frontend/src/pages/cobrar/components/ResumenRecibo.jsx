@@ -1,5 +1,8 @@
+import { useState } from "react";
 import { createPagoAPI } from "../../../api/pago.js";
 import { showToast } from "../../../utils/alerts/toast.js";
+import { descargarReciboPDF } from "../../../services/pagoService.js";
+import { downloadBlob } from "../../../utils/downloadFile.js";
 import NumeroALetras from "@vigilio/numeros-a-letras";
 import Stack from "../../../components/layouts/Stack.jsx";
 import CardCobro from "../../../components/cards/CardCobro.jsx";
@@ -26,7 +29,11 @@ const ResumenRecibo = ({
   const onSubmit = async (data) => {
     console.log("Formulario enviado con datos:", data);
     try {
-      await createPagoAPI(data);
+      const response = await createPagoAPI(data);
+      const idPago = response.pago.id_pago;
+      const folio = response.pago.folio;
+      const pdfBlob = await descargarReciboPDF(idPago);
+      downloadBlob(pdfBlob, `${folio}.pdf`);
       showToast("success", "Pago registrado exitosamente");
       form.reset();
       limpiarRecibo(); // Limpia el recibo después de cobrar
@@ -130,7 +137,9 @@ const ResumenRecibo = ({
                 </span>
               </div>
               <div className="pt-2 border-t border-[var(--color-borde)] flex justify-between items-center">
-                <p className="text-xs text-primary/70 uppercase">Total en letra</p>
+                <p className="text-xs text-primary/70 uppercase">
+                  Total en letra
+                </p>
                 <p className="text-xs leading-relaxed text-[var(--color-texto)] uppercase">
                   {totalEnLetras}
                 </p>

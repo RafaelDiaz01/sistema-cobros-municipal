@@ -1,4 +1,5 @@
 import PagoService from "../services/pagoService.js";
+import { generarReciboPDF } from "../services/pdfService.js";
 
 class PagoController {
   static async registrar(req, res) {
@@ -75,6 +76,26 @@ class PagoController {
         message: "Error al obtener pagos por usuario",
         error: error.message,
       });
+    }
+  }
+
+  // Descargar recibo en PDF
+  static async descargarRecibo(req, res) {
+    try {
+      const { id } = req.params;
+      const pago = await PagoService.obtenerPagoPorId(id);
+      const pdfBytes = await generarReciboPDF(pago);
+
+      res.setHeader("Content-Type", "application/pdf");
+      res.setHeader(
+        "Content-Disposition",
+        `attachment; filename=${pago.folio}.pdf`,
+      );
+
+      res.send(Buffer.from(pdfBytes));
+    } catch (error) {
+      console.error("Error generando PDF:", error);
+      res.status(500).json({ message: "Error generando PDF" });
     }
   }
 }

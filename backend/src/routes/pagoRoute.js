@@ -19,4 +19,7 @@ router.get("/corte/:id_corte", authMiddleware, PagoController.obtenerPagosPorCor
 // Obtener pagos hechos por usuario
 router.get("/usuario/:id_usuario", authMiddleware, PagoController.obtenerPagosPorUsuario);
 
+// Descargar recibo PDF
+router.get("/:id/recibo", authMiddleware, PagoController.descargarRecibo);
+
 export default router;

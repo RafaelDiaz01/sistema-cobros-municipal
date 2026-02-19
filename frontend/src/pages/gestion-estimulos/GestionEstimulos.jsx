@@ -33,7 +33,7 @@ export default function GestionEstimulos() {
     const activos = estimulos.filter((e) => e.activo).length;
     const inactivos = estimulos.length - activos;
     const descuentoTotal = estimulos.filter(
-      (e) => Number(e.descuento) === 100,
+      (e) => Number(e.porcentaje_descuento) === 100,
     ).length;
     return [
       {

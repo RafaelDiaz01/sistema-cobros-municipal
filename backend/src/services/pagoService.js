@@ -6,6 +6,7 @@ import Subconcepto from "../models/Subconcepto.js";
 import Contribuyente from "../models/Contribuyente.js";
 import Usuario from "../models/Usuario.js";
 import CorteCaja from "../models/CorteCaja.js";
+import { crearReciboDesdePago } from "./reciboService.js";
 
 const MODELOS_COBRO = {
   SUBCUENTA: Subcuenta,
@@ -97,9 +98,12 @@ class PagoService {
     pago.folio = folio;
     await pago.save();
 
+    // Generar Recibo usando la función del servicio con validaciones
+    const recibo = await crearReciboDesdePago(pago.id_pago);
+
     return {
       pago,
-      //referencia,
+      recibo,
     };
   }
 

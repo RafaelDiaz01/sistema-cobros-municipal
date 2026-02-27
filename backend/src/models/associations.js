@@ -11,6 +11,7 @@ import Pago from "./Pago.js";
 import CorteCaja from "./CorteCaja.js";
 import Usuario from "./Usuario.js";
 import RefreshToken from "./RefreshToken.js";
+import Recibo from "./Recibo.js";
 
 // =============================
 // RELACIÓN CONTRIBUYENTE - ESTABLECIMIENTOS
@@ -172,6 +173,20 @@ Usuario.hasMany(RefreshToken, { foreignKey: "id_usuario" });
 // Un Refresh Token pertenece a un Usuario
 RefreshToken.belongsTo(Usuario, { foreignKey: "id_usuario" });
 
+// =============================
+// RELACIÓN PAGO - RECIBO
+// =============================
+
+// Un Pago tiene un Recibo
+Pago.hasOne(Recibo, {
+  foreignKey: "id_pago",
+});
+
+// Un Recibo pertenece a un Pago
+Recibo.belongsTo(Pago, {
+  foreignKey: "id_pago",
+});
+
 export {
   Contribuyente,
   Establecimiento,
@@ -185,4 +200,5 @@ export {
   Pago,
   CorteCaja,
   Usuario,
+  Recibo,
 };

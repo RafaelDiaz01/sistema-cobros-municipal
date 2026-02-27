@@ -15,6 +15,7 @@ class PagoController {
         message: "Pago registrado correctamente",
         pago: resultado.pago,
         concepto: resultado.referencia,
+        recibo: resultado.recibo,
       });
     } catch (error) {
       res.status(400).json({

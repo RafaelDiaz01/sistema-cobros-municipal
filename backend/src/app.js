@@ -17,6 +17,7 @@ import seccionRoute from "./routes/seccionRoute.js";
 import conceptoRoute from "./routes/conceptoRoute.js";
 import subconceptoRoute from "./routes/subconceptoRoute.js";
 import configuracionRoute from "./routes/configuracionRoute.js";
+import reciboRoute from "./routes/reciboRoute.js";
 
 dotenv.config();
 
@@ -57,5 +58,6 @@ app.use("/api/secciones", seccionRoute);
 app.use("/api/conceptos", conceptoRoute);
 app.use("/api/subconceptos", subconceptoRoute);
 app.use("/api/configuracion", configuracionRoute);
+app.use("/api/recibos", reciboRoute);
 
 export default app;

@@ -50,7 +50,7 @@ export const recibosColumns = (onEdit, onToggleStatus) => [
         filterable: false,
 
         renderCell: (params) => {
-            const { id_recibo } = params.row;
+            const { id_recibo, estado } = params.row;
 
             return (
                 <div className="flex items-center justify-center gap-4">
@@ -67,15 +67,24 @@ export const recibosColumns = (onEdit, onToggleStatus) => [
                     </Tooltip>
 
                     <Tooltip
-                        title={"Cancelar recibo"}
+                        title={estado === "CANCELADO" ? "Recibo cancelado" : "Cancelar recibo"}
                         arrow
                     >
-                        <button
-                            onClick={() => onToggleStatus(id_recibo)}
-                            className="hover:opacity-70 flex items-center"
-                        >
-                            <FileX size={18} className="text-red-500" />
-                        </button>
+                        {estado === "CANCELADO" ? (
+                            <button
+                                className="flex items-center cursor-not-allowed"
+                                disabled
+                            >
+                                <FileX size={18} className="text-gray-400" />
+                            </button>
+                        ) : (
+                            <button
+                                onClick={() => onToggleStatus(id_recibo)}
+                                className="hover:opacity-70 flex items-center"
+                            >
+                                <FileX size={18} className="text-red-500" />
+                            </button>
+                        )}
                     </Tooltip>
                 </div>
             );

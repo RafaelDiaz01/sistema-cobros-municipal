@@ -1,6 +1,7 @@
 import Recibo from "../models/Recibo.js";
 import Pago from "../models/Pago.js";
 import Contribuyente from "../models/Contribuyente.js";
+import Usuario from "../models/Usuario.js";
 import sequelize from "../config/database.js";
 
 // Crear recibo a partir de un pago
@@ -45,8 +46,13 @@ export const obtenerHistorialRecibos = async () => {
                     {
                         model: Contribuyente,
                         as: "contribuyente",
-                        attributes: ["id_contribuyente", "nombre"],
+                        attributes: ["id_contribuyente", "nombre", "apellido_paterno", "apellido_materno"],
                     },
+                    {
+                        model: Usuario,
+                        as: "usuario",
+                        attributes: ["id_usuario", "nombre_usuario"],
+                    }
                 ],
             },
         ],

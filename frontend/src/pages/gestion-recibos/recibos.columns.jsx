@@ -5,7 +5,62 @@ export const recibosColumns = (onEdit, onToggleStatus) => [
     {
         field: "folio",
         headerName: "Folio",
-        width: 100,
+        width: 150,
+    },
+    {
+        field: "nombre_contribuyente",
+        headerName: "Contribuyente",
+        width: 250,
+        renderCell: (params) => {
+            return `${params.row.pago?.contribuyente?.nombre || ""} ${params.row.pago?.contribuyente?.apellido_paterno || ""} ${params.row.pago?.contribuyente?.apellido_materno || ""}` || 'Sin contribuyente';
+        },
+    },
+    {
+        field: "concepto_pago",
+        headerName: "Concepto de Pago",
+        flex: 1,
+        renderCell: (params) => {
+            return params.row.pago?.concepto_pago || 'Sin concepto';
+        },
+    },
+    {
+        field: "monto",
+        headerName: "Monto",
+        width: 150,
+        renderCell: (params) => {
+            return `$${params.row.pago?.monto || 0}`;
+        },
+    },
+    {
+        field: "metodo_pago",
+        headerName: "Método de Pago",
+        width: 180,
+        renderCell: (params) => {
+            return params.row.pago?.metodo_pago || 'Sin método de pago';
+        },
+    },
+    {
+        field: "usuario",
+        headerName: "Cobrado Por",
+        width: 180,
+        renderCell: (params) => {
+            return params.row.pago?.usuario?.nombre_usuario || 'Sin usuario';
+        },
+    },
+    {
+        field: "fecha_emision",
+        headerName: "Fecha de Emisión",
+        width: 200,
+        renderCell: (params) =>
+            new Date(params.row.fecha_emision).toLocaleString("es-MX"),
+    },
+    {
+        field: "fecha_cancelacion",
+        headerName: "Fecha de Cancelación",
+        width: 200,
+        renderCell: (params) => {
+            return params.row.fecha_cancelacion ? new Date(params.row.fecha_cancelacion).toLocaleString("es-MX") : 'N/A';
+        },
     },
     {
         field: "estado",
@@ -36,13 +91,6 @@ export const recibosColumns = (onEdit, onToggleStatus) => [
         },
     },
     {
-        field: "updatedAt",
-        headerName: "Última Actualización",
-        flex: 1,
-        renderCell: (params) =>
-            new Date(params.row.updatedAt).toLocaleString("es-MX"),
-    },
-    {
         field: "acciones",
         headerName: "Acciones",
         width: 140,
@@ -71,12 +119,14 @@ export const recibosColumns = (onEdit, onToggleStatus) => [
                         arrow
                     >
                         {estado === "CANCELADO" ? (
-                            <button
-                                className="flex items-center cursor-not-allowed"
-                                disabled
-                            >
-                                <FileX size={18} className="text-gray-400" />
-                            </button>
+                            <span>
+                                <button
+                                    className="flex items-center cursor-not-allowed"
+                                    disabled
+                                >
+                                    <FileX size={18} className="text-gray-400" />
+                                </button>
+                            </span>
                         ) : (
                             <button
                                 onClick={() => onToggleStatus(id_recibo)}

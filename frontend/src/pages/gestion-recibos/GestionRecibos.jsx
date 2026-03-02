@@ -2,6 +2,8 @@ import { useEffect, useState, useMemo } from "react";
 import { Check, HandCoins, X, ReceiptText } from "lucide-react";
 import { getRecibosAPI } from "../../services/reciboService.js";
 import { cancelarReciboAPI } from "../../services/reciboService.js";
+import { descargarReciboPDF } from "../../services/pagoService.js";
+import { downloadBlob } from "../../utils/downloadFile.js";
 import { recibosColumns } from "./recibos.columns.jsx";
 import { showToast } from "../../utils/alerts/toast.js";
 import { alertConfirmation } from "../../utils/alerts/alert.js";
@@ -52,8 +54,15 @@ export default function GestionRecibos() {
     ];
   }, [recibos]);
 
-  const handleEdit = (recibo) => {
-    console.log("Editar recibo:", recibo);
+  const handleEdit = async (recibo) => {
+    try {
+      const pdfblob = await descargarReciboPDF(recibo.id_pago);
+      downloadBlob(pdfblob, `${recibo.folio}.pdf`);
+      showToast("success", "Recibo descargado exitosamente");
+    } catch (error) {
+      console.error("Error al descargar recibo", error);
+      showToast("error", "Error al descargar recibo");
+    }
   };
 
   const handleDelete = async (id) => {

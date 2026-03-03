@@ -201,13 +201,24 @@ export async function generarReciboPDF(pago) {
     font,
   });
 
-  // ===== FOOTER =====
-  page.drawText(normalizeText("“TUS PAGOS GENERAN MEJORAS”"), {
-    x: width / 2 - 90,
-    y: margin + 8,
-    size: 9,
-    font,
-  });
+  if (pago.estado === "CANCELADO") {
+    page.drawText(normalizeText("RECIBO INVÁLIDO"), {
+      x: width / 2 - 70,
+      y: margin + 20,
+      size: 16,
+      font: bold,
+      color: rgb(0.85, 0.33, 0.31),
+
+    });
+  } else {
+    // ===== FOOTER =====
+    page.drawText(normalizeText("“TUS PAGOS GENERAN MEJORAS”"), {
+      x: width / 2 - 90,
+      y: margin + 8,
+      size: 9,
+      font,
+    });
+  }
 
   return await pdfDoc.save();
 }

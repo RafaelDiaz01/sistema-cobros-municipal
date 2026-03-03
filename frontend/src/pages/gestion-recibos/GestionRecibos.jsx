@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
-import { Check, HandCoins, X, ReceiptText } from "lucide-react";
+import { Check, HandCoins, X, ReceiptText, SmartphoneNfc } from "lucide-react";
 import { getRecibosAPI } from "../../services/reciboService.js";
 import { cancelarReciboAPI } from "../../services/reciboService.js";
 import { descargarReciboPDF } from "../../services/pagoService.js";
@@ -47,9 +47,14 @@ export default function GestionRecibos() {
         icon: <X />,
       },
       {
-        title: "Recibos Pagados con Efectivo",
+        title: "Pagados con Efectivo",
         value: recibos.filter(r => r.pago.metodo_pago === "Efectivo").length,
         icon: <HandCoins />,
+      },
+      {
+        title: "Pagados con Transferencia",
+        value: recibos.filter(r => r.pago.metodo_pago === "Transferencia Bancaria").length,
+        icon: <SmartphoneNfc />,
       }
     ];
   }, [recibos]);
@@ -86,7 +91,7 @@ export default function GestionRecibos() {
     <PageLayout>
       <Stack size="xl">
         <SectionTitleSimple text="Gestión de Recibos" />
-        <StatsCards stats={stats} />
+        <StatsCards stats={stats} columns={5}/>
         <Table rows={recibos} columns={recibosColumns(handleEdit, handleDelete)} getRowId={(row) => row.id_recibo} />
       </Stack>
     </PageLayout>

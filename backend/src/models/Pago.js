@@ -69,6 +69,10 @@ const Pago = sequelize.define(
     descripcion: {
       type: DataTypes.STRING(255),
     },
+    estado: {
+      type: DataTypes.ENUM("PAGADO", "CANCELADO", "PENDIENTE"),
+      defaultValue: "PENDIENTE",
+    },
   },
   {
     freezeTableName: true, // Evita que Sequelize pluralice el nombre de la tabla

@@ -6,6 +6,7 @@ import authRoutes from "./routes/authRoute.js";
 import contribuyenteRoutes from "./routes/contribuyenteRoute.js";
 import usuariosRoutes from "./routes/usuarioRoute.js";
 import establecimientoRoutes from "./routes/establecimientoRoute.js";
+import conexionRoutes from "./routes/conexionRoute.js";
 import baseCatastralRoutes from "./routes/baseCatastralRoute.js";
 import pagoRoutes from "./routes/pagoRoute.js";
 import conceptoPagoRoute from "./routes/conceptoPagoRoute.js";
@@ -59,5 +60,6 @@ app.use("/api/conceptos", conceptoRoute);
 app.use("/api/subconceptos", subconceptoRoute);
 app.use("/api/configuracion", configuracionRoute);
 app.use("/api/recibos", reciboRoute);
+app.use("/api/conexiones", conexionRoutes);
 
 export default app;

@@ -44,6 +44,11 @@ const Conexion = sequelize.define(
       // Fecha en la que se realizó la conexión
       type: DataTypes.DATEONLY,
     },
+    activo: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    }
   },
   {
     freezeTableName: true, // Evita que Sequelize pluralice el nombre de la tabla

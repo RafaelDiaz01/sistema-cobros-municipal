@@ -1,8 +1,17 @@
 import Conexion from "../models/Conexion.js";
+import Contribuyente from "../models/Contribuyente.js";
 
 // Obtener todas las conexiones
 export const obtenerConexiones = async () => {
-    return await Conexion.findAll();
+    return await Conexion.findAll({
+        include: [
+            {
+                model: Contribuyente,
+                as: "contribuyente",
+                attributes: ["id_contribuyente", "nombre", "apellido_paterno", "apellido_materno"],
+            },
+        ],
+    });
 };
 
 // Crear una nueva conexión

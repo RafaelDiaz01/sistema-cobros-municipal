@@ -1,6 +1,9 @@
 import { useState, useEffect, useMemo } from "react";
 import { Droplet, Check, X, GlassWater } from "lucide-react";
 import { getConexionesAPI } from "../../services/conexionService.js";
+import { updateConexionEstadoAPI } from "../../services/conexionService.js";
+import { showToast } from "../../utils/alerts/toast.js";
+import { alertConfirmation } from "../../utils/alerts/alert.js";
 import { conexionColumns } from "./conexion.columns.jsx";
 import PageLayout from "../../components/layouts/PageLayout.jsx";
 import Stack from "../../components/layouts/Stack.jsx";
@@ -53,8 +56,27 @@ export default function GestionConexion() {
     console.log("Editar conexión:", conexion);
   };
 
-  const handleDelete = (id_conexion, activo) => {
-    console.log(`${activo ? "Desactivar" : "Activar"} conexión con ID:`, id_conexion);
+  const handleDelete = async (id_conexion, estadoActual) => {
+    const nuevoEstado = !estadoActual;
+    const mensaje = nuevoEstado
+      ? "¿Desea activar esta conexión?"
+      : "¿Desea inactivar esta conexión?";
+
+    const confirmacion = await alertConfirmation(
+      "Atención",
+      mensaje,
+      "warning",
+    );
+    if (!confirmacion) return;
+
+    try {
+      await updateConexionEstadoAPI(id_conexion, { estado: nuevoEstado });
+      fetchConexiones();
+      showToast("success", "Estado actualizado exitosamente");
+    } catch (error) {
+      console.error("Error al cambiar el estado de la conexión:", error);
+      showToast("error", "Error al cambiar el estado de la conexión");
+    }
   };
 
   return (

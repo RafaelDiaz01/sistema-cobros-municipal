@@ -11,9 +11,9 @@ router.get("/", authMiddleware, conexionController.obtenerConexiones);
 router.post("/", authMiddleware, conexionController.crearConexion);
 
 // Actualizar el estado de una conexión
-router.put("/:id/estado", authMiddleware, conexionController.putConexionEstado);
+router.patch("/:id/estado", authMiddleware, conexionController.putConexionEstado);
 
 // Actualizar datos de una conexión
-router.put("/:id", authMiddleware, conexionController.putConexion);
+router.patch("/:id", authMiddleware, conexionController.putConexion);
 
 export default router;

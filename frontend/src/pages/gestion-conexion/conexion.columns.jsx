@@ -5,12 +5,12 @@ export const conexionColumns = (onEdit, onToggleStatus) => [
     {
         field: "cuenta",
         headerName: "Cuenta Única",
-        width: 200,
+        width: 170,
     },
     {
         field: "nombre_contribuyente",
         headerName: "Propietario",
-        flex: 1,
+        width: 300,
         renderCell: (params) => {
             return `${params.row.contribuyente?.nombre || ""} ${params.row.contribuyente?.apellido_paterno || ""} ${params.row.contribuyente?.apellido_materno || ""}` || 'Sin contribuyente';
         }
@@ -23,33 +23,38 @@ export const conexionColumns = (onEdit, onToggleStatus) => [
             `${params.row.calle} #${params.row.numero_calle || ""}, ${params.row.barrio}`,
     },
     {
+        field: "referencia",
+        headerName: "Referencia de Ubicación",
+        flex: 1,
+    },
+    {
         field: "tipo",
         headerName: "Tipo de Conexión",
-        width: 200,
+        width: 150,
     },
     {
         field: "uso",
         headerName: "Uso de Servicio",
-        width: 200,
+        width: 130,
     },
     {
         field: "fecha_conexion",
-        headerName: "Fecha de Conexión",
-        width: 200,
+        headerName: "Fecha de Apertura",
+        width: 150,
     },
     {
         field: "activo",
         headerName: "Estado",
-        width: 140,
+        width: 120,
         sortable: false,
         renderCell: (params) =>
             params.row.activo ? (
                 <span className="px-3 py-1 rounded-lg bg-[#E8F8EE] text-[var(--color-texto)] text-xs font-medium">
-                    Activo
+                    Activa
                 </span>
             ) : (
                 <span className="px-3 py-1 rounded-lg bg-[#E6E7EB] text-[#4B5563] text-xs font-medium">
-                    Inactivo
+                    Inactiva
                 </span>
             ),
     },

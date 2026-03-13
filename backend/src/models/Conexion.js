@@ -44,6 +44,10 @@ const Conexion = sequelize.define(
       // Fecha en la que se realizó la conexión
       type: DataTypes.DATEONLY,
     },
+    referencia: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
     activo: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

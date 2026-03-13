@@ -10,9 +10,12 @@ import Stack from "../../components/layouts/Stack.jsx";
 import SectionTittle from "../../components/titles/SectionTitle.jsx";
 import StatsCards from "../../components/cards/StatsCards.jsx";
 import Table from "../../components/table/Table.jsx";
+import AddConexionModal from "../../components/features/conexiones/AddConexiones.jsx";
 
 export default function GestionConexion() {
   const [conexiones, setConexiones] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [conexionesEdit, setConexionesEdit] = useState(null);
 
   useEffect(() => {
     fetchConexiones();
@@ -52,8 +55,15 @@ export default function GestionConexion() {
     ];
   }, [conexiones]);
 
+  const handleAdd = () => {
+    setConexionesEdit(null);
+    setOpen(true);
+  };
+
   const handleEdit = (conexion) => {
     console.log("Editar conexión:", conexion);
+    setConexionesEdit(conexion);
+    setOpen(true);
   };
 
   const handleDelete = async (id_conexion, estadoActual) => {
@@ -84,8 +94,17 @@ export default function GestionConexion() {
       <Stack>
         <SectionTittle
           text="Gestión de Conexión"
+          onAdd={handleAdd}
           textButton="Agregar Conexión"
         />
+        {open && (
+          <AddConexionModal
+            isOpen={open}
+            onClose={() => setOpen(false)}
+            conexion={conexionesEdit}
+            onSuccess={fetchConexiones}
+          />
+        )}
         <StatsCards stats={stats} />
         <Table
           rows={conexiones}

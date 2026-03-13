@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { Droplet, Check, X, GlassWater } from "lucide-react";
+import { Droplet, Check, X, GlassWater, Toilet } from "lucide-react";
 import { getConexionesAPI } from "../../services/conexionService.js";
 import { updateConexionEstadoAPI } from "../../services/conexionService.js";
 import { showToast } from "../../utils/alerts/toast.js";
@@ -51,7 +51,12 @@ export default function GestionConexion() {
         title: "Conexiones de Agua Potable",
         value: conexiones.filter((c) => c.tipo === "Agua Potable").length,
         icon: <GlassWater size={26} />,
-      }
+      },
+      {
+        title: "Conexiones de Drenaje",
+        value: conexiones.filter((c) => c.tipo === "Drenaje").length,
+        icon: <Toilet size={26} />,
+      },
     ];
   }, [conexiones]);
 
@@ -105,7 +110,7 @@ export default function GestionConexion() {
             onSuccess={fetchConexiones}
           />
         )}
-        <StatsCards stats={stats} />
+        <StatsCards stats={stats} columns={5} />
         <Table
           rows={conexiones}
           columns={conexionColumns(handleEdit, handleDelete)}

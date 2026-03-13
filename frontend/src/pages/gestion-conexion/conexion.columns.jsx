@@ -45,7 +45,7 @@ export const conexionColumns = (onEdit, onToggleStatus) => [
     {
         field: "activo",
         headerName: "Estado",
-        width: 120,
+        width: 100,
         sortable: false,
         renderCell: (params) =>
             params.row.activo ? (

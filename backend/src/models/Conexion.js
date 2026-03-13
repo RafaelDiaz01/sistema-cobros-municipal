@@ -43,6 +43,7 @@ const Conexion = sequelize.define(
     fecha_conexion: {
       // Fecha en la que se realizó la conexión
       type: DataTypes.DATEONLY,
+      allowNull: false,
     },
     referencia: {
       type: DataTypes.TEXT,

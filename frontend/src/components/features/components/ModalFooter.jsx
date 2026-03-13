@@ -1,4 +1,4 @@
-export default function ModalFooter(onClose, isEdit) {
+export default function ModalFooter(onClose, isEdit, idForm, buttonText) {
     return (
         <div className="flex justify-end gap-4 bg-white rounded-b-2xl pt-5 pb-0">
             <button
@@ -11,10 +11,10 @@ export default function ModalFooter(onClose, isEdit) {
 
             <button
                 type="submit"
-                form="subconcepto-form"
+                form={idForm}
                 className="px-6 py-2 rounded-lg bg-[var(--color-acento)] text-[var(--color-text-secundario)] text-sm font-medium"
             >
-                {isEdit ? "Actualizar Subconcepto" : "Guardar Subconcepto"}
+                {isEdit ? `Actualizar ${buttonText}` : `Guardar ${buttonText}`}
             </button>
         </div>
     );

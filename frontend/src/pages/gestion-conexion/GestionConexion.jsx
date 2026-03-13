@@ -10,7 +10,7 @@ import Stack from "../../components/layouts/Stack.jsx";
 import SectionTittle from "../../components/titles/SectionTitle.jsx";
 import StatsCards from "../../components/cards/StatsCards.jsx";
 import Table from "../../components/table/Table.jsx";
-import AddConexionModal from "../../components/features/conexiones/AddConexiones.jsx";
+import AddConexionModal from "../../components/features/conexiones/AddConexionesModal.jsx";
 
 export default function GestionConexion() {
   const [conexiones, setConexiones] = useState([]);

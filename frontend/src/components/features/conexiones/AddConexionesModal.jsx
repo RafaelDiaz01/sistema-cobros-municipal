@@ -11,6 +11,7 @@ import Input from "../../modals/components/Input.jsx";
 import Select from "../../modals/components/Select.jsx";
 import Stack from "../../layouts/Stack.jsx";
 import AsyncAutocomplete from "../../ui/AsyncAutocomplete.jsx";
+import ModalFooter from "../components/ModalFooter.jsx";
 
 export default function AddConexionModal({
     isOpen,
@@ -73,24 +74,7 @@ export default function AddConexionModal({
             title={isEdit ? "Editar Conexión" : "Agregar Conexión"}
             subtitle={isEdit ? "Modifica los datos de la conexión" : "Ingresa los datos de la nueva conexión"}
             footer={
-                // Usar un componente
-                <div className="flex justify-end gap-4 bg-white rounded-b-2xl pt-5 pb-0">
-                    <button
-                        type="button"
-                        onClick={onClose}
-                        className="px-5 py-2 rounded-lg bg-[var(--color-cancelar)] text-[var(--color-text-secundario)] text-sm"
-                    >
-                        Cancelar
-                    </button>
-
-                    <button
-                        type="submit"
-                        form="conexion-form"
-                        className="px-6 py-2 rounded-lg bg-[var(--color-acento)] text-[var(--color-text-secundario)] text-sm font-medium"
-                    >
-                        {isEdit ? "Actualizar Conexión" : "Guardar Conexión"}
-                    </button>
-                </div>
+                ModalFooter(onClose, isEdit, "conexion-form", "Conexión")
             }
         >
             <form id="conexion-form" onSubmit={handleSubmit(onSubmit)}>

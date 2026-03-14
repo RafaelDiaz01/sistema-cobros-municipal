@@ -16,4 +16,7 @@ router.patch("/:id/estado", authMiddleware, conexionController.putConexionEstado
 // Actualizar datos de una conexión
 router.patch("/:id", authMiddleware, conexionController.putConexion);
 
+// Obtener el estado de adeudo de una conexión
+router.get("/:id/adeudo", authMiddleware, conexionController.getConexionEstado);
+
 export default router;

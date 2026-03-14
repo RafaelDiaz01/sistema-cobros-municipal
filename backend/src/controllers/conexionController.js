@@ -62,4 +62,23 @@ export const putConexion = async (req, res) => {
             error: error.message,
         });
     }
-};     
+};
+
+// Obtener el estado de adeudo de una conexión
+export const getConexionEstado = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const conexion = await conexionController.obtenerEstadoConexion(id);
+
+        res.json({
+            message: "Estado de la conexión obtenido correctamente",
+            conexion,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: "Error al obtener el estado de la conexión",
+            error: error.message,
+        });
+    }
+};

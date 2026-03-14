@@ -2,6 +2,7 @@ import Contribuyente from "./Contribuyente.js";
 import Establecimiento from "./Establecimiento.js";
 import BaseCatastral from "./BaseCatastral.js";
 import Conexion from "./Conexion.js";
+import PeriodoServicio from "./PeriodoServicio.js";
 import CuentaContable from "./CuentaContable.js";
 import Subcuenta from "./Subcuenta.js";
 import Seccion from "./Seccion.js";
@@ -187,6 +188,20 @@ Recibo.belongsTo(Pago, {
   foreignKey: "id_pago",
 });
 
+// =============================
+// RELACIÓN CONEXION - PERIODO DE SERVICIO
+// =============================
+
+// Una Conexión tiene muchos Periodos de Servicio
+Conexion.hasMany(PeriodoServicio, {
+  foreignKey: "id_conexion",
+});
+
+// Un Periodo de Servicio pertenece a una Conexión
+PeriodoServicio.belongsTo(Conexion, {
+  foreignKey: "id_conexion",
+});
+
 export {
   Contribuyente,
   Establecimiento,
@@ -201,4 +216,5 @@ export {
   CorteCaja,
   Usuario,
   Recibo,
+  PeriodoServicio,
 };

@@ -1,5 +1,7 @@
+import sequelize from "../config/database.js";
 import Conexion from "../models/Conexion.js";
 import Contribuyente from "../models/Contribuyente.js";
+import PeriodoServicio from "../models/PeriodoServicio.js";
 
 // Función para generar una clave única para la cuenta de la conexión
 const generarClaveCuenta = async (id_contribuyente, claveContribuyente) => {
@@ -35,12 +37,43 @@ export const crearConexion = async (data) => {
         throw new Error("Contribuyente no encontrado");
     }
 
-    // Generar la clave de cuenta única para la conexión
-    const claveCuenta = await generarClaveCuenta(contribuyente.id_contribuyente, contribuyente.clave_unica);
-    data.cuenta = claveCuenta;
+    const transaction = await sequelize.transaction();
+    try {
+        // Generar la clave de cuenta única para la conexión
+        const claveCuenta = await generarClaveCuenta(contribuyente.id_contribuyente, contribuyente.clave_unica);
+        data.cuenta = claveCuenta;
 
-    const nuevaConexion = await Conexion.create(data);
-    return nuevaConexion;
+        // Crear la conexión
+        const nuevaConexion = await Conexion.create(data, { transaction });
+        const id_conexion = nuevaConexion.id_conexion;
+
+        // Obtener año de creación de la conexión
+        const fechaCreacion = new Date(nuevaConexion.fecha_conexion);
+        const anioCreacion = fechaCreacion.getFullYear();
+
+        // Obtener año actual
+        const anioActual = new Date().getFullYear();
+
+        // Crear lista de periodos
+        const periodos = [];
+        for (let anio = anioCreacion; anio <= anioActual; anio++) {
+            periodos.push({
+                id_conexion,
+                anio,
+                estado: "ADEUDO",
+            });
+        }
+
+        // Insertar periodos en la base de datos
+        await PeriodoServicio.bulkCreate(periodos, { transaction });
+
+        await transaction.commit();
+
+        return nuevaConexion;
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
 };
 
 // Actualizar el estado de una conexión
@@ -65,4 +98,26 @@ export const actualizarConexion = async (id, datosActualizados) => {
 
     await conexion.update(datosActualizados);
     return conexion;
-};  
+};
+
+// Obtener el estado de adeudo de una conexión
+export const obtenerEstadoConexion = async (id_conexion) => {
+    const conexion = await Conexion.findByPk(id_conexion);
+    if (!conexion) {
+        throw new Error("Conexión no encontrada");
+    }
+
+    const periodos = await PeriodoServicio.findAll({
+        where: { id_conexion },
+        order: [["anio", "ASC"]],
+    });
+
+    const adeudos = periodos.filter((periodo) => periodo.estado === "ADEUDO");
+
+    return {
+        total_periodos: periodos.length,
+        total_adeudos: adeudos.length,
+        estado: adeudos.length > 0 ? "ADEUDO" : "AL CORRIENTE",
+        anios_adeudo: adeudos.map((adeudo) => adeudo.anio),
+    };
+};

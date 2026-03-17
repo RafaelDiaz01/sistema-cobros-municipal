@@ -4,7 +4,7 @@ import Section from "../../modals/components/Section.jsx";
 import Grid from "../../modals/components/Grid.jsx";
 import ViewItem from "../../modals/ViewItem.jsx";
 import ViewList from "../../modals/ViewList.jsx";
-import { Cable, User, MapPin, View } from "lucide-react";
+import { Droplet, User, HandCoins } from "lucide-react";
 
 export default function ViewConexionModal({ isOpen, onClose, adeudos, conexion }) {
     if (!conexion) return null;
@@ -31,7 +31,7 @@ export default function ViewConexionModal({ isOpen, onClose, adeudos, conexion }
             <Stack size="lg">
 
                 {/* DATOS DE LA CONEXIÓN */}
-                <Section icon={<Cable size={18} />} title="Datos de la Conexión">
+                <Section icon={<Droplet size={18} />} title="Datos de la Conexión">
                     <Grid cols={4}>
                         <ViewItem label="Cuenta Única" value={conexion.cuenta} />
                         <ViewItem label="Tipo de Conexión" value={conexion.tipo} />
@@ -57,7 +57,7 @@ export default function ViewConexionModal({ isOpen, onClose, adeudos, conexion }
                 <hr className="border-[var(--color-borde)]" />
 
                 {/* ADEUDOS */}
-                <Section icon={<MapPin size={18} />} title="Adeudos">
+                <Section icon={<HandCoins size={18} />} title="Adeudos">
                     {/* Años de Adeudo */}
                     <ViewList
                         labelKey="Años de Adeudo"

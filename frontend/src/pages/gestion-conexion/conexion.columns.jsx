@@ -1,7 +1,7 @@
 import { Tooltip } from "@mui/material";
-import { Pencil, ToggleRight, ToggleLeft } from "lucide-react";
+import { Pencil, ToggleRight, ToggleLeft, Eye } from "lucide-react";
 
-export const conexionColumns = (onEdit, onToggleStatus) => [
+export const conexionColumns = (onEdit, onToggleStatus, onView) => [
     {
         field: "cuenta",
         headerName: "Cuenta Única",
@@ -10,7 +10,7 @@ export const conexionColumns = (onEdit, onToggleStatus) => [
     {
         field: "nombre_contribuyente",
         headerName: "Propietario",
-        width: 300,
+        width: 280,
         renderCell: (params) => {
             return `${params.row.contribuyente?.nombre || ""} ${params.row.contribuyente?.apellido_paterno || ""} ${params.row.contribuyente?.apellido_materno || ""}` || 'Sin contribuyente';
         }
@@ -30,7 +30,7 @@ export const conexionColumns = (onEdit, onToggleStatus) => [
     {
         field: "tipo",
         headerName: "Tipo de Conexión",
-        width: 150,
+        width: 140,
     },
     {
         field: "uso",
@@ -40,7 +40,7 @@ export const conexionColumns = (onEdit, onToggleStatus) => [
     {
         field: "fecha_conexion",
         headerName: "Fecha de Apertura",
-        width: 150,
+        width: 140,
     },
     {
         field: "activo",
@@ -61,7 +61,7 @@ export const conexionColumns = (onEdit, onToggleStatus) => [
     {
         field: "actions",
         headerName: "Acciones",
-        width: 120,
+        width: 145,
         sortable: false,
         filterable: false,
         renderCell: (params) => {
@@ -69,6 +69,17 @@ export const conexionColumns = (onEdit, onToggleStatus) => [
 
             return (
                 <div className="flex items-center justify-center gap-4">
+                    <Tooltip title="Ver Detalles">
+                        <button
+                            onClick={() => onView(id_conexion, params.row)}
+                            className="flex items-center justify-center w-8 h-8 rounded-full
+                       text-[var(--color-primario)]
+                       hover:bg-gray-200
+                       transition-transform duration-200 hover:scale-110"
+                        >
+                            <Eye size={18} />
+                        </button>
+                    </Tooltip>
                     <Tooltip title="Editar Conexión">
                         <button
                             onClick={() => onEdit(params.row)}

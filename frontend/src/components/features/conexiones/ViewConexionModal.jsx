@@ -46,11 +46,11 @@ export default function ViewConexionModal({ isOpen, onClose, adeudos, conexion }
 
                 <hr className="border-[var(--color-borde)]" />
 
-                {/* CONTRIBUYENTE */}
-                <Section icon={<User size={18} />} title="Contribuyente">
+                {/* CONTRIBUYENTE PROPIETARIO */}
+                <Section icon={<User size={18} />} title="Propietario">
                     <Grid cols={2}>
-                        <ViewItem label="Propietario" value={`${conexion.contribuyente?.nombre || ""} ${conexion.contribuyente?.apellido_paterno || ""} ${conexion.contribuyente?.apellido_materno || ""}`} />
-                        <ViewItem label="Teléfono" value={conexion.contribuyente?.telefono} />
+                        <ViewItem label="Nombre Completo" value={`${conexion.contribuyente?.nombre || ""} ${conexion.contribuyente?.apellido_paterno || ""} ${conexion.contribuyente?.apellido_materno || ""}`} />
+                        <ViewItem label="Teléfono Celular" value={conexion.contribuyente?.telefono} />
                     </Grid>
                 </Section>
 

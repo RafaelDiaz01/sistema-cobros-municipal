@@ -23,3 +23,9 @@ export const updateConexionEstadoAPI = async (id, estado) => {
   const response = await api.patch(`/conexiones/${id}/estado`, estado);
   return response.data;
 };
+
+// Obtener adeudos de una conexión
+export const getAdeudosConexionAPI = async (id_conexion) => {
+  const response = await api.get(`/conexiones/${id_conexion}/adeudo`);
+  return response.data;
+};

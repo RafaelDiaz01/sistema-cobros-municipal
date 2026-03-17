@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { Droplet, Check, X, GlassWater, Toilet } from "lucide-react";
 import { getConexionesAPI } from "../../services/conexionService.js";
-import { updateConexionEstadoAPI } from "../../services/conexionService.js";
+import { updateConexionEstadoAPI, getAdeudosConexionAPI } from "../../services/conexionService.js";
 import { showToast } from "../../utils/alerts/toast.js";
 import { alertConfirmation } from "../../utils/alerts/alert.js";
 import { conexionColumns } from "./conexion.columns.jsx";
@@ -11,11 +11,14 @@ import SectionTittle from "../../components/titles/SectionTitle.jsx";
 import StatsCards from "../../components/cards/StatsCards.jsx";
 import Table from "../../components/table/Table.jsx";
 import AddConexionModal from "../../components/features/conexiones/AddConexionesModal.jsx";
+import ViewConexionModal from "../../components/features/conexiones/ViewConexionModal.jsx";
 
 export default function GestionConexion() {
   const [conexiones, setConexiones] = useState([]);
   const [open, setOpen] = useState(false);
   const [conexionesEdit, setConexionesEdit] = useState(null);
+  const [openView, setOpenView] = useState(false);
+  const [conexionSeleccionada, setConexionSeleccionada] = useState(null);
 
   useEffect(() => {
     fetchConexiones();
@@ -71,6 +74,18 @@ export default function GestionConexion() {
     setOpen(true);
   };
 
+  const handleView = async (id_conexion, conexion) => {
+    try {
+      const adeudos = await getAdeudosConexionAPI(id_conexion);
+      setConexionSeleccionada(adeudos);
+      setConexionesEdit(conexion);
+      setOpenView(true);
+    } catch (error) {
+      console.error("Error fetching adeudos:", error);
+      showToast("error", "Error al cargar los adeudos de la conexión");
+    }
+  };
+
   const handleDelete = async (id_conexion, estadoActual) => {
     const nuevoEstado = !estadoActual;
     const mensaje = nuevoEstado
@@ -113,8 +128,14 @@ export default function GestionConexion() {
         <StatsCards stats={stats} columns={5} />
         <Table
           rows={conexiones}
-          columns={conexionColumns(handleEdit, handleDelete)}
+          columns={conexionColumns(handleEdit, handleDelete, handleView)}
           getRowId={(row) => row.id_conexion}
+        />
+        <ViewConexionModal
+          isOpen={openView}
+          onClose={() => setOpenView(false)}
+          adeudos={conexionSeleccionada}
+          conexion={conexionesEdit}
         />
       </Stack>
     </PageLayout>

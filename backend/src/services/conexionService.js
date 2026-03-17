@@ -24,7 +24,7 @@ export const obtenerConexiones = async () => {
             {
                 model: Contribuyente,
                 as: "contribuyente",
-                attributes: ["id_contribuyente", "nombre", "apellido_paterno", "apellido_materno"],
+                attributes: ["id_contribuyente", "nombre", "apellido_paterno", "apellido_materno", "telefono"],
             },
         ],
     });

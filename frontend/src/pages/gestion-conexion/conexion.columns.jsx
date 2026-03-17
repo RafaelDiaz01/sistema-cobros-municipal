@@ -10,7 +10,7 @@ export const conexionColumns = (onEdit, onToggleStatus, onView) => [
     {
         field: "nombre_contribuyente",
         headerName: "Propietario",
-        width: 280,
+        flex: 1,
         renderCell: (params) => {
             return `${params.row.contribuyente?.nombre || ""} ${params.row.contribuyente?.apellido_paterno || ""} ${params.row.contribuyente?.apellido_materno || ""}` || 'Sin contribuyente';
         }
@@ -23,29 +23,24 @@ export const conexionColumns = (onEdit, onToggleStatus, onView) => [
             `${params.row.calle} #${params.row.numero_calle || ""}, ${params.row.barrio}`,
     },
     {
-        field: "referencia",
-        headerName: "Referencia de Ubicación",
-        flex: 1,
-    },
-    {
         field: "tipo",
         headerName: "Tipo de Conexión",
-        width: 140,
+        width: 200,
     },
     {
         field: "uso",
         headerName: "Uso de Servicio",
-        width: 130,
+        width: 200,
     },
     {
         field: "fecha_conexion",
         headerName: "Fecha de Apertura",
-        width: 140,
+        width: 200,
     },
     {
         field: "activo",
         headerName: "Estado",
-        width: 100,
+        width: 150,
         sortable: false,
         renderCell: (params) =>
             params.row.activo ? (
@@ -61,7 +56,7 @@ export const conexionColumns = (onEdit, onToggleStatus, onView) => [
     {
         field: "actions",
         headerName: "Acciones",
-        width: 145,
+        width: 150,
         sortable: false,
         filterable: false,
         renderCell: (params) => {

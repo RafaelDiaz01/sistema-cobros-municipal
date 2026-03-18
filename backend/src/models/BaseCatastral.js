@@ -44,6 +44,10 @@ const BaseCatastral = sequelize.define(
       // Fecha del último avalúo realizado
       type: DataTypes.DATEONLY,
     },
+    activo: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
   },
   {
     freezeTableName: true, // Evita que Sequelize pluralice el nombre de la tabla

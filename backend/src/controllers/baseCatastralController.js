@@ -1,58 +1,67 @@
-import { BaseCatastral, Contribuyente } from "../models/associations.js";
+import * as baseCatastral from "../services/baseCatastralService.js";
 
-// Obtener todas las Bases Catastrales
+// Obtener todas las bases catastrales (con su contribuyente)
 export const obtenerBasesCatastrales = async (req, res) => {
   try {
-    const bases = await BaseCatastral.findAll({
-      include: {
-        model: Contribuyente,
-        as: "contribuyente",
-        attributes: ["id_contribuyente", "nombre"],
-      },
-    });
-
-    res.json(bases);
+    const basesCatastrales = await baseCatastral.obtenerBasesCatastrales();
+    res.json(basesCatastrales);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ mensaje: "Error al obtener las bases catastrales" });
+    res.status(500).json({ mensaje: "Error al obtener bases catastrales" });
   }
 };
 
 // Crear una nueva base catastral
 export const crearBaseCatastral = async (req, res) => {
   try {
-    const {
-      cuenta,
-      valor,
-      calle,
-      numero_calle,
-      barrio,
-      impuesto_calculado,
-      fecha_avaluo,
-      id_contribuyente,
-    } = req.body;
-
-    // Validar que el contribuyente exista
-    const contribuyente = await Contribuyente.findByPk(id_contribuyente);
-    if (!contribuyente) {
-      return res.status(404).json({ mensaje: "Contribuyente no encontrado" });
-    }
-
-    // Crear base catastral
-    const nuevaBaseCatastral = await BaseCatastral.create({
-      cuenta,
-      valor,
-      calle,
-      numero_calle,
-      barrio,
-      impuesto_calculado,
-      fecha_avaluo,
-      id_contribuyente
-    });
-
+    const nuevaBaseCatastral = await baseCatastral.crearBaseCatastral(req.body);
     res.status(201).json(nuevaBaseCatastral);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ mensaje: "Error al crear la base catastral"});
+    res.status(500).json({ mensaje: "Error al crear la base catastral" });
+  }
+};
+
+// Actualizar el estado de una base catastral
+export const putBaseCatastralEstado = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { estado } = req.body;
+
+    const baseCatastralActualizada =
+      await baseCatastral.actualizarEstadoBaseCatastral(id, estado);
+
+    res.json({
+      message: "Estado de la base catastral actualizado correctamente",
+      baseCatastral: baseCatastralActualizada,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Error al actualizar estado de la base catastral",
+      error: error.message,
+    });
+  }
+};
+
+// Actualizar datos de una base catastral
+export const putBaseCatastral = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const datosActualizados = req.body;
+
+    const baseCatastralActualizada =
+      await baseCatastral.actualizarBaseCatastral(id, datosActualizados);
+
+    res.json({
+      message: "Base catastral actualizada correctamente",
+      baseCatastral: baseCatastralActualizada,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Error al actualizar la base catastral",
+      error: error.message,
+    });
   }
 };

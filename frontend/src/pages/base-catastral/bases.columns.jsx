@@ -59,7 +59,7 @@ export const basesCatastralesColumns = (onEdit, onToggleStatus) => [
         sortable: false,
         filterable: false,
         renderCell: (params) => {
-            const { id_base, activo } = params.row;
+            const { id_base_catastral, activo } = params.row;
 
             return (
                 <div className="flex items-center justify-center gap-4">
@@ -78,13 +78,10 @@ export const basesCatastralesColumns = (onEdit, onToggleStatus) => [
                         title={activo ? "Desactivar Base Catastral" : "Activar Base Catastral"}
                     >
                         <button
-                            onClick={() => onToggleStatus(id_base, activo)}
-                            className="flex items-center justify-center w-8 h-8 rounded-full
-                       text-[var(--color-primario)]
-                       hover:bg-gray-200
-                       transition-transform duration-200 hover:scale-110"
+                            onClick={() => onToggleStatus(id_base_catastral, activo)}
+                            className="hover :opacity-70 flex items-center"
                         >
-                            {activo ? <ToggleRight size={18} /> : <ToggleLeft size={18} />}
+                            {activo ? <ToggleRight size={18} className="text-[var(--color-cancelar)]" /> : <ToggleLeft size={18} className="text-[var(--color-primario)]" />}
                         </button>
                     </Tooltip>
                 </div>

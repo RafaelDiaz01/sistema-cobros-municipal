@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo } from "react";
-import { getBasesCatastralesAPI } from "../../services/baseCatastralService.js";
+import { getBasesCatastralesAPI, updateBaseCatastralAPI, updateBaseCatastralEstadoAPI } from "../../services/baseCatastralService.js";
 import { Home, Check, X, DollarSign } from "lucide-react";
+import { alertConfirmation } from "../../utils/alerts/alert.js";
+import { showToast } from "../../utils/alerts/toast.js";
 import { basesCatastralesColumns } from "./bases.columns.jsx";
 import PageLayout from "../../components/layouts/PageLayout.jsx";
 import Stack from "../../components/layouts/Stack.jsx";
@@ -49,8 +51,24 @@ export default function BaseCatastral() {
     ];
   }, [basesCatastrales]);
 
-  const handleDelete = (base) => {
-    console.log("Eliminar base catastral:", base);
+  const handleDelete = async (id, estadoActual) => {
+    const nuevoEstado = !estadoActual;
+    const mensaje = nuevoEstado
+      ? "¿Desea activar esta base catastral?"
+      : "¿Desea inactivar esta base catastral?";
+
+    const confirmacion = await alertConfirmation("Atención", mensaje, "warning");
+
+    if (!confirmacion) return;
+
+    try {
+      await updateBaseCatastralEstadoAPI(id, { estado: nuevoEstado });
+      fetchBases();
+      showToast("success", "Estado actualizado exitosamente");
+    } catch (error) {
+      console.error("Error actualizando estado de base catastral:", error);
+      showToast("error", "Error al cambiar el estado de la base catastral");
+    }
   };
 
   const handleEdit = (base) => {

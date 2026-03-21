@@ -11,9 +11,9 @@ router.get("/", authMiddleware, baseCatastralController.obtenerBasesCatastrales)
 router.post("/", authMiddleware, baseCatastralController.crearBaseCatastral);
 
 // Actualizar el estado de una base catastral
-router.put("/:id/estado", authMiddleware, baseCatastralController.putBaseCatastralEstado);
+router.patch("/:id/estado", authMiddleware, baseCatastralController.putBaseCatastralEstado);
 
 // Actualizar datos de una base catastral
-router.put("/:id", authMiddleware, baseCatastralController.putBaseCatastral);
+router.patch("/:id", authMiddleware, baseCatastralController.putBaseCatastral);
 
 export default router;

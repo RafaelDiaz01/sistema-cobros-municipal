@@ -9,9 +9,12 @@ import Stack from "../../components/layouts/Stack.jsx";
 import SectionTittle from "../../components/titles/SectionTitle.jsx";
 import StatsCards from "../../components/cards/StatsCards.jsx";
 import Table from "../../components/table/Table.jsx";
+import AddBaseCatastralModal from "../../components/features/base-catastral/AddBaseCatastralModal.jsx";
 
 export default function BaseCatastral() {
   const [basesCatastrales, setBasesCatastrales] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [basesCatastralesEdit, setBasesCatastralesEdit] = useState(null);
 
   useEffect(() => {
     fetchBases();
@@ -51,6 +54,11 @@ export default function BaseCatastral() {
     ];
   }, [basesCatastrales]);
 
+  const handleAdd = () => {
+    setBasesCatastralesEdit(null);
+    setOpen(true);
+  };
+
   const handleDelete = async (id, estadoActual) => {
     const nuevoEstado = !estadoActual;
     const mensaje = nuevoEstado
@@ -72,7 +80,8 @@ export default function BaseCatastral() {
   };
 
   const handleEdit = (base) => {
-    console.log("Editar base catastral:", base);
+    setBasesCatastralesEdit(base);
+    setOpen(true);
   };
 
   return (
@@ -80,8 +89,17 @@ export default function BaseCatastral() {
       <Stack>
         <SectionTittle
           text="Gestión de Base Catastral"
+          onAdd={handleAdd}
           textButton="Agregar Base Catastral"
         />
+        {open && (
+          <AddBaseCatastralModal
+            isOpen={open}
+            onClose={() => setOpen(false)}
+            onSuccess={fetchBases}
+            baseCatastral={basesCatastralesEdit}
+          />
+        )}
         <StatsCards stats={stats} />
         <Table
           rows={basesCatastrales}

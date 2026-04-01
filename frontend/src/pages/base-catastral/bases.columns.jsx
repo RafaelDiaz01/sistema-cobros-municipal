@@ -5,7 +5,7 @@ export const basesCatastralesColumns = (onEdit, onToggleStatus) => [
     {
         field: "cuenta",
         headerName: "Cuenta Catastral",
-        width: 150,
+        width: 170,
     },
     {
         field: "propietario",

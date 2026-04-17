@@ -26,7 +26,7 @@ const Usuario = sequelize.define(
       type: DataTypes.DATE,
     },
     foto_perfil: {
-      type: DataTypes.TEXT, // Guarda la ubicación de la foto de perfil.
+      type: DataTypes.STRING(255), // Guarda la ubicación de la foto de perfil.
     },
     activo: {
       type: DataTypes.BOOLEAN,

@@ -25,6 +25,8 @@ export const loginService = async (nombre_usuario, password_usuario) => {
     id_usuario: usuario.id_usuario,
     nombre_usuario: usuario.nombre_usuario,
     rol_usuario: usuario.rol_usuario,
+    ultimo_acceso: usuario.ultimo_acceso,
+    activo: usuario.activo,
   };
 
   const accessToken = generateAccessToken(payload);
@@ -56,10 +58,22 @@ export const refreshAccessTokenService = async (refreshToken) => {
     throw new Error("Refresh token expirado");
   }
 
+  const usuario = await Usuario.findByPk(decoded.id_usuario);
+
+  if (!usuario) {
+    throw new Error("Usuario no encontrado");
+  }
+
+  if (!usuario.activo) {
+    throw new Error("Usuario inactivo");
+  }
+
   const newAccessToken = generateAccessToken({
-    id_usuario: decoded.id_usuario,
-    nombre_usuario: decoded.nombre_usuario,
-    rol_usuario: decoded.rol_usuario,
+    id_usuario: usuario.id_usuario,
+    nombre_usuario: usuario.nombre_usuario,
+    rol_usuario: usuario.rol_usuario,
+    ultimo_acceso: usuario.ultimo_acceso,
+    activo: usuario.activo,
   });
 
   return newAccessToken;

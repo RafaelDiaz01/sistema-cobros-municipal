@@ -67,7 +67,7 @@ export default function ProfileDropdown() {
               icon={<User size={18} />}
               title="Mi Perfil"
               subtitle="Datos personales y cargo"
-              onClick={() => goTo("/perfil")}
+              onClick={() => goTo("/mi-perfil")}
             />
 
             <MenuItem

@@ -19,6 +19,7 @@ import GestionAlquiler from "../pages/gestion-alquiler/GestionAlquiler";
 import GestionConexion from "../pages/gestion-conexion/GestionConexion";
 import BaseCatastral from "../pages/base-catastral/BaseCatastral";
 import NotFound from "../pages/not-found/NotFound";
+import MiPerfil from "../pages/perfil/MiPerfil";
 
 const AppRouter = () => {
   return (
@@ -47,6 +48,7 @@ const AppRouter = () => {
         <Route path="/gestion-alquiler" element={<GestionAlquiler />} />
         <Route path="/gestion-conexion" element={<GestionConexion />} />
         <Route path="/base-catastral" element={<BaseCatastral />} />
+        <Route path="/mi-perfil" element={<MiPerfil />} />
       </Route>
 
       {/* Rutas No Encontradas */}

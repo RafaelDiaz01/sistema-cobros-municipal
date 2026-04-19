@@ -1,4 +1,5 @@
 import * as AuthService from "../services/authService.js";
+import Usuario from "../models/Usuario.js";
 
 export const login = async (req, res) => {
   try {
@@ -79,13 +80,23 @@ export const logout = async (req, res) => {
 
 export const obtenerSesion = async (req, res) => {
   try {
+    const usuario = await Usuario.findByPk(req.user.id_usuario, {
+      attributes: [
+        "id_usuario",
+        "nombre_usuario",
+        "rol_usuario",
+        "ultimo_acceso",
+        "activo",
+      ],
+    });
+
+    if (!usuario) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
     res.json({
       autenticado: true,
-      usuario: {
-        id_usuario: req.user.id_usuario,
-        nombre_usuario: req.user.nombre_usuario,
-        rol_usuario: req.user.rol_usuario,
-      },
+      usuario,
     });
   } catch (error) {
     res.status(500).json({ message: "Error al obtener sesión" });

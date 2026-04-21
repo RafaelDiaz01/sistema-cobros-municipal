@@ -19,6 +19,7 @@ import conceptoRoute from "./routes/conceptoRoute.js";
 import subconceptoRoute from "./routes/subconceptoRoute.js";
 import configuracionRoute from "./routes/configuracionRoute.js";
 import reciboRoute from "./routes/reciboRoute.js";
+import ejercicioFiscalRoute from "./routes/ejercicioFiscalRoute.js";
 
 dotenv.config();
 
@@ -61,5 +62,6 @@ app.use("/api/subconceptos", subconceptoRoute);
 app.use("/api/configuracion", configuracionRoute);
 app.use("/api/recibos", reciboRoute);
 app.use("/api/conexiones", conexionRoutes);
+app.use("/api/ejercicios-fiscales", ejercicioFiscalRoute);
 
 export default app;

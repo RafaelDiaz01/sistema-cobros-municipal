@@ -23,10 +23,7 @@ export const loginService = async (nombre_usuario, password_usuario) => {
 
   const payload = {
     id_usuario: usuario.id_usuario,
-    nombre_usuario: usuario.nombre_usuario,
-    rol_usuario: usuario.rol_usuario,
-    ultimo_acceso: usuario.ultimo_acceso,
-    activo: usuario.activo,
+    rol_usuario: usuario.rol_usuario
   };
 
   const accessToken = generateAccessToken(payload);
@@ -70,10 +67,7 @@ export const refreshAccessTokenService = async (refreshToken) => {
 
   const newAccessToken = generateAccessToken({
     id_usuario: usuario.id_usuario,
-    nombre_usuario: usuario.nombre_usuario,
-    rol_usuario: usuario.rol_usuario,
-    ultimo_acceso: usuario.ultimo_acceso,
-    activo: usuario.activo,
+    rol_usuario: usuario.rol_usuario
   });
 
   return newAccessToken;

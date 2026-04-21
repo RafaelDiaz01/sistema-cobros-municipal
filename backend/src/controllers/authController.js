@@ -83,10 +83,7 @@ export const obtenerSesion = async (req, res) => {
     const usuario = await Usuario.findByPk(req.user.id_usuario, {
       attributes: [
         "id_usuario",
-        "nombre_usuario",
-        "rol_usuario",
-        "ultimo_acceso",
-        "activo",
+        "rol_usuario"
       ],
     });
 

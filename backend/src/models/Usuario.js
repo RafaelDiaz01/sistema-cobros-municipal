@@ -28,6 +28,12 @@ const Usuario = sequelize.define(
     foto_perfil: {
       type: DataTypes.STRING(255), // Guarda la ubicación de la foto de perfil.
     },
+    telefono: {
+      type: DataTypes.STRING(20),
+    },
+    departamento: {
+      type: DataTypes.STRING(50),
+    },
     activo: {
       type: DataTypes.BOOLEAN,
       defaultValue: true, // Activo por defecto

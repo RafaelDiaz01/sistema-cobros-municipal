@@ -1,28 +1,6 @@
 import { Tooltip } from "@mui/material";
 import { Pencil, ToggleRight, ToggleLeft } from "lucide-react";
-
-// Formateador de moneda para MXN
-const mxnFormatter = new Intl.NumberFormat("es-MX", {
-    style: "currency",
-    currency: "MXN",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-});
-
-// Función para formatear valores como moneda MXN
-const formatCurrencyMXN = (input) => {
-    const raw =
-        input && typeof input === "object" && "value" in input
-            ? input.value
-            : input;
-
-    if (raw === null || raw === undefined || raw === "") {
-        return mxnFormatter.format(0);
-    }
-
-    const n = Number(raw);
-    return Number.isFinite(n) ? mxnFormatter.format(n) : mxnFormatter.format(0);
-};
+import moneyFormatter from "../../utils/moneyFormatter.js";
 
 export const basesCatastralesColumns = (onEdit, onToggleStatus) => [
     {
@@ -41,13 +19,13 @@ export const basesCatastralesColumns = (onEdit, onToggleStatus) => [
         field: "valor",
         headerName: "Valor",
         width: 200,
-        valueFormatter: (value) => formatCurrencyMXN(value),
+        valueFormatter: moneyFormatter,
     },
     {
         field: "impuesto_calculado",
         headerName: "Impuesto Calculado",
         width: 200,
-        valueFormatter: (value) => formatCurrencyMXN(value),
+        valueFormatter: moneyFormatter,
     },
     {
         field: "direccion",

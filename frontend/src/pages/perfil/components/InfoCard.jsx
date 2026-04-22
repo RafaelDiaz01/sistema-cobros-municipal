@@ -1,6 +1,7 @@
 import Stack from "../../../components/layouts/Stack.jsx";
 import Grid from "../../../components/modals/components/Grid.jsx";
 import CardCobro from "../../../components/cards/CardCobro.jsx";
+import timeFormatter from "../../../utils/timeFormatter.js";
 
 export default function InfoCard({ user }) {
     return (
@@ -8,9 +9,9 @@ export default function InfoCard({ user }) {
             <Stack size="sm">
                 <Grid cols={1} md={2}>
                     <InfoField label="Nombre Completo" value={user.nombre_usuario} />
-                    <InfoField label="Número de Teléfono" value={"951 580 1224"} />
-                    <InfoField label="Departamento Asignado" value={"Regiduría de Hacienda"} />
-                    <InfoField label="Fecha de Registro" value={"23 de Junio, 2024"} />
+                    <InfoField label="Número de Teléfono" value={user.telefono} />
+                    <InfoField label="Departamento Asignado" value={user.departamento} />
+                    <InfoField label="Fecha de Registro" value={timeFormatter(user.createdAt)} />
                 </Grid>
             </Stack>
         </CardCobro>

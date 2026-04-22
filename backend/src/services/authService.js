@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import Usuario from "../models/Usuario.js";
 import RefreshToken from "../models/RefreshToken.js";
-import { comparePassword, hashPassword } from "../utils/password.js";
+import { comparePassword } from "../utils/password.js";
 import { generateAccessToken, generateRefreshToken } from "../utils/jwt.js";
 
 // Función para iniciar sesión
@@ -14,8 +14,8 @@ export const loginService = async (nombre_usuario, password_usuario) => {
     throw new Error("Usuario no encontrado");
   }
 
-  const passwordHashed = await hashPassword(password_usuario);
-  const passwordOk = await comparePassword(password_usuario, passwordHashed);
+  // Verifica si las contraseñas coinciden
+  const passwordOk = await comparePassword(password_usuario, usuario.password_usuario);
 
   if (!passwordOk) {
     throw new Error("Credenciales incorrectas");

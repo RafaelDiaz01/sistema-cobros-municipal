@@ -48,7 +48,7 @@ export default function MiPerfil() {
                     </Grid>
 
                     {/* Columna Derecha */}
-                    <Grid cols={1} className="w-full lg:w-72">
+                    <Grid cols={1} className="w-full lg:w-80">
                         <ActivityCard user={profileUser} />
                     </Grid>
                 </div>

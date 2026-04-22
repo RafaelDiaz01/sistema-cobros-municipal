@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useAuth } from "../../context/authContext";
+import { useState, useEffect } from "react";
+import { getPerfilAPI } from "../../services/miPerfilService";
 import PageLayout from "../../components/layouts/PageLayout";
 import Stack from "../../components/layouts/Stack";
 import Grid from "../../components/modals/components/Grid";
@@ -10,15 +10,25 @@ import SecurityCard from "./components/SecurityCard";
 import ActivityCard from "./components/ActivityCard";
 
 export default function MiPerfil() {
-    const { user, loading } = useAuth();
-    if (loading) return <PageLayout><p>Cargando...</p></PageLayout>;
+    const [profileUser, setProfileUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    const profileUser = {
-        nombre_usuario: user.nombre_usuario,
-        rol_usuario: user.rol_usuario,
-        ultimo_acceso: user.ultimo_acceso,
-        activo: user.activo,
-    };
+    useEffect(() => {
+        const fetchPerfil = async () => {
+            try {
+                const data = await getPerfilAPI();
+                setProfileUser(data);
+            } catch (error) {
+                console.error("Error al cargar los datos del perfil:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPerfil();
+    }, []);
+
+    if (loading) return <PageLayout><p>Cargando...</p></PageLayout>;
 
     return (
         <PageLayout>

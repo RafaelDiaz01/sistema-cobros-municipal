@@ -1,6 +1,7 @@
 import { Clock, LogIn, User } from "lucide-react";
 import Stack from "../../../components/layouts/Stack.jsx";
 import CardCobro from "../../../components/cards/CardCobro.jsx";
+import timeFormatter from "../../../utils/timeFormatter.js";
 
 export default function ActivityCard({ user }) {
     return (
@@ -25,8 +26,8 @@ export default function ActivityCard({ user }) {
                 <ActivityItem
                     icon={User}
                     iconBg="bg-yellow-50 text-yellow-600"
-                    label="Activo Desde"
-                    title={"23 de Junio, 2024"}
+                    label="Última Actualización de Perfil"
+                    title={timeFormatter(user.updatedAt)}
                     subtitle="Hace 3 meses"
                 />
             </div>

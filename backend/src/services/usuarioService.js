@@ -1,4 +1,5 @@
 import Usuario from "../models/Usuario.js";
+import { hashPassword } from "../utils/password.js";
 
 // Obtener todos los usuarios
 export const obtenerUsuarios = async () => {
@@ -7,11 +8,10 @@ export const obtenerUsuarios = async () => {
 
 // Crear un nuevo usuario
 export const crearUsuario = async (data) => {
-  // Agregar validaciones adicionales si es necesario
 
   const nuevoUsuario = await Usuario.create({
     nombre_usuario: data.nombre_usuario,
-    password_usuario: data.password_usuario,
+    password_usuario: await hashPassword(data.password_usuario),
   });
 
   return nuevoUsuario;

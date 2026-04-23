@@ -5,6 +5,7 @@ export const obtenerPerfil = async (id_usuario) => {
         attributes: [
             "id_usuario",
             "nombre_usuario",
+            "nombre_completo",
             "rol_usuario",
             "ultimo_acceso",
             "foto_perfil",

@@ -12,6 +12,7 @@ export const crearUsuario = async (data) => {
   const nuevoUsuario = await Usuario.create({
     nombre_usuario: data.nombre_usuario,
     password_usuario: await hashPassword(data.password_usuario),
+    nombre_completo: data.nombre_completo,
   });
 
   return nuevoUsuario;

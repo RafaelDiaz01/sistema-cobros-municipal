@@ -33,6 +33,7 @@ export const actualizarPerfil = async (id_usuario, data) => {
 
     await usuario.update({
         nombre_usuario: data.nombre_usuario,
+        nombre_completo: data.nombre_completo,
         telefono: data.telefono,
         foto_perfil: data.foto_perfil,
         departamento: data.departamento,

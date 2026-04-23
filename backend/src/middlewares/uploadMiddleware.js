@@ -17,5 +17,15 @@ const qrStorage = multer.diskStorage({
   },
 });
 
+// Subir foto de perfil
+const fotoPerfilStorage = multer.diskStorage({
+  destination: "uploads/",
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    cb(null, `foto_perfil_${req.user.id_usuario}${ext}`);
+  },
+});
+
+export const uploadFotoPerfil = multer({ storage: fotoPerfilStorage });
 export const uploadLogo = multer({ storage: logoStorage });
 export const uploadQR = multer({ storage: qrStorage });

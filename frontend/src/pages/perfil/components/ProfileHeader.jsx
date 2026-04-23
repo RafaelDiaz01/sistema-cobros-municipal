@@ -2,6 +2,8 @@ import { Briefcase, CheckCircle2, LogOut, UserPen } from "lucide-react";
 import Stack from "../../../components/layouts/Stack.jsx";
 import CardCobro from "../../../components/cards/CardCobro.jsx";
 
+const URL = "http://localhost:4000";
+
 export default function ProfileHeader({ user }) {
     return (
         <CardCobro title="Perfil de Usuario">
@@ -10,7 +12,7 @@ export default function ProfileHeader({ user }) {
                 {/* Avatar */}
                 <div className="relative w-20 h-20 flex-shrink-0">
                     <img
-                        src={user.foto_perfil}
+                        src={URL + user.foto_perfil}
                         alt={user.nombre_usuario}
                         className="w-20 h-20 rounded-full object-cover ring-4 ring-white shadow-md"
                     />

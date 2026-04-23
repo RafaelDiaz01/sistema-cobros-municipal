@@ -9,7 +9,7 @@ export default function InfoCard({ user }) {
         <CardCobro title="Información Personal">
             <Stack size="sm">
                 <Grid cols={1} md={2}>
-                    <InfoField label="Nombre Completo" value={user.nombre_usuario} />
+                    <InfoField label="Nombre Completo" value={user.nombre_completo} />
                     <InfoField label="Número de Teléfono" value={formatPhone(user.telefono)} />
                     <InfoField label="Departamento Asignado" value={user.departamento} />
                     <InfoField label="Fecha de Registro" value={timeFormatter(user.createdAt)} />

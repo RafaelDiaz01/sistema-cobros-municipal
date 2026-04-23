@@ -53,7 +53,7 @@ export default function ProfileHeader({ user, onEdit }) {
 const Button = ({ children, variante = "primary", icon: Icon, onClick }) => {
     const styles = {
         primary:
-            "bg-emerald-500 hover:bg-emerald-600 text-white shadow-sm shadow-emerald-200",
+            "bg-[var(--color-primario)] hover:bg-[var(--color-acento)] text-white shadow-sm shadow-emerald-100",
         cancel:
             "bg-white hover:bg-red-50 text-red-500 border border-red-200 hover:border-red-300",
     };

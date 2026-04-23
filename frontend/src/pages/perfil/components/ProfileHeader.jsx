@@ -4,7 +4,7 @@ import CardCobro from "../../../components/cards/CardCobro.jsx";
 
 const URL = "http://localhost:4000";
 
-export default function ProfileHeader({ user }) {
+export default function ProfileHeader({ user, onEdit }) {
     return (
         <CardCobro title="Perfil de Usuario">
             <div className="flex flex-col sm:flex-row sm:items-center gap-5">
@@ -37,7 +37,7 @@ export default function ProfileHeader({ user }) {
                 {/* Acciones */}
                 <div className="flex flex-col sm:items-end gap-2">
                     <Stack size="sm">
-                        <Button icon={UserPen} variante="primary">
+                        <Button icon={UserPen} variante="primary" onClick={() => onEdit(user)}>
                             Editar Perfil
                         </Button>
                         <Button icon={LogOut} variante="cancel">

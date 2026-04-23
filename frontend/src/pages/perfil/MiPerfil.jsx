@@ -8,27 +8,35 @@ import ProfileHeader from "./components/ProfileHeader";
 import InfoCard from "./components/InfoCard";
 import SecurityCard from "./components/SecurityCard";
 import ActivityCard from "./components/ActivityCard";
+import PerfilModal from "../../components/features/perfil/PerfilModal.jsx";
 
 export default function MiPerfil() {
     const [profileUser, setProfileUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [open, setOpen] = useState(false);
+    const [usuarioEdit, setUsuarioEdit] = useState(null);
 
     useEffect(() => {
-        const fetchPerfil = async () => {
-            try {
-                const data = await getPerfilAPI();
-                setProfileUser(data);
-            } catch (error) {
-                console.error("Error al cargar los datos del perfil:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchPerfil();
     }, []);
 
+    const fetchPerfil = async () => {
+        try {
+            const data = await getPerfilAPI();
+            setProfileUser(data);
+        } catch (error) {
+            console.error("Error al cargar los datos del perfil:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     if (loading) return <PageLayout><p>Cargando...</p></PageLayout>;
+
+    const handleEdit = (usuario) => {
+        setUsuarioEdit(usuario);
+        setOpen(true);
+    };
 
     return (
         <PageLayout>
@@ -36,7 +44,16 @@ export default function MiPerfil() {
                 <SectionTitleSimple text="Mi Perfil" />
 
                 { /* Perfil de Usuario */}
-                <ProfileHeader user={profileUser} />
+                <ProfileHeader user={profileUser} onEdit={handleEdit} />
+
+                {open && (
+                    <PerfilModal
+                        isOpen={open}
+                        onClose={() => setOpen(false)}
+                        user={usuarioEdit}
+                        onSuccess={fetchPerfil}
+                    />
+                )}
 
                 { /* Información Personal y Seguridad */}
                 <div className="flex flex-col lg:flex-row gap-5">

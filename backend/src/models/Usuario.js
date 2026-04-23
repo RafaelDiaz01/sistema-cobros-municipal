@@ -17,6 +17,10 @@ const Usuario = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    nombre_completo: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
     rol_usuario: {
       type: DataTypes.STRING(20),
       allowNull: false,

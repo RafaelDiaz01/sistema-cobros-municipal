@@ -65,5 +65,6 @@ app.use("/api/recibos", reciboRoute);
 app.use("/api/conexiones", conexionRoutes);
 app.use("/api/ejercicios-fiscales", ejercicioFiscalRoute);
 app.use("/api/mi-perfil", miPerfilRoute);
+app.use('/uploads', express.static('uploads'));
 
 export default app;

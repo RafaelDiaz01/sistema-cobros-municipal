@@ -39,3 +39,14 @@ export const actualizarPerfil = async (id_usuario, data) => {
 
     return usuario;
 };
+
+// Función para guardar la foto de perfil
+export const guardarFotoPerfil = async (id_usuario, foto_perfil) => {
+    const usuario = await Usuario.findByPk(id_usuario);
+
+    if (!usuario) {
+        throw new Error("Usuario no encontrado");
+    }
+
+    return await usuario.update({ foto_perfil: foto_perfil });
+};

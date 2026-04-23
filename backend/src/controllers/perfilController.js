@@ -24,3 +24,18 @@ export const putPerfil = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
+
+// Subir foto de perfil
+export const uploadFotoPerfil = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: "No se ha subido ningún archivo" });
+        }
+
+        const foto_perfil = `/uploads/${req.file.filename}`;
+        await perfilService.guardarFotoPerfil(req.user.id_usuario, foto_perfil);
+        res.json({ message: "Foto de perfil actualizada correctamente" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};

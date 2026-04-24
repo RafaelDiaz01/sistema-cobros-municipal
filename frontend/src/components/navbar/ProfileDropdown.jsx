@@ -69,9 +69,9 @@ export default function ProfileDropdown() {
 
       {/* MENÚ */}
       {open && (
-        <div className="absolute right-0 mt-3 w-72 rounded-xl bg-white shadow-xl border border-gray-100 z-50 overflow-hidden">
+        <div className="absolute right-0 w-72 rounded-xl bg-white shadow-xl border border-gray-100 z-50 overflow-hidden">
           {/* HEADER */}
-          <div className="px-4 py-3 bg-[var(--color-primario)]/10">
+          <div className="px-6 py-4 bg-[var(--color-primario)]/10">
             <p className="text-sm font-semibold text-[var(--color-texto)]">
               {profileUser?.nombre_usuario || "Usuario"}
             </p>
@@ -81,26 +81,19 @@ export default function ProfileDropdown() {
           </div>
 
           {/* OPCIONES */}
-          <div className="p-2 space-y-1">
+          <div className="p-2">
             <MenuItem
               icon={<User size={18} />}
               title="Mi Perfil"
-              subtitle="Datos personales y cargo"
+              subtitle="Datos personales"
               onClick={() => goTo("/mi-perfil")}
             />
 
             <MenuItem
               icon={<Settings size={18} />}
-              title="Configuración de Cuenta"
+              title="Configuración"
               subtitle="Preferencias del sistema"
               onClick={() => goTo("/configuracion")}
-            />
-
-            <MenuItem
-              icon={<Lock size={18} />}
-              title="Cambiar Contraseña"
-              subtitle="Seguridad de acceso"
-              onClick={() => goTo("/cambiar-password")}
             />
 
             <MenuItem

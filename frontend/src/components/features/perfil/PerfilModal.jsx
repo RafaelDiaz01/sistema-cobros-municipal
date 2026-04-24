@@ -27,6 +27,7 @@ export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
             reset({
                 nombre_completo: user.nombre_completo,
                 telefono: user.telefono,
+                correo: user.correo
             });
         }
     }, [isEdit, user, reset]);
@@ -63,17 +64,32 @@ export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
             <form id="perfil-form" onSubmit={handleSubmit(onSubmit)}>
                 <Stack size="lg">
                     <Section icon={<User size={18} />} title="Información Personal">
-                        <Grid cols={2}>
+                        <Grid cols={3}>
                             <Input
                                 label="Nombre Completo"
+                                placeholder="Juan Carlos Pérez"
                                 defaultValue=""
                                 {...register("nombre_completo", { required: "El nombre es requerido" })}
                                 error={errors.nombre_completo?.message}
                             />
                             <Input
                                 label="Teléfono"
+                                placeholder="9512345678"
                                 defaultValue=""
                                 {...register("telefono")}
+                            />
+                            <Input
+                                label="Correo Electrónico"
+                                placeholder="armandocruz@gmai.com"
+                                defaultValue=""
+                                {...register("correo", {
+                                    required: "El correo es requerido",
+                                    pattern: {
+                                        value: /^\S+@\S+$/i,
+                                        message: "Correo no válido"
+                                    }
+                                })}
+                                error={errors.correo?.message}
                             />
                         </Grid>
                     </Section>

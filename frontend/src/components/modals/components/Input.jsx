@@ -1,6 +1,6 @@
 import Stack from "../../layouts/Stack.jsx";
 
-function Input({ label, helper, disabled, ...props }) {
+function Input({ label, error, disabled, ...props }) {
   return (
     <Stack size="xs">
       {/* LABEL */}
@@ -16,7 +16,7 @@ function Input({ label, helper, disabled, ...props }) {
       />
 
       {/* HELPER */}
-      {helper && <p className="text-xs text-gray-400">{helper}</p>}
+      {error && <p className="text-xs text-gray-400">{error}</p>}
     </Stack>
   );
 }

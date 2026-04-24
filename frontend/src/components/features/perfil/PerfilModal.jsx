@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { createUserSchema } from "@/validations/schemas";
 import { User, Camera } from "lucide-react";
 import { showToast } from "../../../utils/alerts/toast.js";
 import { updatePerfilAPI, updateFotoPerfilAPI } from "../../../services/miPerfilService.js";
@@ -20,7 +22,9 @@ export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
         handleSubmit,
         reset,
         formState: { errors, isSubmitting },
-    } = useForm();
+    } = useForm({
+        resolver: yupResolver(createUserSchema),
+    });
 
     useEffect(() => {
         if (isEdit && user) {
@@ -69,7 +73,7 @@ export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
                                 label="Nombre Completo"
                                 placeholder="Juan Carlos Pérez"
                                 defaultValue=""
-                                {...register("nombre_completo", { required: "El nombre es requerido" })}
+                                {...register("nombre_completo")}
                                 error={errors.nombre_completo?.message}
                             />
                             <Input
@@ -77,6 +81,7 @@ export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
                                 placeholder="9512345678"
                                 defaultValue=""
                                 {...register("telefono")}
+                                error={errors.telefono?.message}
                             />
                             <Input
                                 label="Correo Electrónico"

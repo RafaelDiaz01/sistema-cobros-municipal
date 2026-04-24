@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { User } from "lucide-react";
+import { User, Camera } from "lucide-react";
 import { showToast } from "../../../utils/alerts/toast.js";
 import { updatePerfilAPI } from "../../../services/miPerfilService.js";
 import ModalBase from "../../ui/ModalBase.jsx";
@@ -9,6 +9,7 @@ import Grid from "../../modals/components/Grid.jsx";
 import Input from "../../modals/components/Input.jsx";
 import Select from "../../modals/components/Select.jsx";
 import Stack from "../../layouts/Stack.jsx";
+import Upload from "../../modals/components/Upload.jsx";
 import ModalFooter from "../components/ModalFooter.jsx";
 
 export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
@@ -64,6 +65,10 @@ export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
                                 {...register("telefono")}
                             />
                         </Grid>
+                    </Section>
+
+                    <Section icon={<Camera size={18} />} title="Foto de Perfil">
+                        <Upload />
                     </Section>
                 </Stack>
             </form>

@@ -9,6 +9,7 @@ import ModalBase from "../../ui/ModalBase.jsx";
 import Section from "../../modals/components/Section.jsx";
 import Grid from "../../modals/components/Grid.jsx";
 import Input from "../../modals/components/Input.jsx";
+import InputPhone from "../../modals/InputPhone.jsx";
 import Select from "../../modals/components/Select.jsx";
 import Stack from "../../layouts/Stack.jsx";
 import Upload from "../../modals/components/Upload.jsx";
@@ -76,7 +77,7 @@ export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
                                 {...register("nombre_completo")}
                                 error={errors.nombre_completo?.message}
                             />
-                            <Input
+                            <InputPhone
                                 label="Teléfono"
                                 placeholder="9512345678"
                                 defaultValue=""

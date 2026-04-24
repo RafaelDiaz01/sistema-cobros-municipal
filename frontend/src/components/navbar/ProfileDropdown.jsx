@@ -9,12 +9,29 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext.jsx";
+import { getPerfilAPI } from "../../services/miPerfilService.js";
+
+const URL = "http://localhost:4000";
 
 export default function ProfileDropdown() {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   const navigate = useNavigate();
   const { user, cerrarSesion } = useAuth();
+  const [profileUser, setProfileUser] = useState(null);
+
+  useEffect(() => {
+    fetchPerfil();
+  }, []);
+
+  const fetchPerfil = async () => {
+    try {
+      const data = await getPerfilAPI();
+      setProfileUser(data);
+    } catch (error) {
+      console.error("Error al cargar los datos del perfil:", error);
+    }
+  };
 
   // Cerrar al hacer click fuera
   useEffect(() => {
@@ -39,13 +56,15 @@ export default function ProfileDropdown() {
         onClick={() => setOpen(!open)}
         className="w-10 h-10 flex items-center justify-center rounded-full border border-[var(--color-borde)] text-[var(--color-primario)]"
       >
-        {/* <img
-          src="/avatar.png"
-          alt="Perfil"
-          className="w-9 h-9 rounded-full object-cover"
-        /> */}
-
-        <UserCircle size={22} />
+        {profileUser ? (
+          <img
+            src={profileUser.foto_perfil ? URL + profileUser.foto_perfil : ""}
+            alt={profileUser.nombre_usuario || "Usuario"}
+            className="w-9 h-9 rounded-full object-cover"
+          />
+        ) : (
+          <UserCircle size={24} />
+        )}
       </button>
 
       {/* MENÚ */}
@@ -54,10 +73,10 @@ export default function ProfileDropdown() {
           {/* HEADER */}
           <div className="px-4 py-3 bg-[var(--color-primario)]/10">
             <p className="text-sm font-semibold text-[var(--color-texto)]">
-              {user?.nombre_usuario || "Usuario"}
+              {profileUser?.nombre_usuario || "Usuario"}
             </p>
             <p className="text-xs text-gray-600">
-              {user?.rol_usuario || "Rol"}
+              {profileUser?.rol_usuario || "Rol"}
             </p>
           </div>
 

@@ -38,6 +38,15 @@ const Usuario = sequelize.define(
     departamento: {
       type: DataTypes.STRING(50),
     },
+    correo: {
+      type: DataTypes.STRING(100),
+      validate: {
+        isEmail: true, // Valida que el formato sea de correo electrónico
+      },
+    },
+    cargo: {
+      type: DataTypes.STRING(50),
+    },
     activo: {
       type: DataTypes.BOOLEAN,
       defaultValue: true, // Activo por defecto

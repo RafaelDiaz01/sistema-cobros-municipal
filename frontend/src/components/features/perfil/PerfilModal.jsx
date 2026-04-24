@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { User, Camera } from "lucide-react";
 import { showToast } from "../../../utils/alerts/toast.js";
-import { updatePerfilAPI } from "../../../services/miPerfilService.js";
+import { updatePerfilAPI, updateFotoPerfilAPI } from "../../../services/miPerfilService.js";
 import ModalBase from "../../ui/ModalBase.jsx";
 import Section from "../../modals/components/Section.jsx";
 import Grid from "../../modals/components/Grid.jsx";
@@ -32,9 +32,20 @@ export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
     }, [isEdit, user, reset]);
 
     const onSubmit = async (data) => {
+        const { foto_perfil, ...perfilData } = data;
         try {
             if (isEdit) {
-                await updatePerfilAPI(data);
+                await updatePerfilAPI(perfilData);
+
+                // Si se subió una nueva foto, actualizarla también
+                if (foto_perfil && foto_perfil.length > 0) {
+                    const formData = new FormData();
+                    formData.append("foto_perfil", foto_perfil[0]);
+                    await updateFotoPerfilAPI(formData);
+                } else {
+                    showToast("info", "No se actualizó la foto de perfil");
+                }
+
                 showToast("success", "Perfil actualizado exitosamente");
             } else {
                 showToast("error", "No se puede crear un nuevo perfil");
@@ -68,7 +79,10 @@ export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
                     </Section>
 
                     <Section icon={<Camera size={18} />} title="Foto de Perfil">
-                        <Upload />
+                        <Upload
+                            name="foto_perfil"
+                            field={register("foto_perfil")}
+                        />
                     </Section>
                 </Stack>
             </form>

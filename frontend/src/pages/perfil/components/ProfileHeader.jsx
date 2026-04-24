@@ -26,8 +26,8 @@ export default function ProfileHeader({ user, onEdit }) {
                         </h1>
 
                         <div className="flex items-center gap-1.5">
-                            <Briefcase size={15} className="text-emerald-500" strokeWidth={2.5} />
-                            <span className="text-[15px] font-semibold text-emerald-600">
+                            <Briefcase size={15} className="text-[var(--color-primario)]" strokeWidth={2.5} />
+                            <span className="text-[15px] font-semibold text-[var(--color-primario)]">
                                 {user.rol_usuario}
                             </span>
                         </div>

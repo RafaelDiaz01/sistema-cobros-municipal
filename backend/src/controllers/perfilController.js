@@ -39,3 +39,20 @@ export const uploadFotoPerfil = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+// Cambiar contraseña
+export const putPassword = async (req, res) => {
+    try {
+        const id_usuario = req.user.id_usuario;
+        const { password_usuario, password_nueva } = req.body;
+
+        if (!password_nueva) {
+            return res.status(400).json({ error: "La nueva contraseña es requerida" });
+        }
+
+        await perfilService.cambiarContrasena(id_usuario, password_usuario, password_nueva);
+        res.json({ message: "Contraseña actualizada correctamente" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};

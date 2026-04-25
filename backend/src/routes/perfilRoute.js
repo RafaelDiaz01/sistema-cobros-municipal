@@ -19,4 +19,7 @@ router.put(
     perfilController.uploadFotoPerfil
 );
 
+// Cambiar contraseña
+router.put("/cambiar-password", authMiddleware, perfilController.putPassword);
+
 export default router;

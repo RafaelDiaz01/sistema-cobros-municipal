@@ -65,7 +65,11 @@ export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
     };
 
     return (
-        <ModalBase isOpen={isOpen} onClose={onClose} title={isEdit ? "Editar Perfil" : "Ver Perfil"} footer={ModalFooter(onClose, isEdit, "perfil-form", "Perfil")}>
+        <ModalBase isOpen={isOpen}
+            onClose={onClose}
+            title={isEdit ? "Editar Perfil" : "Ver Perfil"}
+            subtitle={"Modifique sus datos personales"}
+            footer={ModalFooter(onClose, isEdit, "perfil-form", "Perfil")}>
             <form id="perfil-form" onSubmit={handleSubmit(onSubmit)}>
                 <Stack size="lg">
                     <Section icon={<User size={18} />} title="Información Personal">

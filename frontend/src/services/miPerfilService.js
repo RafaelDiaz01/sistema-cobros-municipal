@@ -17,3 +17,9 @@ export const updateFotoPerfilAPI = async (formData) => {
     const response = await api.put("/mi-perfil/subir-foto", formData);
     return response.data;
 };
+
+// Cambiar contraseña
+export const cambiarPasswordAPI = async (data) => {
+    const response = await api.put("/mi-perfil/cambiar-password", data);
+    return response.data;
+};

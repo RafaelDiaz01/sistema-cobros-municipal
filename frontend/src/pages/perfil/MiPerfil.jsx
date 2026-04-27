@@ -9,11 +9,13 @@ import InfoCard from "./components/InfoCard";
 import SecurityCard from "./components/SecurityCard";
 import ActivityCard from "./components/ActivityCard";
 import PerfilModal from "../../components/features/perfil/PerfilModal.jsx";
+import PasswordModal from "../../components/features/perfil/PasswordModal.jsx";
 
 export default function MiPerfil() {
     const [profileUser, setProfileUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(false);
+    const [openPassword, setOpenPassword] = useState(false);
     const [usuarioEdit, setUsuarioEdit] = useState(null);
 
     useEffect(() => {
@@ -36,6 +38,10 @@ export default function MiPerfil() {
     const handleEdit = (usuario) => {
         setUsuarioEdit(usuario);
         setOpen(true);
+    };
+
+    const handlePasswordChange = () => {
+        setOpenPassword(true);
     };
 
     return (
@@ -61,7 +67,14 @@ export default function MiPerfil() {
                     {/* Columna Izquierda */}
                     <Grid cols={1} className="flex-1">
                         <InfoCard user={profileUser} />
-                        <SecurityCard />
+                        <SecurityCard onChange={handlePasswordChange} />
+                        {openPassword && (
+                            <PasswordModal
+                                isOpen={openPassword}
+                                onClose={() => setOpenPassword(false)}
+                                onSuccess={fetchPerfil}
+                            />
+                        )}
                     </Grid>
 
                     {/* Columna Derecha */}

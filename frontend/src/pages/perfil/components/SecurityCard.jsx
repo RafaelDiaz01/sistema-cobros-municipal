@@ -2,7 +2,7 @@ import { ChevronRight, Lock } from "lucide-react";
 import Stack from "../../../components/layouts/Stack.jsx";
 import CardCobro from "../../../components/cards/CardCobro.jsx";
 
-export default function SecurityCard() {
+export default function SecurityCard({ onChange }) {
     return (
         <CardCobro title="Seguridad de la Cuenta">
             <Stack size="sm">
@@ -20,7 +20,7 @@ export default function SecurityCard() {
                             </p>
                         </div>
                     </div>
-                    <button className="flex items-center gap-1 text-[13px] font-semibold text-emerald-600 hover:text-emerald-700 transition-colors cursor-pointer">
+                    <button className="flex items-center gap-1 text-[13px] font-semibold text-emerald-600 hover:text-emerald-700 transition-colors cursor-pointer" onClick={onChange}>
                         Cambiar Contraseña
                         <ChevronRight size={14} strokeWidth={2.5} />
                     </button>

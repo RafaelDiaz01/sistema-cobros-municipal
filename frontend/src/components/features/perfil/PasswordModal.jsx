@@ -8,6 +8,7 @@ import Section from "../../modals/components/Section.jsx";
 import Grid from "../../modals/components/Grid.jsx";
 import Input from "../../modals/components/Input.jsx";
 import InputPhone from "../../modals/InputPhone.jsx";
+import InputPassword from "../../modals/InputPassword.jsx";
 import Select from "../../modals/components/Select.jsx";
 import Stack from "../../layouts/Stack.jsx";
 import Upload from "../../modals/components/Upload.jsx";
@@ -35,36 +36,35 @@ export default function PasswordModal({ isOpen, onClose, onSuccess }) {
     };
 
     return (
-        <ModalBase isOpen={isOpen} onClose={onClose} title="Cambiar Contraseña" footer={ModalFooter(onClose, isEdit, "password-form", "Contraseña")} maxWidth="max-w-md">
+        <ModalBase isOpen={isOpen} onClose={onClose} title="Cambiar Contraseña" subtitle="Modifique sus datos de seguridad" footer={ModalFooter(onClose, isEdit, "password-form", "Contraseña")} maxWidth="max-w-md">
             <form id="password-form" onSubmit={handleSubmit(onSubmit)}>
                 <Stack size="lg">
-                    <Section icon={<LockOpen />} title="Seguridad Actual" >
-                        <Input
+                    <Section icon={<Lock size={18} />} title="Datos de Seguridad" >
+                        <InputPassword
                             label="Contraseña Actual"
-                            placeholder="********"
-                            type="password"
-                            error={errors.password_usuario?.message}
-                            {...register("password_usuario", { required: "La contraseña actual es requerida" })}
+                            name="password_usuario"
+                            register={register}
+                            error={errors.password_usuario}
                         />
                     </Section>
-                    <Section icon={<Lock />} title="Seguridad Nueva" >
-                        <Input
-                            label="Nueva Contraseña"
-                            placeholder="********"
-                            type="password"
-                            error={errors.password_nueva?.message}
-                            {...register("password_nueva", { required: "La nueva contraseña es requerida" })}
-                        />
-                        <Input
-                            label="Confirmar Nueva Contraseña"
-                            placeholder="********"
-                            type="password"
-                            error={errors.password_confirm?.message}
-                            {...register("password_confirm", {
-                                required: "La confirmación de la nueva contraseña es requerida"
-                            })}
-                        />
-                    </Section>
+                    {/* <Section icon={<Lock />} title="Seguridad Nueva" > */}
+                    <Input
+                        label="Nueva Contraseña"
+                        placeholder="********"
+                        type="password"
+                        error={errors.password_nueva?.message}
+                        {...register("password_nueva", { required: "La nueva contraseña es requerida" })}
+                    />
+                    <Input
+                        label="Confirmar Nueva Contraseña"
+                        placeholder="********"
+                        type="password"
+                        error={errors.password_confirm?.message}
+                        {...register("password_confirm", {
+                            required: "La confirmación de la nueva contraseña es requerida"
+                        })}
+                    />
+                    {/* </Section> */}
                 </Stack>
             </form>
         </ModalBase>

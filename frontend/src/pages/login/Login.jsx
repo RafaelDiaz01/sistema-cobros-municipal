@@ -1,11 +1,14 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginSchema } from "@/validations/schemas";
 import { useNavigate } from "react-router-dom";
 import { User, Lock, Eye, EyeOff } from "lucide-react";
 import { login } from "../../services/authService.js";
 import { useAuth } from "../../context/authContext.jsx";
 import logoUrl from "../../assets/images/logo-ixtlan.png";
 import Stack from "../../components/layouts/Stack.jsx";
+import InputPassword from "../../components/modals/InputPassword.jsx";
 
 export default function Login() {
   const [loginError, setLoginError] = useState("");
@@ -20,7 +23,9 @@ export default function Login() {
     handleSubmit,
     formState: { errors, isSubmitting },
     clearErrors,
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(loginSchema),
+  });
 
   const onSubmit = async (data) => {
     try {
@@ -51,11 +56,10 @@ export default function Login() {
                     text-sm
                     outline-none
                     
-   ${
-     hasError
-       ? "border-red-500 focus:ring-2 focus:ring-red-400"
-       : "border-[#E5E7EB] focus:border-[var(--color-acento)] focus:ring-1 focus:ring-[var(--color-acento)]"
-   }`;
+   ${hasError
+      ? "border-red-500 focus:ring-2 focus:ring-red-400"
+      : "border-[#E5E7EB] focus:border-[var(--color-acento)] focus:ring-1 focus:ring-[var(--color-acento)]"
+    }`;
 
   return (
     <div className="relative h-screen overflow-hidden bg-gradient-to-br from-green-50 via-white to-green-100 flex items-center justify-center">
@@ -130,52 +134,13 @@ export default function Login() {
 
                 {/* CONTRASEÑA */}
                 <div className="text-left">
-                  <div className="flex justify-between items-center">
-                    <label className="text-sm font-medium text-gray-700">
-                      Contraseña
-                    </label>
-                    <button
-                      type="button"
-                      className="text-xs text-[var(--color-acento)] hover:underline"
-                    >
-                      ¿Olvidó su contraseña?
-                    </button>
-                  </div>
-
-                  <div className="relative">
-                    <Lock
-                      size={18}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-primario)]"
-                    />
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      {...register("password_usuario", { required: true })}
-                      placeholder="••••••••"
-                      className={inputClass(loginError)}
-                      onChange={() => setLoginError("")}
-                    />
-                    <button
-                      type="button"
-                      aria-label={
-                        showPassword
-                          ? "Ocultar contraseña"
-                          : "Mostrar contraseña"
-                      }
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      {showPassword ? (
-                        <Eye
-                          size={18}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-primario)] cursor-pointer"
-                        />
-                      ) : (
-                        <EyeOff
-                          size={18}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-primario)] cursor-pointer"
-                        />
-                      )}
-                    </button>
-                  </div>
+                  <InputPassword
+                    label="Contraseña"
+                    name="password_usuario"
+                    register={register}
+                    error={errors.password_usuario}
+                    onChange={() => setLoginError("")}
+                  />
                 </div>
 
                 {/* RECORDAR SESIÓN */}

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { refreshToken } from "../services/authService";
 
 const api = axios.create({
   baseURL: "http://localhost:4000/api",
@@ -24,6 +23,16 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+
+    const requestUrl = originalRequest?.url ?? "";
+
+    // No intentar refrescar sesión en las rutas de autenticación.
+    if (
+      requestUrl.includes("/auth/login") ||
+      requestUrl.includes("/auth/refresh")
+    ) {
+      return Promise.reject(error);
+    }
 
     // Si no hay response → error de red
     if (!error.response) {
@@ -51,7 +60,11 @@ api.interceptors.response.use(
     isRefreshing = true;
 
     try {
-      await refreshToken();
+      await axios.post(
+        "http://localhost:4000/api/auth/refresh",
+        {},
+        { withCredentials: true },
+      );
       processQueue(null);
       return api(originalRequest);
     } catch (err) {

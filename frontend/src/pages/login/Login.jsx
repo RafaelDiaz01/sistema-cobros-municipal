@@ -12,6 +12,7 @@ import Header from "./components/Header.jsx";
 import InputUser from "./components/InputUser.jsx";
 import InputPassword from "../../components/modals/InputPassword.jsx";
 import Footer from "./components/Footer.jsx";
+import GlobalFooter from "./components/GlobalFooter.jsx";
 
 export default function Login() {
   const [loginError, setLoginError] = useState("");
@@ -115,12 +116,7 @@ export default function Login() {
       </div>
 
       {/* FOOTER GLOBAL */}
-      <div className="absolute bottom-4 w-full text-center text-xs text-black/80">
-        ¿Necesita ayuda?{" "}
-        <span className="font-semibold underline cursor-pointer">
-          Soporte Técnico
-        </span>
-      </div>
+      <GlobalFooter />
     </div>
   );
 }

@@ -11,9 +11,9 @@ export default function PasswordInput({
     placeholder = "• • • • • • • •",
     onChange,
     disabled = false,
-    showIcon = true,
 }) {
     const [showPassword, setShowPassword] = useState(false);
+    const hasError = Boolean(error);
 
     const inputClass = (hasError) => `w-full pl-10 pr-3 py-2 rounded-lg bg-[#F9FAFB] border text-sm outline-none        
    ${hasError
@@ -22,55 +22,46 @@ export default function PasswordInput({
         }`;
 
     return (
-        <div className="w-full">
-            <Stack size="xs">
-                {label && (
-                    <label className="text-sm font-medium">
-                        {label} {required && <span className="text-red-500">*</span>}
-                    </label>
-                )}
-                <div className="relative">
-
-                    {/* Icono izquierdo */}
-                    {showIcon && (
-                        <Lock
-                            size={18}
-                            className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-primario)]"
-                        />
+        <Stack size="xs">
+            {label && (
+                <label className="text-sm font-medium text-gray-700" htmlFor={name}>
+                    {label} {required && <span className="text-red-500">*</span>}
+                </label>
+            )}
+            <div className="relative">
+                <Lock
+                    size={18}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-primario)]"
+                />
+                <input
+                    id={name}
+                    type={showPassword ? "text" : "password"}
+                    {...register(name)}
+                    placeholder={placeholder}
+                    className={inputClass(hasError)}
+                    onChange={onChange}
+                    disabled={disabled}
+                />
+                <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    aria-label={
+                        showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+                    }
+                    className="absolute right-3 top-1/2 -translate-y-1/2"
+                >
+                    {showPassword ? (
+                        <Eye className="text-[var(--color-primario)] cursor-pointer" size={18} />
+                    ) : (
+                        <EyeOff className="text-[var(--color-primario)] cursor-pointer" size={18} />
                     )}
-
-                    {/* Input */}
-                    <input
-                        type={showPassword ? "text" : "password"}
-                        {...register(name)}
-                        placeholder={placeholder}
-                        className={inputClass(error)}
-                        onChange={onChange}
-                        disabled={disabled}
-                    />
-
-                    {/* Toggle mostrar/ocultar */}
-                    <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        aria-label={
-                            showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
-                        }
-                        className="absolute right-3 top-1/2 -translate-y-1/2"
-                    >
-                        {showPassword ? (
-                            <Eye className="text-[var(--color-primario)] cursor-pointer" size={18} />
-                        ) : (
-                            <EyeOff className="text-[var(--color-primario)] cursor-pointer" size={18} />
-                        )}
-                    </button>
-                </div>
-
-                {/* Error */}
-                {error && (
-                    <p className="text-red-500 text-xs mt-1">{error.message}</p>
-                )}
-            </Stack>
-        </div>
+                </button>
+            </div>
+            {hasError && (
+                <p className="text-red-500 text-xs">
+                    {error?.message}
+                </p>
+            )}
+        </Stack>
     );
 }

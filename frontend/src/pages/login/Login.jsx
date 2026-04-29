@@ -6,9 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { User, Lock, Eye, EyeOff } from "lucide-react";
 import { login } from "../../services/authService.js";
 import { useAuth } from "../../context/authContext.jsx";
+import Background from "./components/Background.jsx";
 import logoUrl from "../../assets/images/logo-ixtlan.png";
 import Stack from "../../components/layouts/Stack.jsx";
 import InputPassword from "../../components/modals/InputPassword.jsx";
+import Footer from "./components/Footer.jsx";
 
 export default function Login() {
   const [loginError, setLoginError] = useState("");
@@ -56,22 +58,8 @@ export default function Login() {
 
   return (
     <div className="relative h-screen overflow-hidden bg-gradient-to-br from-green-50 via-white to-green-100 flex items-center justify-center">
-      {/* FORMAS DECORATIVAS */}
-      <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-green-100 rounded-full opacity-60" />
-      <div className="absolute bottom-[-200px] right-[-200px] w-[600px] h-[600px] bg-green-200 rounded-full opacity-50" />
-
-      {/* SVG SUAVE */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        viewBox="0 0 1440 320"
-        preserveAspectRatio="none"
-      >
-        <path
-          fill="#22c55e"
-          fillOpacity="0.08"
-          d="M0,224L1440,96L1440,0L0,0Z"
-        />
-      </svg>
+      {/* FONDO */}
+      <Background />
 
       {/* CONTENIDO */}
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4">
@@ -159,11 +147,7 @@ export default function Login() {
             </form>
 
             {/* FOOTER*/}
-            <p className="text-xs text-black">
-              © 2026 Ixtlán de Juárez
-              <br />
-              Todos los derechos reservados
-            </p>
+            <Footer />
           </Stack>
         </div>
       </div>

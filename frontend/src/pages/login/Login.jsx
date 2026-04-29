@@ -13,11 +13,9 @@ import InputPassword from "../../components/modals/InputPassword.jsx";
 export default function Login() {
   const [loginError, setLoginError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
   const { checkAuth, isAuthenticated } = useAuth();
-
   const navigate = useNavigate();
-  // Usando React Hook Form para manejar el formulario
+
   const {
     register,
     handleSubmit,
@@ -50,12 +48,7 @@ export default function Login() {
   };
 
   const inputClass = (hasError) =>
-    `w-full pl-10 pr-3 py-2 rounded-lg
-                    bg-[#F9FAFB]
-                    border
-                    text-sm
-                    outline-none
-                    
+    `w-full pl-10 pr-3 py-2 rounded-lg bg-[#F9FAFB] border text-sm outline-none  
    ${hasError
       ? "border-red-500 focus:ring-2 focus:ring-red-400"
       : "border-[#E5E7EB] focus:border-[var(--color-acento)] focus:ring-1 focus:ring-[var(--color-acento)]"
@@ -134,11 +127,13 @@ export default function Login() {
 
                 {/* CONTRASEÑA */}
                 <div className="text-left">
+                  <label className="text-sm font-medium text-gray-700">
+                    Contraseña
+                  </label>
                   <InputPassword
-                    label="Contraseña"
                     name="password_usuario"
                     register={register}
-                    error={errors.password_usuario}
+                    error={loginError}
                     onChange={() => setLoginError("")}
                   />
                 </div>
@@ -156,13 +151,7 @@ export default function Login() {
                 <button
                   type="submit"
                   onClick={handleSubmit(onSubmit)}
-                  className="
-                w-full py-3 rounded-lg
-                bg-[var(--color-primario)]
-                text-white font-semibold text-sm
-                hover:bg-[var(--color-acento)]
-                transition
-              "
+                  className="w-full py-3 rounded-lg bg-[var(--color-primario)] text-white font-semibold text-sm hover:bg-[var(--color-acento)] transition"
                 >
                   Iniciar Sesión
                 </button>

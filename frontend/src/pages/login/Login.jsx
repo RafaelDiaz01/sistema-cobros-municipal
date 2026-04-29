@@ -9,6 +9,7 @@ import { useAuth } from "../../context/authContext.jsx";
 import Background from "./components/Background.jsx";
 import logoUrl from "../../assets/images/logo-ixtlan.png";
 import Stack from "../../components/layouts/Stack.jsx";
+import Header from "./components/Header.jsx";
 import InputPassword from "../../components/modals/InputPassword.jsx";
 import Footer from "./components/Footer.jsx";
 
@@ -64,31 +65,9 @@ export default function Login() {
       {/* CONTENIDO */}
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4">
         <div className="w-full max-w-sm bg-white rounded-2xl shadow-xl px-8 py-10 text-center">
-          <Stack size="md">
-            {/* LOGO */}
-            <Stack size="xs">
-              <div className="flex justify-center">
-                <img
-                  src={logoUrl}
-                  alt="Logo Ayuntamiento"
-                  className="w-24 h-26 object-contain"
-                />
-              </div>
-
-              {/* TITULO */}
-              <h1 className="text-xl font-bold text-gray-900">
-                Sistema de Cobros
-              </h1>
-              <p className="text-sm font-medium text-black">
-                H. Ayuntamiento de Ixtlán de Juárez
-              </p>
-
-              {loginError && (
-                <div className="bg-red-100 text-red-700 px-4 py-2 rounded-lg text-sm mb-4">
-                  {loginError}
-                </div>
-              )}
-            </Stack>
+          <Stack size="md" className={"select-none"}>
+            {/* HEADER */}
+            <Header logoUrl={logoUrl} loginError={loginError} />
 
             {/* FORM */}
             <form className="flex flex-col">

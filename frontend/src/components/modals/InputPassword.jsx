@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Eye, EyeOff, Lock } from "lucide-react";
+import { inputClass } from "./inputClass.js";
 import Stack from "../../components/layouts/Stack.jsx";
 
 export default function PasswordInput({
@@ -14,12 +15,6 @@ export default function PasswordInput({
 }) {
     const [showPassword, setShowPassword] = useState(false);
     const hasError = Boolean(error);
-
-    const inputClass = (hasError) => `w-full pl-10 pr-3 py-2 rounded-lg bg-[#F9FAFB] border text-sm outline-none        
-   ${hasError
-            ? "border-red-500 focus:ring-2 focus:ring-red-400"
-            : "border-[#E5E7EB] focus:border-[var(--color-acento)] focus:ring-1 focus:ring-[var(--color-acento)]"
-        }`;
 
     return (
         <Stack size="xs">

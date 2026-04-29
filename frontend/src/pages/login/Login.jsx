@@ -30,7 +30,6 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     try {
-      setLoginError("");
       await login(data);
       await checkAuth();
       if (isAuthenticated) {
@@ -102,9 +101,17 @@ export default function Login() {
                 {/* BOTÓN */}
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="w-full py-3 rounded-lg bg-[var(--color-primario)] text-white font-semibold text-sm hover:bg-[var(--color-acento)] transition"
                 >
-                  Iniciar Sesión
+                  {isSubmitting ? (
+                    <span className="inline-flex items-center gap-2">
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/60 border-t-white" />
+                      Iniciando . . .
+                    </span>
+                  ) : (
+                    "Iniciar Sesión"
+                  )}
                 </button>
               </Stack>
             </form>

@@ -3,19 +3,18 @@ import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "@/validations/schemas";
 import { useNavigate } from "react-router-dom";
-import { User, Lock, Eye, EyeOff } from "lucide-react";
 import { login } from "../../services/authService.js";
 import { useAuth } from "../../context/authContext.jsx";
 import Background from "./components/Background.jsx";
 import logoUrl from "../../assets/images/logo-ixtlan.png";
 import Stack from "../../components/layouts/Stack.jsx";
 import Header from "./components/Header.jsx";
+import InputUser from "./components/InputUser.jsx";
 import InputPassword from "../../components/modals/InputPassword.jsx";
 import Footer from "./components/Footer.jsx";
 
 export default function Login() {
   const [loginError, setLoginError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const { checkAuth, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
@@ -50,13 +49,6 @@ export default function Login() {
     }
   };
 
-  const inputClass = (hasError) =>
-    `w-full pl-10 pr-3 py-2 rounded-lg bg-[#F9FAFB] border text-sm outline-none  
-   ${hasError
-      ? "border-red-500 focus:ring-2 focus:ring-red-400"
-      : "border-[#E5E7EB] focus:border-[var(--color-acento)] focus:ring-1 focus:ring-[var(--color-acento)]"
-    }`;
-
   return (
     <div className="relative h-screen overflow-hidden bg-gradient-to-br from-green-50 via-white to-green-100 flex items-center justify-center">
       {/* FONDO */}
@@ -70,38 +62,30 @@ export default function Login() {
             <Header logoUrl={logoUrl} loginError={loginError} />
 
             {/* FORM */}
-            <form className="flex flex-col">
+            <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
               <Stack size="md">
                 {/* USUARIO */}
-                <div className="text-left">
-                  <label className="text-sm font-medium text-gray-700">
-                    Usuario
-                  </label>
-                  <div className="relative">
-                    <User
-                      size={18}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-primario)]"
-                    />
-                    <input
-                      type="text"
-                      {...register("nombre_usuario", { required: true })}
-                      placeholder="Ingrese su usuario"
-                      className={inputClass(loginError)}
-                      onChange={() => setLoginError("")}
-                    />
-                  </div>
-                </div>
+                <InputUser
+                  name="nombre_usuario"
+                  register={register}
+                  error={errors.nombre_usuario}
+                  onChange={() => {
+                    clearErrors("nombre_usuario");
+                    setLoginError("");
+                  }}
+                />
 
                 {/* CONTRASEÑA */}
                 <div className="text-left">
-                  <label className="text-sm font-medium text-gray-700">
-                    Contraseña
-                  </label>
                   <InputPassword
+                    label="Contraseña"
                     name="password_usuario"
                     register={register}
-                    error={loginError}
-                    onChange={() => setLoginError("")}
+                    error={errors.password_usuario}
+                    onChange={() => {
+                      clearErrors("password_usuario");
+                      setLoginError("");
+                    }}
                   />
                 </div>
 
@@ -117,7 +101,6 @@ export default function Login() {
                 {/* BOTÓN */}
                 <button
                   type="submit"
-                  onClick={handleSubmit(onSubmit)}
                   className="w-full py-3 rounded-lg bg-[var(--color-primario)] text-white font-semibold text-sm hover:bg-[var(--color-acento)] transition"
                 >
                   Iniciar Sesión

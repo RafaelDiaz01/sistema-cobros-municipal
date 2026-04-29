@@ -5,13 +5,20 @@ export const passwordRequired = yup
     .string()
     .required("La contraseña es obligatoria");
 
-// Regla estándar (puedes reutilizar en varios lados)
+// Regla básica para usuario (login)
+export const usuarioRequired = yup
+    .string()
+    .required("El usuario es obligatorio")
+    .min(3, "El usuario debe tener al menos 3 caracteres")
+    .max(50, "El usuario debe tener como máximo 50 caracteres");
+
+// Regla estándar
 export const passwordBasic = yup
     .string()
     .required("La contraseña es obligatoria")
     .min(8, "Debe tener al menos 8 caracteres");
 
-// Regla fuerte (para cambio/registro)
+// Regla fuerte (para registro o cambio de contraseña)
 export const passwordStrong = yup
     .string()
     .required("La contraseña es obligatoria")

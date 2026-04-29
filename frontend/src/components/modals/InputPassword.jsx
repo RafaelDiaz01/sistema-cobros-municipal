@@ -8,25 +8,18 @@ export default function PasswordInput({
     name,
     register,
     error,
-    placeholder = "••••••••",
+    placeholder = "• • • • • • • •",
     onChange,
     disabled = false,
     showIcon = true,
 }) {
-    console.log("PasswordInput renderizado con error:", error);
     const [showPassword, setShowPassword] = useState(false);
 
-    const inputClass = `
-    w-full pl-10 pr-10 py-2 rounded-lg
-    bg-[#F9FAFB]
-    border
-    text-sm
-    outline-none
-    ${error
+    const inputClass = (hasError) => `w-full pl-10 pr-3 py-2 rounded-lg bg-[#F9FAFB] border text-sm outline-none        
+   ${hasError
             ? "border-red-500 focus:ring-2 focus:ring-red-400"
-            : "border-[#E5E7EB] focus:border-[var(--color-acento)] focus:ring-1 focus:ring-[var(--color-acento)]"}
-    ${disabled ? "opacity-50 cursor-not-allowed" : ""}
-  `;
+            : "border-[#E5E7EB] focus:border-[var(--color-acento)] focus:ring-1 focus:ring-[var(--color-acento)]"
+        }`;
 
     return (
         <div className="w-full">
@@ -51,7 +44,7 @@ export default function PasswordInput({
                         type={showPassword ? "text" : "password"}
                         {...register(name)}
                         placeholder={placeholder}
-                        className={inputClass}
+                        className={inputClass(error)}
                         onChange={onChange}
                         disabled={disabled}
                     />

@@ -83,7 +83,7 @@ export default function Login() {
                 <img
                   src={logoUrl}
                   alt="Logo Ayuntamiento"
-                  className="w-16 h-16 object-contain"
+                  className="w-24 h-26 object-contain"
                 />
               </div>
 
@@ -91,7 +91,7 @@ export default function Login() {
               <h1 className="text-xl font-bold text-gray-900">
                 Sistema de Cobros
               </h1>
-              <p className="text-sm text-[var(--color-acento)]">
+              <p className="text-sm font-medium text-black">
                 H. Ayuntamiento de Ixtlán de Juárez
               </p>
 
@@ -139,10 +139,10 @@ export default function Login() {
                 </div>
 
                 {/* RECORDAR SESIÓN */}
-                <div className="flex items-center gap-2 text-sm text-[var(--color-acento)]">
+                <div className="flex items-center gap-2 text-sm text-black">
                   <input
                     type="checkbox"
-                    className="rounded border-gray-300 text-[var(--color-primario)] focus:ring-[var(--color-acento)]"
+                    className="rounded border-gray-300"
                   />
                   Mantener sesión iniciada
                 </div>
@@ -159,10 +159,10 @@ export default function Login() {
             </form>
 
             {/* FOOTER*/}
-            <p className="text-xs text-[var(--color-acento)]">
-              © 2026 Tesorería Municipal Ixtlán de Juárez.
+            <p className="text-xs text-black">
+              © 2026 Ixtlán de Juárez
               <br />
-              Todos los derechos reservados.
+              Todos los derechos reservados
             </p>
           </Stack>
         </div>

@@ -11,7 +11,7 @@ export default function ActivityCard({ user }) {
                     icon={LogIn}
                     iconBg="bg-emerald-50 text-emerald-600"
                     label="Último Inicio de Sesión"
-                    title={"18 de Abril, 2026 - 3:45 PM"}
+                    title={timeFormatter(user.ultimo_acceso)}
                     subtitle={"Hace 2 días"}
                 />
                 <div className="border-t border-slate-100" />

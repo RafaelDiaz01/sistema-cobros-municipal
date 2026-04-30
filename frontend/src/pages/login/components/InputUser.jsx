@@ -2,8 +2,8 @@ import { User } from "lucide-react";
 import { inputClass } from "../../../components/modals/inputClass.js";
 import Stack from "../../../components/layouts/Stack.jsx";
 
-export default function InputUser({ name, register, error, onChange }) {
-    const hasError = Boolean(error);
+export default function InputUser({ name, register, error, hasServerError, onChange }) {
+    const hasError = Boolean(error) || Boolean(hasServerError);
 
     return (
         <div className="text-left">

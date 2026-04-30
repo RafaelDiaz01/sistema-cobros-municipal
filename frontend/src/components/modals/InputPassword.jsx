@@ -9,12 +9,13 @@ export default function PasswordInput({
     name,
     register,
     error,
+    hasServerError,
     placeholder = "• • • • • • • •",
     onChange,
     disabled = false,
 }) {
     const [showPassword, setShowPassword] = useState(false);
-    const hasError = Boolean(error);
+    const hasError = Boolean(error) || Boolean(hasServerError);
 
     return (
         <Stack size="xs">

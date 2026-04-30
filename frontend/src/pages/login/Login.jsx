@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "@/validations/schemas";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,8 @@ import GlobalFooter from "./components/GlobalFooter.jsx";
 
 export default function Login() {
   const [loginError, setLoginError] = useState("");
+  const [showSpinner, setShowSpinner] = useState(false);
+  const spinnerTimerRef = useRef(null);
   const { checkAuth, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
@@ -29,6 +31,10 @@ export default function Login() {
   });
 
   const onSubmit = async (data) => {
+    spinnerTimerRef.current = setTimeout(() => {
+      setShowSpinner(true);
+    }, 300);
+
     try {
       await login(data);
       await checkAuth();
@@ -46,6 +52,9 @@ export default function Login() {
       } else {
         setLoginError("Error del servidor. Intente más tarde.");
       }
+    } finally {
+      clearTimeout(spinnerTimerRef.current);
+      setShowSpinner(false);
     }
   };
 
@@ -102,9 +111,9 @@ export default function Login() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3 rounded-lg bg-[var(--color-primario)] text-white font-semibold text-sm hover:bg-[var(--color-acento)] transition"
+                  className="w-full h-12 py-3 rounded-lg bg-[var(--color-primario)] text-white font-semibold text-sm hover:bg-[var(--color-acento)] transition"
                 >
-                  {isSubmitting ? (
+                  {showSpinner ? (
                     <span className="inline-flex items-center gap-2">
                       <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/60 border-t-white" />
                       Iniciando . . .

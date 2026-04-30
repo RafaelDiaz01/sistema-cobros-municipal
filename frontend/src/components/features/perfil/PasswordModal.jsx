@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { changePasswordSchema } from "@/validations/schemas";
 import { LockOpen, Lock, Eye } from "lucide-react";
 import { showToast } from "../../../utils/alerts/toast.js";
 import { cambiarPasswordAPI } from "../../../services/miPerfilService.js";
@@ -22,7 +24,9 @@ export default function PasswordModal({ isOpen, onClose, onSuccess }) {
         handleSubmit,
         reset,
         formState: { errors, isSubmitting },
-    } = useForm();
+    } = useForm({
+        resolver: yupResolver(changePasswordSchema)
+    });
 
     const onSubmit = async (data) => {
         try {
@@ -36,35 +40,32 @@ export default function PasswordModal({ isOpen, onClose, onSuccess }) {
     };
 
     return (
-        <ModalBase isOpen={isOpen} onClose={onClose} title="Cambiar Contraseña" subtitle="Modifique sus datos de seguridad" footer={ModalFooter(onClose, isEdit, "password-form", "Contraseña")} maxWidth="max-w-md">
+        <ModalBase isOpen={isOpen} onClose={onClose} title="Cambiar Contraseña" subtitle="Modifique sus datos de seguridad" footer={ModalFooter(onClose, isEdit, "password-form", "Contraseña")} maxWidth="max-w-lg">
             <form id="password-form" onSubmit={handleSubmit(onSubmit)}>
                 <Stack size="lg">
                     <Section icon={<Lock size={18} />} title="Datos de Seguridad" >
                         <InputPassword
                             label="Contraseña Actual"
+                            required={true}
                             name="password_usuario"
                             register={register}
                             error={errors.password_usuario}
                         />
+                        <InputPassword
+                            label="Contraseña Nueva"
+                            required={true}
+                            name="password_nueva"
+                            register={register}
+                            error={errors.password_nueva}
+                        />
+                        <InputPassword
+                            label="Confirmar Contraseña Nueva"
+                            required={true}
+                            name="password_confirm"
+                            register={register}
+                            error={errors.password_confirm}
+                        />
                     </Section>
-                    {/* <Section icon={<Lock />} title="Seguridad Nueva" > */}
-                    <Input
-                        label="Nueva Contraseña"
-                        placeholder="********"
-                        type="password"
-                        error={errors.password_nueva?.message}
-                        {...register("password_nueva", { required: "La nueva contraseña es requerida" })}
-                    />
-                    <Input
-                        label="Confirmar Nueva Contraseña"
-                        placeholder="********"
-                        type="password"
-                        error={errors.password_confirm?.message}
-                        {...register("password_confirm", {
-                            required: "La confirmación de la nueva contraseña es requerida"
-                        })}
-                    />
-                    {/* </Section> */}
                 </Stack>
             </form>
         </ModalBase>

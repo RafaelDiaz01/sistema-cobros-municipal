@@ -1,6 +1,6 @@
 import Stack from "../../../components/layouts/Stack.jsx";
 
-export default function Header({ logoUrl, loginError }) {
+export default function Header({ logoUrl }) {
     return (
         <Stack size="xs">
             {/* LOGO */}
@@ -20,13 +20,6 @@ export default function Header({ logoUrl, loginError }) {
             <p className="text-sm text-black">
                 H. Ayuntamiento de Ixtlán de Juárez
             </p>
-
-            {/* ERROR DE LOGIN */}
-            {loginError && (
-                <div className="bg-red-100 text-red-700 px-4 py-2 rounded-lg text-sm">
-                    {loginError}
-                </div>
-            )}
         </Stack>
     );
 }

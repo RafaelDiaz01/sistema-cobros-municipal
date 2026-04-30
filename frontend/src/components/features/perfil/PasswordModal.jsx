@@ -35,7 +35,8 @@ export default function PasswordModal({ isOpen, onClose, onSuccess }) {
             onSuccess();
             onClose();
         } catch (error) {
-            showToast("error", "Error al actualizar la contraseña");
+            const apiMessage = error?.response?.data?.error;
+            showToast("error", apiMessage || "Error al actualizar la contraseña");
         }
     };
 

@@ -53,6 +53,16 @@ export const putPassword = async (req, res) => {
         await perfilService.cambiarContrasena(id_usuario, password_usuario, password_nueva);
         res.json({ message: "Contraseña actualizada correctamente" });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        const message = error.message || "Error al actualizar la contraseña";
+
+        if (message === "La contraseña actual es incorrecta") {
+            return res.status(401).json({ error: message });
+        }
+
+        if (message === "La nueva contraseña no puede ser igual a la actual") {
+            return res.status(409).json({ error: message });
+        }
+
+        return res.status(500).json({ error: message });
     }
 };

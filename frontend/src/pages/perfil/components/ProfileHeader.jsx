@@ -1,10 +1,12 @@
 import { Briefcase, CheckCircle2, LogOut, UserPen } from "lucide-react";
+import { useAuth } from "../../../context/authContext.jsx";
 import Stack from "../../../components/layouts/Stack.jsx";
 import CardCobro from "../../../components/cards/CardCobro.jsx";
 
 const URL = "http://localhost:4000";
 
 export default function ProfileHeader({ user, onEdit }) {
+    const { cerrarSesion } = useAuth();
     return (
         <CardCobro title="Perfil de Usuario">
             <div className="flex flex-col sm:flex-row sm:items-center gap-5">
@@ -40,7 +42,7 @@ export default function ProfileHeader({ user, onEdit }) {
                         <Button icon={UserPen} variante="primary" onClick={() => onEdit(user)}>
                             Editar Perfil
                         </Button>
-                        <Button icon={LogOut} variante="cancel">
+                        <Button icon={LogOut} variante="cancel" onClick={cerrarSesion}>
                             Cerrar Sesión
                         </Button>
                     </Stack>

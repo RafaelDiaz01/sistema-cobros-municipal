@@ -21,6 +21,10 @@ export const loginService = async (nombre_usuario, password_usuario) => {
     throw new Error("Credenciales incorrectas");
   }
 
+  await usuario.update({
+    ultimo_acceso: new Date(),
+  });
+
   const payload = {
     id_usuario: usuario.id_usuario,
     rol_usuario: usuario.rol_usuario

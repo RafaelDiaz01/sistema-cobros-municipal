@@ -32,3 +32,10 @@ export const confirmPassword = (refField = "password") =>
         .string()
         .oneOf([yup.ref(refField)], "Las contraseñas no coinciden")
         .required("Debes confirmar la contraseña");
+
+// Regla para evitar que la contraseña nueva sea igual a la actual
+export const passwordNotSame = (refField = "password_usuario") =>
+    yup
+        .string()
+        .notOneOf([yup.ref(refField)], "La nueva contraseña no puede ser igual a la actual")
+        .required("La nueva contraseña es obligatoria");

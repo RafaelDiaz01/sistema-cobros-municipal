@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { logout } from "../services/authService.js";
+import { getPerfilAPI } from "../services/miPerfilService.js";
 import api from "../api/axios.js";
 
 const AuthContext = createContext();
@@ -23,6 +24,16 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Refrescar datos del perfil (incluye foto actualizada)
+  const refrescarPerfil = async () => {
+    try {
+      const datosActualizados = await getPerfilAPI();
+      setUser(datosActualizados);
+    } catch (error) {
+      console.error("Error al obtener datos del perfil:", error);
+    }
+  };
+
   // Persistir sesión al recargar página
   useEffect(() => {
     checkAuth();
@@ -41,6 +52,7 @@ export const AuthProvider = ({ children }) => {
         user,
         loading,
         checkAuth,
+        refrescarPerfil,
         cerrarSesion,
       }}
     >

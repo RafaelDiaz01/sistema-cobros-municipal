@@ -18,20 +18,6 @@ export default function ProfileDropdown() {
   const ref = useRef(null);
   const navigate = useNavigate();
   const { user, cerrarSesion } = useAuth();
-  const [profileUser, setProfileUser] = useState(null);
-
-  useEffect(() => {
-    fetchPerfil();
-  }, []);
-
-  const fetchPerfil = async () => {
-    try {
-      const data = await getPerfilAPI();
-      setProfileUser(data);
-    } catch (error) {
-      console.error("Error al cargar los datos del perfil:", error);
-    }
-  };
 
   // Cerrar al hacer click fuera
   useEffect(() => {
@@ -56,10 +42,10 @@ export default function ProfileDropdown() {
         onClick={() => setOpen(!open)}
         className="w-10 h-10 flex items-center justify-center rounded-full border border-[var(--color-borde)] text-[var(--color-primario)]"
       >
-        {profileUser ? (
+        {user ? (
           <img
-            src={profileUser.foto_perfil ? URL + profileUser.foto_perfil : ""}
-            alt={profileUser.nombre_usuario || "Usuario"}
+            src={user.foto_perfil ? URL + user.foto_perfil : ""}
+            alt={user.nombre_usuario || "Usuario"}
             className="w-9 h-9 rounded-full object-cover"
           />
         ) : (
@@ -73,10 +59,10 @@ export default function ProfileDropdown() {
           {/* HEADER */}
           <div className="px-6 py-4 bg-[var(--color-primario)]/10">
             <p className="text-sm font-semibold text-[var(--color-texto)]">
-              {profileUser?.nombre_usuario || "Usuario"}
+              {user?.nombre_usuario || "Usuario"}
             </p>
             <p className="text-xs text-gray-600">
-              {profileUser?.rol_usuario || "Rol"}
+              {user?.rol_usuario || "Rol"}
             </p>
           </div>
 

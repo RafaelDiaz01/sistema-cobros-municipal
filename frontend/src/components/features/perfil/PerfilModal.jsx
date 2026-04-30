@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useAuth } from "../../../context/authContext.jsx";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createUserSchema } from "@/validations/schemas";
@@ -16,6 +17,7 @@ import Upload from "../../modals/components/Upload.jsx";
 import ModalFooter from "../components/ModalFooter.jsx";
 
 export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
+    const { refrescarPerfil } = useAuth();
     const isEdit = Boolean(user);
 
     const {
@@ -51,8 +53,8 @@ export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
                 } else {
                     showToast("info", "No se actualizó la foto de perfil");
                 }
-
                 showToast("success", "Perfil actualizado exitosamente");
+                await refrescarPerfil(); // Refrescar datos del perfil en el contexto global
             } else {
                 showToast("error", "No se puede crear un nuevo perfil");
             }

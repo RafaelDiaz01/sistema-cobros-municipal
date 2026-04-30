@@ -5,6 +5,7 @@ import { loginSchema } from "@/validations/schemas";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/authService.js";
 import { useAuth } from "../../context/authContext.jsx";
+import { showToast } from "../../utils/alerts/toast.js";
 import Background from "./components/Background.jsx";
 import logoUrl from "../../assets/images/logo-ixtlan.png";
 import Stack from "../../components/layouts/Stack.jsx";
@@ -44,13 +45,16 @@ export default function Login() {
     } catch (error) {
       if (!error.response) {
         setLoginError("No se pudo conectar con el servidor");
+        showToast("error", "No se pudo conectar con el servidor");
       } else if (
         error.response.status === 400 ||
         error.response.status === 401
       ) {
         setLoginError("Usuario y/o contraseña incorrectos");
+        showToast("error", "Usuario y/o contraseña incorrectos");
       } else {
         setLoginError("Error del servidor. Intente más tarde.");
+        showToast("error", "Error del servidor. Intente más tarde.");
       }
     } finally {
       clearTimeout(spinnerTimerRef.current);
@@ -68,7 +72,7 @@ export default function Login() {
         <div className="w-full max-w-sm bg-white rounded-2xl shadow-xl px-8 py-10 text-center">
           <Stack size="md" className={"select-none"}>
             {/* HEADER */}
-            <Header logoUrl={logoUrl} loginError={loginError} />
+            <Header logoUrl={logoUrl} />
 
             {/* FORM */}
             <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
@@ -78,6 +82,7 @@ export default function Login() {
                   name="nombre_usuario"
                   register={register}
                   error={errors.nombre_usuario}
+                  hasServerError={Boolean(loginError)}
                   onChange={() => {
                     clearErrors("nombre_usuario");
                     setLoginError("");
@@ -91,6 +96,7 @@ export default function Login() {
                     name="password_usuario"
                     register={register}
                     error={errors.password_usuario}
+                    hasServerError={Boolean(loginError)}
                     onChange={() => {
                       clearErrors("password_usuario");
                       setLoginError("");

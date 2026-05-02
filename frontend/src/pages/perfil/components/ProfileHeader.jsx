@@ -3,7 +3,7 @@ import { useAuth } from "../../../context/authContext.jsx";
 import Stack from "../../../components/layouts/Stack.jsx";
 import CardCobro from "../../../components/cards/CardCobro.jsx";
 
-const URL = "http://localhost:4000";
+const URL = import.meta.env.VITE_API_URL;
 
 export default function ProfileHeader({ user, onEdit }) {
     const { cerrarSesion } = useAuth();

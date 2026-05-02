@@ -16,6 +16,8 @@ import Stack from "../../layouts/Stack.jsx";
 import Upload from "../../modals/components/Upload.jsx";
 import ModalFooter from "../components/ModalFooter.jsx";
 
+const URL = import.meta.env.VITE_API_URL;
+
 export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
     const { refrescarPerfil } = useAuth();
     const isEdit = Boolean(user);
@@ -110,6 +112,7 @@ export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
                         <Upload
                             name="foto_perfil"
                             field={register("foto_perfil")}
+                            defaultImage={isEdit ? URL + user.foto_perfil : null}
                         />
                     </Section>
                 </Stack>

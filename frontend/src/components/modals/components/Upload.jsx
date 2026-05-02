@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { ImageUp } from "lucide-react";
 
-function Upload({ name, field }) {
-  const [preview, setPreview] = useState(null);
+function Upload({ name, field, defaultImage }) {
+  const [preview, setPreview] = useState(defaultImage || null);
 
   // Este useEffect limpia el objeto URL cuando el componente se desmonte o cuando cambie la imagen
   useEffect(() => {

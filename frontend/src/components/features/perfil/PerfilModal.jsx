@@ -113,6 +113,7 @@ export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
                             name="foto_perfil"
                             field={register("foto_perfil")}
                             defaultImage={isEdit ? URL + user.foto_perfil : null}
+                            error={errors.foto_perfil?.message}
                         />
                     </Section>
                 </Stack>

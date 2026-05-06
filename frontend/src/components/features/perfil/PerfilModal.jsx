@@ -83,27 +83,21 @@ export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
                                 placeholder="Juan Carlos Pérez"
                                 defaultValue=""
                                 {...register("nombre_completo")}
-                                error={errors.nombre_completo?.message}
+                                error={errors.nombre_completo}
                             />
                             <InputPhone
                                 label="Teléfono"
                                 placeholder="9512345678"
                                 defaultValue=""
                                 {...register("telefono")}
-                                error={errors.telefono?.message}
+                                error={errors.telefono}
                             />
                             <Input
                                 label="Correo Electrónico"
                                 placeholder="armandocruz@gmai.com"
                                 defaultValue=""
-                                {...register("correo", {
-                                    required: "El correo es requerido",
-                                    pattern: {
-                                        value: /^\S+@\S+$/i,
-                                        message: "Correo no válido"
-                                    }
-                                })}
-                                error={errors.correo?.message}
+                                {...register("correo")}
+                                error={errors.correo}
                             />
                         </Grid>
                     </Section>

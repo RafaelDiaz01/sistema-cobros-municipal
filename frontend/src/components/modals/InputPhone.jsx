@@ -23,7 +23,7 @@ function InputPhone({ label, error, disabled, ...props }) {
             />
 
             {/* HELPER */}
-            {error && <p className="text-xs text-gray-400">{error}</p>}
+            {error && <p className="text-red-500 text-xs">{error?.message}</p>}
         </Stack>
     );
 }

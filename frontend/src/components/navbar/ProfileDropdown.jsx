@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext.jsx";
 import { getPerfilAPI } from "../../services/miPerfilService.js";
 
-const URL = "http://localhost:4000";
+const URL = import.meta.env.VITE_API_URL;
 
 export default function ProfileDropdown() {
   const [open, setOpen] = useState(false);
@@ -40,13 +40,13 @@ export default function ProfileDropdown() {
       {/* BOTÓN PERFIL */}
       <button
         onClick={() => setOpen(!open)}
-        className="w-10 h-10 flex items-center justify-center rounded-full border border-[var(--color-borde)] text-[var(--color-primario)]"
+        className="w-10 h-10 flex items-center justify-center rounded-full"
       >
         {user ? (
           <img
             src={user.foto_perfil ? URL + user.foto_perfil : ""}
             alt={user.nombre_usuario || "Usuario"}
-            className="w-9 h-9 rounded-full object-cover"
+            className="w-10 h-10 rounded-full object-cover"
           />
         ) : (
           <UserCircle size={24} />

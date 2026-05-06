@@ -1,10 +1,11 @@
 // Esquema de validación para el formulario de creación/edición de usuario utilizando Yup
 import * as yup from "yup";
-import { nameRule, phoneRule, fotoPerfilRule, passwordRequired, passwordStrong, confirmPassword, passwordNotSame } from "../rules";
+import { nameRule, phoneRule, emailRule, fotoPerfilRule, passwordRequired, passwordStrong, confirmPassword, passwordNotSame } from "../rules";
 
 export const createUserSchema = yup.object({
   nombre_completo: nameRule,
   telefono: phoneRule,
+  correo: emailRule,
   foto_perfil: fotoPerfilRule,
 });
 

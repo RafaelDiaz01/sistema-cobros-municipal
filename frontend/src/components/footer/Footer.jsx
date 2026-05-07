@@ -1,5 +1,5 @@
 export default function Footer({
-  entidad = "Honorable Ayuntamiento de Ixtlán de Juárez, Oaxaca.",
+  entidad = "Honorable Ayuntamiento de Ixtlán de Juárez",
   dependencia = "Tesorería Municipal",
   periodo = "2026-2027",
   className = "",
@@ -7,7 +7,7 @@ export default function Footer({
   return (
     <footer
       className={`
-        mt-12 py-8 text-center space-y-2
+        py-8 text-center space-y-1
         ${className}
       `}
     >

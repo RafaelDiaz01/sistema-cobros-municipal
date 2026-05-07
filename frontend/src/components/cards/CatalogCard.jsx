@@ -9,7 +9,7 @@ export default function CatalogCard({ icon, title, description, onClick }) {
         bg-white
         border border-[var(--color-borde)]
         rounded-2xl
-        p-8
+        p-7
         flex flex-col gap-3
         hover:shadow-md
         hover:border-[var(--color-acento)]
@@ -21,14 +21,15 @@ export default function CatalogCard({ icon, title, description, onClick }) {
                     {icon}
                 </div>
 
-                <h3 className="text-sm font-semibold text-gray-900">
-                    {title}
-                </h3>
+                <div className="space-y-1">
+                    <h3 className="text-sm font-semibold">
+                        {title}
+                    </h3>
+                    <p className="text-xs text-gray-500 leading-relaxed">
+                        {description}
+                    </p>
+                </div>
             </div>
-
-            <p className="text-xs text-gray-500 mt-1 leading-relaxed">
-                {description}
-            </p>
         </button>
     );
 }

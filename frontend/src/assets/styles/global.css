@@ -2,9 +2,11 @@
 @import "tailwindcss";
 @import "tailwindcss-animated";
 
-* {
-  margin: 0;
-  box-sizing: border-box;
+@layer base {
+  * {
+    margin: 0;
+    box-sizing: border-box;
+  }
 }
 
 body {
@@ -30,6 +32,7 @@ body {
     border-color 0.2s,
     box-shadow 0.2s;
 }
+
 .swal2-input-label {
   font-size: 0.875rem;
   color: #374151;
@@ -37,14 +40,17 @@ body {
   display: block;
   text-align: center;
 }
+
 .swal-custom-input::-webkit-outer-spin-button,
 .swal-custom-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 .swal-custom-input[type="number"] {
   appearance: textfield;
 }
+
 .swal-custom-input:focus {
   border-color: var(--color-acento);
   box-shadow: 0 0 0 1px var(--color-acento);

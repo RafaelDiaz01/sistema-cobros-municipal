@@ -1,7 +1,9 @@
+const currentYear = new Date().getFullYear();
+
 export default function Footer({
   entidad = "Honorable Ayuntamiento de Ixtlán de Juárez",
   dependencia = "Tesorería Municipal",
-  periodo = "2026-2027",
+  periodo = `${currentYear}-${currentYear + 1}`,
   className = "",
 }) {
   return (

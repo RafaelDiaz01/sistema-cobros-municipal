@@ -12,6 +12,7 @@ import {
   FileText,
   WalletCards,
   Droplet,
+  User
 } from "lucide-react";
 import SectionTitleSimple from "../../components/titles/SectionTitleSimple.jsx";
 import SectionSubtitle from "../../components/titles/SectionSubtitle.jsx";
@@ -31,25 +32,25 @@ export default function Mas() {
             <CatalogCard
               icon={<Receipt size={20} />}
               title="Gestión de Recibos"
-              description="Administración, validación y emisión masiva de comprobantes oficiales."
+              description="Administración y emisión de comprobantes oficiales."
               onClick={() => navigate("/gestion-recibos")}
             />
             <CatalogCard
               icon={<WalletCards size={20} />}
               title="Gestión de Estímulo Fiscal"
-              description="Control de beneficios y descuentos fiscales para contribuyentes."
+              description="Control de beneficios fiscales para contribuyentes."
               onClick={() => navigate("/gestion-estimulos")}
             />
             <CatalogCard
               icon={<FileText size={20} />}
               title="Gestión de Ejercicio Fiscal"
-              description="Administración y seguimiento del ejercicio fiscal anual."
+              description="Administración del ejercicio fiscal anual."
               onClick={() => navigate("/gestion-ejercicios")}
             />
             <CatalogCard
               icon={<BookOpen size={20} />}
               title="Cuentas Contables"
-              description="Control maestro del catálogo de cuentas de mayor y armonización contable."
+              description="Control maestro del catálogo de cuentas contables."
               onClick={() => navigate("/gestion-cuentas")}
             />
           </Grid>
@@ -61,25 +62,25 @@ export default function Mas() {
             <CatalogCard
               icon={<Layers size={20} />}
               title="Subcuentas Contables"
-              description="Desglose analítico de cuentas para un seguimiento detallado del presupuesto."
+              description="Desglose analítico de las subcuentas contables."
               onClick={() => navigate("/gestion-subcuentas")}
             />
             <CatalogCard
               icon={<LayoutGrid size={20} />}
               title="Gestión de Sección"
-              description="Organización y jerarquía de las secciones administrativas operativas."
+              description="Organización de las secciones administrativas."
               onClick={() => navigate("/gestion-secciones")}
             />
             <CatalogCard
               icon={<ListChecks size={20} />}
               title="Gestión de Concepto"
-              description="Definición de conceptos de cobro según la Ley de Ingresos vigente."
+              description="Definición de conceptos según la Ley de Ingresos."
               onClick={() => navigate("/gestion-conceptos")}
             />
             <CatalogCard
               icon={<Sliders size={20} />}
               title="Gestión de Subconcepto"
-              description="Especificación de tarifas y variantes para cada concepto principal."
+              description="Especificación de tarifas para las subcuentas."
               onClick={() => navigate("/gestion-subconceptos")}
             />
           </Grid>
@@ -91,26 +92,38 @@ export default function Mas() {
             <CatalogCard
               icon={<Key size={20} />}
               title="Gestión de Alquiler"
-              description="Control de arrendamientos de espacios y bienes municipales públicos."
+              description="Control de bienes municipales públicos."
               onClick={() => navigate("/gestion-alquiler")}
             />
             <CatalogCard
               icon={<Droplet size={20} />}
               title="Gestión de Conexión"
-              description="Monitoreo y alta de tomas de servicios y conexiones de red."
+              description="Monitoreo de tomas de servicios y conexiones."
               onClick={() => navigate("/gestion-conexion")}
             />
             <CatalogCard
               icon={<Store size={20} />}
               title="Gestión de Establecimiento"
-              description="Padrón de establecimientos comerciales y licencias de funcionamiento."
+              description="Padrón de establecimientos comerciales."
               onClick={() => navigate("/establecimientos")}
             />
             <CatalogCard
               icon={<Map size={20} />}
               title="Base Catastral"
-              description="Actualización de predios, avalúos y zonificación del municipio."
+              description="Actualización de predios y avalúos del municipio."
               onClick={() => navigate("/base-catastral")}
+            />
+          </Grid>
+        </SectionSubtitle>
+
+        {/* ================= USUARIOS ================= */}
+        <SectionSubtitle title="Usuarios y Permisos">
+          <Grid>
+            <CatalogCard
+              icon={<User size={20} />}
+              title="Gestión de Usuarios"
+              description="Administración de usuarios, roles y permisos."
+              onClick={() => navigate("/gestion-usuarios")}
             />
           </Grid>
         </SectionSubtitle>

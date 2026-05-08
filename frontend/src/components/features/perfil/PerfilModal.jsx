@@ -94,7 +94,7 @@ export default function PerfilModal({ isOpen, onClose, onSuccess, user }) {
                             />
                             <Input
                                 label="Correo Electrónico"
-                                placeholder="armandocruz@gmai.com"
+                                placeholder="juanperez@gmail.com"
                                 defaultValue=""
                                 {...register("correo")}
                                 error={errors.correo}

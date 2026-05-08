@@ -17,3 +17,26 @@ export const crearUsuario = async (data) => {
 
   return nuevoUsuario;
 };
+
+// Actualizar los datos de un usuario existente
+export const actualizarUsuario = async (id, data) => {
+  const usuario = await Usuario.findByPk(id);
+  if (!usuario) {
+    throw new Error("Usuario no encontrado");
+  }
+
+  await usuario.update(data);
+  return usuario;
+};
+
+// Actualizar el estado de un usuario
+export const actualizarUsuarioEstado = async (id, estado) => {
+  const usuario = await Usuario.findByPk(id);
+  if (!usuario) {
+    throw new Error("Usuario no encontrado");
+  }
+
+  usuario.activo = estado;
+  await usuario.save();
+  return usuario;
+};

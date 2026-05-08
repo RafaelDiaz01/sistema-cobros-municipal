@@ -18,4 +18,31 @@ export const crearUsuario = async (req, res) => {
   }
 };
 
+export const actualizarUsuario = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const usuarioActualizado = await UsuarioService.actualizarUsuario(id, req.body);
+    res.json({
+      message: "Usuario actualizado correctamente",
+      usuario: usuarioActualizado
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export const actualizarUsuarioEstado = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { estado } = req.body;
+    const usuarioActualizado = await UsuarioService.actualizarUsuarioEstado(id, estado);
+    res.json({
+      message: "Estado del usuario actualizado correctamente",
+      usuario: usuarioActualizado
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 

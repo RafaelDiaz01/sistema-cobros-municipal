@@ -91,7 +91,7 @@ export default function Subconceptos() {
 
   return (
     <PageLayout>
-      <Stack>
+      <Stack size="xl">
         <SectionTittle
           text="Gestión de Subconceptos"
           onAdd={handleAdd}

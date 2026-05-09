@@ -48,7 +48,7 @@ export default function GestionUsuarios() {
             },
             {
                 title: "Total de Cajeros",
-                value: usuarios.filter((u) => u.rol === "Cajero").length,
+                value: usuarios.filter((u) => u.rol_usuario === "Cajero").length,
                 icon: <HandCoins size={26} />,
             }
         ];

@@ -1,4 +1,4 @@
-import { Briefcase, CheckCircle2, LogOut, UserPen } from "lucide-react";
+import { BriefcaseBusiness, CheckCircle2, LogOut, UserPen } from "lucide-react";
 import { useAuth } from "../../../context/authContext.jsx";
 import Stack from "../../../components/layouts/Stack.jsx";
 import CardCobro from "../../../components/cards/CardCobro.jsx";
@@ -33,7 +33,7 @@ export default function ProfileHeader({ user, onEdit }) {
                         </h1>
 
                         <div className="flex items-center gap-1.5">
-                            <Briefcase size={15} className="text-[var(--color-primario)]" strokeWidth={2.5} />
+                            <BriefcaseBusiness size={15} className="text-[var(--color-primario)]" strokeWidth={2.5} />
                             <span className="text-[15px] font-semibold text-[var(--color-primario)]">
                                 {user.rol_usuario}
                             </span>

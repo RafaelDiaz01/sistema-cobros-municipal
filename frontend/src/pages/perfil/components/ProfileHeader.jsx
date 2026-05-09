@@ -2,6 +2,7 @@ import { Briefcase, CheckCircle2, LogOut, UserPen } from "lucide-react";
 import { useAuth } from "../../../context/authContext.jsx";
 import Stack from "../../../components/layouts/Stack.jsx";
 import CardCobro from "../../../components/cards/CardCobro.jsx";
+import UserAvatar from "../../../components/ui/UserAvatar.jsx";
 
 const URL = import.meta.env.VITE_API_URL;
 
@@ -13,11 +14,15 @@ export default function ProfileHeader({ user, onEdit }) {
 
                 {/* Avatar */}
                 <div className="relative w-20 h-20 flex-shrink-0">
-                    <img
-                        src={URL + user.foto_perfil}
-                        alt={user.nombre_usuario}
-                        className="w-20 h-20 rounded-full object-cover ring-4 ring-white shadow-md"
-                    />
+                    {user.foto_perfil ? (
+                        <img
+                            src={URL + user.foto_perfil}
+                            alt={user.nombre_usuario}
+                            className="w-20 h-20 rounded-full object-cover ring-4 ring-white shadow-md"
+                        />
+                    ) : (
+                        <UserAvatar nombre_usuario={user.nombre_usuario} size={80} />
+                    )}
                 </div>
 
                 {/* Nombre */}

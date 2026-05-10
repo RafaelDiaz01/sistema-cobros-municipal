@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createUserSchema } from "@/validations/schemas";
-import { User, BriefcaseBusiness } from "lucide-react";
+import { User, BriefcaseBusiness, Key } from "lucide-react";
 import { showToast } from "../../../utils/alerts/toast.js";
 import {
     createUsuarioAPI,
@@ -32,6 +32,7 @@ export default function AddUsuarioModal({ isOpen, onClose, onSuccess, usuario, }
     useEffect(() => {
         if (isEdit && usuario) {
             reset({
+                nombre_usuario: usuario.nombre_usuario,
                 nombre_completo: usuario.nombre_completo,
                 telefono: usuario.telefono,
                 correo: usuario.correo,
@@ -117,6 +118,18 @@ export default function AddUsuarioModal({ isOpen, onClose, onSuccess, usuario, }
                             />
                         </Grid>
                     </Section>
+                    {isEdit && (
+                        <Section icon={<Key size={18} />} title="Información de Acceso">
+                            <Grid cols={3}>
+                                <Input
+                                    label="Nombre de Usuario"
+                                    placeholder="Ej: juan.perez"
+                                    {...register("nombre_usuario")}
+                                    error={errors.nombre_usuario}
+                                />
+                            </Grid>
+                        </Section>
+                    )}
                 </Stack>
             </form>
         </ModalBase>

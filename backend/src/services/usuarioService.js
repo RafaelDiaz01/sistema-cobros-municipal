@@ -8,11 +8,31 @@ export const obtenerUsuarios = async () => {
 
 // Crear un nuevo usuario
 export const crearUsuario = async (data) => {
+  // Generar nombre_usuario y password desde nombre_completo
+  const partes = data.nombre_completo
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")         // Eliminar diacríticos
+    .toLowerCase()
+    .trim()
+    .split(/\s+/);                           // Separar por espacios
 
+  const primerNombre = partes[0];
+  const primerApellido = partes[partes.length >= 4 ? 2 : 1];
+  const anioActual = new Date().getFullYear();
+
+  const nombre_usuario = `${primerNombre}.${primerApellido}`;
+  const password_generado = `${primerNombre}${primerApellido}${anioActual}`;
+
+  // Crear el nuevo usuario en la base de datos
   const nuevoUsuario = await Usuario.create({
-    nombre_usuario: data.nombre_usuario,
-    password_usuario: await hashPassword(data.password_usuario),
+    nombre_usuario: nombre_usuario,
+    password_usuario: await hashPassword(password_generado),
     nombre_completo: data.nombre_completo,
+    rol_usuario: data.rol_usuario,
+    telefono: data.telefono,
+    correo: data.correo,
+    cargo: data.cargo,
+    departamento: data.departamento,
   });
 
   return nuevoUsuario;

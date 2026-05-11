@@ -93,6 +93,7 @@ export default function AddContribuyenteModal({ isOpen, onClose, onSuccess, cont
               <Input
                 label="RFC"
                 placeholder="LOPJ010285MQ7"
+                required={false}
                 {...register("rfc")}
                 error={errors.rfc}
               />

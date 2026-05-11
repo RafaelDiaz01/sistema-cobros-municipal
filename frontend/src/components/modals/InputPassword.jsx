@@ -16,6 +16,7 @@ export default function PasswordInput({
 }) {
     const [showPassword, setShowPassword] = useState(false);
     const hasError = Boolean(error) || Boolean(hasServerError);
+    const registeredInput = register(name);
 
     return (
         <Stack size="xs">
@@ -32,10 +33,13 @@ export default function PasswordInput({
                 <input
                     id={name}
                     type={showPassword ? "text" : "password"}
-                    {...register(name)}
+                    {...registeredInput}
                     placeholder={placeholder}
                     className={inputClass(hasError)}
-                    onChange={onChange}
+                    onChange={(e) => {
+                        registeredInput.onChange(e);  // Captura el valor primero
+                        onChange?.(e);                // Luego limpia los errores
+                    }}
                     disabled={disabled}
                 />
                 <button

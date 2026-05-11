@@ -1,11 +1,11 @@
 import Stack from "../../layouts/Stack.jsx";
 
-function Input({ label, error, disabled, ...props }) {
+function Input({ label, required = true, error, disabled, ...props }) {
   return (
     <Stack size="xs">
       {/* LABEL */}
       <label className="text-sm font-medium">
-        {label} <span className="text-red-500">*</span>
+        {label} {required && <span className="text-red-500">*</span>}
       </label>
 
       {/* INPUT */}

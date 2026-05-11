@@ -7,7 +7,7 @@ import { contribuyentesColumns } from "./contribuyetes.columns.jsx";
 import PageLayout from "../../components/layouts/PageLayout.jsx";
 import Stack from "../../components/layouts/Stack.jsx";
 import SectionTitle from "../../components/titles/SectionTitle.jsx";
-import AddContribuyenteModal from "../../components/modals/AddContribuyenteModal.jsx";
+import AddContribuyenteModal from "../../components/features/contribuyentes/AddContribuyenteModal.jsx";
 import StatsCards from "../../components/cards/StatsCards.jsx";
 import Table from "../../components/table/Table.jsx";
 
@@ -110,6 +110,7 @@ const Contribuyentes = () => {
         {/* MODAL PARA AGREGAR CONTRIBUYENTE */}
         {open && (
           <AddContribuyenteModal
+            isOpen={open}
             onClose={() => setOpen(false)}
             contribuyente={contribuyenteEdit}
             onSuccess={fetchContribuyentes}

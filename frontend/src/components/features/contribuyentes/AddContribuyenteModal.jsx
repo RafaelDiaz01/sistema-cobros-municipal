@@ -1,26 +1,17 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { User, MapPin } from "lucide-react";
-
+import { createContribuyente, updateContribuyente, } from "../../../services/contribuyentesService.jsx";
+import { showToast } from "../../../utils/alerts/toast.js";
 import BaseModal from "../../ui/ModalBase.jsx";
 import Section from "../../modals/components/Section.jsx";
 import Grid from "../../modals/components/Grid.jsx";
 import Input from "../../modals/components/Input.jsx";
 import Select from "../../modals/components/Select.jsx";
 import Stack from "../../layouts/Stack.jsx";
+import ModalFooter from "../components/ModalFooter.jsx";
 
-import {
-  createContribuyente,
-  updateContribuyente,
-} from "../../../services/contribuyentesService.jsx";
-
-import { showToast } from "../../../utils/alerts/toast.js";
-
-export default function AddContribuyenteModal({
-  onClose,
-  contribuyente,
-  onSuccess,
-}) {
+export default function AddContribuyenteModal({ isOpen, onClose, onSuccess, contribuyente }) {
   const isEdit = Boolean(contribuyente);
 
   const {
@@ -55,114 +46,97 @@ export default function AddContribuyenteModal({
         await createContribuyente(data);
         showToast("success", "Contribuyente guardado exitosamente");
       }
-
       onSuccess();
       onClose();
     } catch (error) {
       console.error("Error al guardar contribuyente", error);
-      alert(`Error: ${error.message}`);
+      showToast("error", "Error al guardar contribuyente");
     }
   };
 
   return (
     <BaseModal
-      title={isEdit ? "Editar Contribuyente" : "Agregar Nuevo Contribuyente"}
-      description={
-        isEdit
-          ? "Modifique los datos del contribuyente."
-          : "Complete el formulario para registrar un nuevo ciudadano en el sistema."
-      }
+      isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit(onSubmit)}
-      submitText={isEdit ? "Actualizar Contribuyente" : "Guardar Contribuyente"}
-      cancelText="Cancelar"
-      isSubmitting={isSubmitting}
-      size="xl"
+      title={isEdit ? "Editar Contribuyente" : "Agregar Contribuyente"}
+      subtitle={isEdit ? "Modifica los datos del contribuyente" : "Ingresa los datos del nuevo contribuyente"}
+      footer={ModalFooter(onClose, isEdit, "contribuyente-form", "Contribuyente")}
     >
-      <Stack gap="gap-8">
-        {/* DATOS PERSONALES */}
-        <Section icon={<User size={18} />} title="Datos Personales">
-          <Grid cols={3}>
-            <Input
-              {...register("nombre", { required: true })}
-              label="Nombre(s)"
-              placeholder="Ej. Juan Carlos"
-              error={errors.nombre && "Campo obligatorio"}
-            />
+      <form id="contribuyente-form" onSubmit={handleSubmit(onSubmit)}>
+        <Stack size="lg">
+          {/* DATOS PERSONALES */}
+          <Section icon={<User size={18} />} title="Datos Personales">
+            <Grid cols={3}>
+              <Input
+                label="Nombre(s)"
+                placeholder="Ej. Juan Carlos"
+                {...register("nombre", { required: true })}
+                error={errors.nombre}
+              />
+              <Input
+                label="Apellido Paterno"
+                placeholder="Ej. Pérez"
+                {...register("apellido_paterno", { required: true })}
+                error={errors.apellido_paterno}
+              />
+              <Input
+                label="Apellido Materno"
+                placeholder="Ej. López"
+                {...register("apellido_materno", { required: true })}
+                error={errors.apellido_materno}
+              />
+              <Input
+                type="date"
+                label="Fecha de Nacimiento"
+                {...register("fecha_nacimiento")}
+              />
+              <Input
+                label="RFC"
+                placeholder="LOPJ010285MQ7"
+                {...register("rfc")}
+                error={errors.rfc}
+              />
+              <Input
+                label="Teléfono"
+                placeholder="9515801224"
+                {...register("telefono")}
+                error={errors.telefono}
+              />
+            </Grid>
+          </Section>
 
-            <Input
-              {...register("apellido_paterno", { required: true })}
-              label="Apellido Paterno"
-              placeholder="Ej. Pérez"
-              error={errors.apellido_paterno && "Campo obligatorio"}
-            />
+          <hr className="border-[var(--color-borde)]" />
 
-            <Input
-              {...register("apellido_materno", { required: true })}
-              label="Apellido Materno"
-              placeholder="Ej. López"
-              error={errors.apellido_materno && "Campo obligatorio"}
-            />
-
-            <Input
-              {...register("fecha_nacimiento")}
-              type="date"
-              label="Fecha de Nacimiento"
-            />
-
-            <Input
-              {...register("rfc", {
-                required: true,
-                minLength: 13,
-                maxLength: 13,
-              })}
-              label="RFC"
-              placeholder="DILK040315MQ7"
-              error={errors.rfc && "RFC inválido"}
-            />
-
-            <Input
-              {...register("telefono", { required: true })}
-              label="Teléfono"
-              placeholder="9515801224"
-              error={errors.telefono && "Campo obligatorio"}
-            />
-          </Grid>
-        </Section>
-
-        <hr className="border-[var(--color-borde)]" />
-
-        {/* DOMICILIO */}
-        <Section icon={<MapPin size={18} />} title="Domicilio">
-          <Grid cols={3}>
-            <Input
-              {...register("calle", { required: true })}
-              label="Calle"
-              placeholder="Ej. Av. Independencia"
-              error={errors.calle && "Campo obligatorio"}
-            />
-
-            <Input
-              {...register("numero_calle", { required: true })}
-              label="Número Exterior / Interior"
-              placeholder="Ej. 15"
-              error={errors.numero_calle && "Campo obligatorio"}
-            />
-
-            <Select
-              label="Barrio / Colonia"
-              options={[
-                "San Pedro",
-                "San Francisco",
-                "La Asunción",
-                "La Soledad",
-              ]}
-              {...register("barrio", { required: true })}
-              error={errors.barrio && "Campo obligatorio"}
-            />
-          </Grid>
-        </Section>
-      </Stack>
+          {/* DOMICILIO */}
+          <Section icon={<MapPin size={18} />} title="Datos del Domicilio">
+            <Grid cols={3}>
+              <Input
+                label="Calle"
+                placeholder="Ej. Constitución"
+                {...register("calle")}
+                error={errors.calle}
+              />
+              <Input
+                label="Número Exterior"
+                placeholder="Ej. 15"
+                {...register("numero_calle")}
+                error={errors.numero_calle}
+              />
+              <Select
+                label="Barrio"
+                options={[
+                  "San Pedro",
+                  "San Francisco",
+                  "La Asunción",
+                  "La Soledad",
+                ]}
+                {...register("barrio")}
+                error={errors.barrio}
+              />
+            </Grid>
+          </Section>
+        </Stack>
+      </form>
     </BaseModal>
   );
 }

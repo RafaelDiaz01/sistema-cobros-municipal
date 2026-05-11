@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { User, MapPin } from "lucide-react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { createContribuyenteSchema } from "../../../validations/schemas/contribuyente.schema.js";
 import { createContribuyente, updateContribuyente, } from "../../../services/contribuyentesService.jsx";
 import { showToast } from "../../../utils/alerts/toast.js";
 import BaseModal from "../../ui/ModalBase.jsx";
@@ -19,7 +21,12 @@ export default function AddContribuyenteModal({ isOpen, onClose, onSuccess, cont
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(createContribuyenteSchema),
+    defaultValues: {
+      fecha_nacimiento: "",
+    },
+  });
 
   useEffect(() => {
     if (isEdit && contribuyente) {
@@ -70,31 +77,35 @@ export default function AddContribuyenteModal({ isOpen, onClose, onSuccess, cont
               <Input
                 label="Nombre(s)"
                 placeholder="Ej. Juan Carlos"
-                {...register("nombre", { required: true })}
+                {...register("nombre")}
                 error={errors.nombre}
               />
               <Input
                 label="Apellido Paterno"
                 placeholder="Ej. Pérez"
-                {...register("apellido_paterno", { required: true })}
+                {...register("apellido_paterno")}
                 error={errors.apellido_paterno}
               />
               <Input
                 label="Apellido Materno"
                 placeholder="Ej. López"
-                {...register("apellido_materno", { required: true })}
+                {...register("apellido_materno")}
                 error={errors.apellido_materno}
               />
               <Input
                 type="date"
                 label="Fecha de Nacimiento"
                 {...register("fecha_nacimiento")}
+                error={errors.fecha_nacimiento}
               />
               <Input
                 label="RFC"
                 placeholder="LOPJ010285MQ7"
                 required={false}
                 {...register("rfc")}
+                onInput={(e) => {
+                  e.target.value = e.target.value.toUpperCase();
+                }}
                 error={errors.rfc}
               />
               <Input

@@ -21,6 +21,7 @@ import BaseCatastral from "../pages/base-catastral/BaseCatastral";
 import NotFound from "../pages/not-found/NotFound";
 import MiPerfil from "../pages/perfil/MiPerfil";
 import GestionUsuarios from "../pages/gestion-usuarios/GestionUsuarios";
+import Configuracion from "../pages/configuracion/Configuracion";
 
 const AppRouter = () => {
   return (
@@ -51,6 +52,7 @@ const AppRouter = () => {
         <Route path="/base-catastral" element={<BaseCatastral />} />
         <Route path="/mi-perfil" element={<MiPerfil />} />
         <Route path="/gestion-usuarios" element={<GestionUsuarios />} />
+        <Route path="/configuracion" element={<Configuracion />} />
       </Route>
 
       {/* Rutas No Encontradas */}

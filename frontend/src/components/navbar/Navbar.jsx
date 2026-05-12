@@ -1,15 +1,15 @@
 import { NavLink } from "react-router-dom";
-import { UserCircle, Landmark, Settings } from "lucide-react";
 import ProfileDropdown from "./ProfileDropdown.jsx";
+import logoImg from "../../assets/images/logo-ixtlan.png";
 
 export default function Navbar() {
   return (
     <header className="w-full px-8 py-6">
       {/* CONTENIDO */}
-      <div className="flex items-center justify-between pb-2">
+      <div className="flex items-center justify-between pb-3">
         {/* ICONO Y NOMBRE DEL SISTEMA */}
         <div className="flex items-center gap-4">
-          <Landmark size={24} className="text-[var(--color-primario)]" />
+          <img src={logoImg} alt="Logo" className="w-10 h-10" />
           <h1 className="text-lg font-semibold">Sistema de Cobros Municipal</h1>
         </div>
 

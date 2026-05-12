@@ -1,5 +1,7 @@
 import { Tooltip } from "@mui/material";
 import { Pencil, ToggleRight, ToggleLeft } from "lucide-react";
+import formatPhone from "../../utils/phoneFormatter.js";
+import formatDateTime from "../../utils/timeFormatter.js";
 
 export const contribuyentesColumns = (onEdit, onToggleStatus) => [
   {
@@ -32,13 +34,13 @@ export const contribuyentesColumns = (onEdit, onToggleStatus) => [
     field: "telefono",
     headerName: "Teléfono",
     width: 140,
+    valueFormatter: formatPhone,
   },
   {
     field: "updatedAt",
     headerName: "Última Actualización",
     width: 200,
-    renderCell: (params) =>
-      new Date(params.row.updatedAt).toLocaleString("es-MX"),
+    valueFormatter: formatDateTime,
   },
   {
     field: "activo",

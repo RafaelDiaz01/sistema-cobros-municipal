@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { ImageUp } from "lucide-react";
+import Stack from "../../layouts/Stack";
 
-function Upload({ name, field, defaultImage, error }) {
+function Upload({ label, placeholder, required = false, name, field, defaultImage, error }) {
   const [preview, setPreview] = useState(defaultImage || null);
 
   // Este useEffect limpia el objeto URL cuando el componente se desmonte o cuando cambie la imagen
@@ -20,7 +21,10 @@ function Upload({ name, field, defaultImage, error }) {
   };
 
   return (
-    <>
+    <Stack size="xs">
+      <label className="text-sm font-medium">
+        {label} {required && <span className="text-red-500">*</span>}
+      </label>
       <label
         htmlFor={name}
         className={`border-2 border-dashed rounded-xl p-8 text-center text-sm block cursor-pointer flex flex-col items-center gap-3
@@ -38,7 +42,7 @@ function Upload({ name, field, defaultImage, error }) {
         ) : (
           <>
             <ImageUp className={error ? "text-red-500" : "text-gray-400"} />
-            <p>{error ? error : "Haz clic para subir una imagen"}</p>
+            <p>{error ? error : placeholder}</p>
           </>
         )}
         <input
@@ -50,7 +54,7 @@ function Upload({ name, field, defaultImage, error }) {
           onChange={handleFileChange}
         />
       </label>
-    </>
+    </Stack >
   );
 }
 

@@ -19,9 +19,14 @@ export const contribuyentesColumns = (onEdit, onToggleStatus) => [
   {
     field: "fecha_nacimiento",
     headerName: "Fecha de Nacimiento",
-    width: 200,
+    width: 180,
     renderCell: (params) =>
       new Date(params.row.fecha_nacimiento).toLocaleDateString("es-MX"),
+  },
+  {
+    field: "rfc",
+    headerName: "RFC",
+    width: 150,
   },
   {
     field: "direccion",
@@ -39,7 +44,7 @@ export const contribuyentesColumns = (onEdit, onToggleStatus) => [
   {
     field: "updatedAt",
     headerName: "Última Actualización",
-    width: 200,
+    width: 180,
     valueFormatter: formatDateTime,
   },
   {

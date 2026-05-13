@@ -2,6 +2,7 @@ import { Tooltip } from "@mui/material";
 import { Pencil, ToggleRight, ToggleLeft } from "lucide-react";
 import formatPhone from "../../utils/phoneFormatter.js";
 import formatDateTime from "../../utils/timeFormatter.js";
+import formatAddress from "../../utils/adreessFormatter.js";
 
 export const contribuyentesColumns = (onEdit, onToggleStatus) => [
   {
@@ -33,7 +34,7 @@ export const contribuyentesColumns = (onEdit, onToggleStatus) => [
     headerName: "Dirección",
     flex: 1,
     valueGetter: (params, row) =>
-      `${row.calle} #${row.numero_calle}, ${row.barrio}`,
+      formatAddress(row.calle, row.numero_calle, row.barrio),
   },
   {
     field: "telefono",

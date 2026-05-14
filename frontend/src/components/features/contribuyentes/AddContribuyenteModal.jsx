@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { User, MapPin } from "lucide-react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createContribuyenteSchema } from "../../../validations/schemas/contribuyente.schema.js";
-import { createContribuyente, updateContribuyente, } from "../../../services/contribuyentesService.jsx";
+import { createContribuyente, updateContribuyente, } from "../../../services/contribuyentesService.js";
 import { showToast } from "../../../utils/alerts/toast.js";
 import BaseModal from "../../ui/ModalBase.jsx";
 import Section from "../../modals/components/Section.jsx";

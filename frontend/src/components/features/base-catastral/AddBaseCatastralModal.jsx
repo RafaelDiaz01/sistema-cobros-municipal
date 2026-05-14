@@ -6,7 +6,7 @@ import {
     createBaseCatastralAPI,
     updateBaseCatastralAPI,
 } from "../../../services/baseCatastralService.js";
-import { searchContribuyentes } from "../../../services/contribuyentesService.jsx";
+import { searchContribuyentes } from "../../../services/contribuyentesService.js";
 import ModalBase from "../../ui/ModalBase.jsx";
 import Section from "../../modals/components/Section.jsx";
 import Grid from "../../modals/components/Grid.jsx";

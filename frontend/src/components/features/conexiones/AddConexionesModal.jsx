@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { showToast } from "../../../utils/alerts/toast.js";
 import { createConexionAPI, updateConexionAPI } from "../../../services/conexionService.js";
-import { searchContribuyentes } from "../../../services/contribuyentesService.jsx";
+import { searchContribuyentes } from "../../../services/contribuyentesService.js";
 import { MapPin, Tag } from "lucide-react";
 import ModalBase from "../../ui/ModalBase.jsx";
 import Section from "../../modals/components/Section.jsx";

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { showToast } from "../../utils/alerts/toast.js";
 import { alertConfirmation } from "../../utils/alerts/alert.js";
-import { searchContribuyentes } from "../../services/contribuyentesService.jsx";
+import { searchContribuyentes } from "../../services/contribuyentesService.js";
 import { searchConceptoPagoAPI } from "../../api/conceptoPago.js";
 import { searchEstimuloFiscalAPI } from "../../api/estimulosFiscales.js";
 import { getCorteActivoAPI } from "../../api/corteCaja.js";

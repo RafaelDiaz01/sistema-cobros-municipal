@@ -1,6 +1,6 @@
 import { updateEstablecimiento } from "../../services/establecimientoService.js";
 import { createEstablecimiento } from "../../services/establecimientoService.js";
-import { searchContribuyentes } from "../../services/contribuyentesService.jsx";
+import { searchContribuyentes } from "../../services/contribuyentesService.js";
 import { showToast } from "../../utils/alerts/toast.js";
 import { X, Store, MapPin } from "lucide-react";
 import { useForm } from "react-hook-form";

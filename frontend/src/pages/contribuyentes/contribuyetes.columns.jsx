@@ -1,5 +1,6 @@
 import { Tooltip } from "@mui/material";
 import { Pencil, ToggleRight, ToggleLeft } from "lucide-react";
+import StatusBadge from "../../components/ui/StatusBadge.jsx";
 import formatPhone from "../../utils/phoneFormatter.js";
 import formatDateTime from "../../utils/timeFormatter.js";
 import formatAddress from "../../utils/adreessFormatter.js";
@@ -28,6 +29,13 @@ export const contribuyentesColumns = (onEdit, onToggleStatus) => [
     field: "rfc",
     headerName: "RFC",
     width: 150,
+    renderCell: (params) => params.row.rfc ? (
+      params.row.rfc
+    ) : (
+      <span className="px-3 py-1 rounded-lg bg-[var(--color-inactivo)] text-[var(--color-texto)] text-xs font-medium">
+        Sin RFC
+      </span>
+    ),
   },
   {
     field: "direccion",
@@ -53,17 +61,7 @@ export const contribuyentesColumns = (onEdit, onToggleStatus) => [
     headerName: "Estado",
     width: 140,
     sortable: false,
-
-    renderCell: (params) =>
-      params.row.activo ? (
-        <span className="px-3 py-1 rounded-lg bg-[#E8F8EE] text-[var(--color-texto)] text-xs font-medium">
-          Activo
-        </span>
-      ) : (
-        <span className="px-3 py-1 rounded-lg bg-[#E6E7EB] text-[#4B5563] text-xs font-medium">
-          Inactivo
-        </span>
-      ),
+    renderCell: (params) => <StatusBadge activo={params.row.activo} />
   },
   {
     field: "acciones",

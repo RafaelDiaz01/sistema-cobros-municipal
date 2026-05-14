@@ -6,3 +6,5 @@ export * from "./password.rules.js";
 export * from "./file.rules.js";
 export * from "./rfc.rules.js";
 export * from "./birthday.rules.js";
+export * from "./streetNumber.js";
+export * from "./selectRequired.rules.js";

@@ -19,12 +19,12 @@ export default function ModalBase({
         {/* HEADER */}
         <div className="flex items-center justify-between px-8 py-5 border-b border-[var(--color-borde)]">
           <div>
-            <h2 className="text-xl font-bold text-gray-900">{title}</h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-1">{title}</h2>
             {subtitle && <p className="text-sm text-gray-500">{subtitle}</p>}
           </div>
 
           <button onClick={onClose}>
-            <X className="text-gray-400 hover:text-black" />
+            <X className="text-gray-400 hover:text-red-500" />
           </button>
         </div>
 

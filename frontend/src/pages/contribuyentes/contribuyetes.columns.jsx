@@ -59,17 +59,16 @@ export const contribuyentesColumns = (onEdit, onToggleStatus) => [
   {
     field: "activo",
     headerName: "Estado",
-    width: 140,
+    width: 100,
     sortable: false,
     renderCell: (params) => <StatusBadge activo={params.row.activo} />
   },
   {
     field: "acciones",
     headerName: "Acciones",
-    width: 140,
+    width: 100,
     sortable: false,
     filterable: false,
-
     renderCell: (params) => {
       const { id_contribuyente, activo } = params.row;
 

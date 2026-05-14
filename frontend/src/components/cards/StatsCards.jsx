@@ -1,7 +1,7 @@
 export default function StatsCards({ stats = [], columns = 4 }) {
   return (
     /* CONTENEDOR PRINCIPAL */
-    <div className={`w-full grid grid-cols-${columns} gap-4`}>
+    <div className={`w-full grid grid-cols-${columns} gap-6`}>
       {/* TARJETAS DE ESTADÍSTICAS */}
       {/* SE MAPEA PARA AGREGAR CONTENIDO DINÁMICO */}
       {stats.map((card, i) => (
@@ -11,7 +11,7 @@ export default function StatsCards({ stats = [], columns = 4 }) {
           className="flex items-center gap-4 bg-[var(--color-secundario)] border border-[var(--color-borde)] rounded-2xl px-6 py-4 shadow-sm"
         >
           {/* ICONO */}
-          <div className="w-12 h-12 flex items-center justify-center bg-[#E8F8EE] text-[var(--color-acento)] rounded-xl">
+          <div className="w-12 h-12 flex items-center justify-center bg-[var(--color-terciario)] text-[var(--color-primario)] rounded-xl">
             {card.icon}
           </div>
 

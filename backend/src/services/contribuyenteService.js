@@ -1,4 +1,5 @@
 import Contribuyente from "../models/Contribuyente.js";
+import sequelize from "../config/database.js";
 import { Op, fn, col, where } from "sequelize";
 
 // Función para generar una clave única para el contribuyente
@@ -87,7 +88,7 @@ export const actualizarContribuyente = async (id, data) => {
     throw new Error("Contribuyente no encontrado");
   }
 
-  await contribuyente.update(data); 
+  await contribuyente.update(data);
   return contribuyente;
 }
 
@@ -120,4 +121,39 @@ export const buscarContribuyentesPorNombre = async (search) => {
     ),
     limit: 10
   });
+};
+
+// Obtener estadísticas de contribuyentes
+export const obtenerEstadisticasContribuyentes = async () => {
+  const stats = await Contribuyente.findOne({
+    attributes: [
+      [
+        sequelize.fn("COUNT", sequelize.col("*")),
+        "total",
+      ],
+
+      [
+        sequelize.literal("SUM(activo = 1)"),
+        "activos",
+      ],
+
+      [
+        sequelize.literal("SUM(activo = 0)"),
+        "inactivos",
+      ],
+
+      [
+        sequelize.literal("SUM(rfc IS NOT NULL)"),
+        "con_rfc",
+      ],
+    ],
+    raw: true,
+  });
+
+  return {
+    total: Number(stats.total),
+    activos: Number(stats.activos),
+    inactivos: Number(stats.inactivos),
+    con_rfc: Number(stats.con_rfc),
+  };
 };

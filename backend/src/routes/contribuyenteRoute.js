@@ -19,4 +19,7 @@ router.put("/:id", authMiddleware, contribuyenteController.putContribuyente);
 // Buscar contribuyentes por nombre
 router.get("/buscar", authMiddleware, contribuyenteController.searchContribuyentes);
 
+// Obtener estadísticas de contribuyentes
+router.get("/estadisticas", authMiddleware, contribuyenteController.getEstadisticasContribuyentes);
+
 export default router;

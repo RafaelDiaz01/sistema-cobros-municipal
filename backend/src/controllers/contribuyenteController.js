@@ -62,11 +62,22 @@ export const searchContribuyentes = async (req, res) => {
     if (!nombre || nombre.length < 2) {
       return res.status(400).json({ message: "El parámetro 'nombre' es obligatorio" });
     }
-    
+
     const resultados = await contribuyenteService.buscarContribuyentesPorNombre(nombre);
     res.json(resultados);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error al buscar contribuyentes", error: error.message });
+  }
+};
+
+// Obtener estadísticas de contribuyentes
+export const getEstadisticasContribuyentes = async (req, res) => {
+  try {
+    const estadisticas = await contribuyenteService.obtenerEstadisticasContribuyentes();
+    res.json(estadisticas);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error al obtener estadísticas de contribuyentes", error: error.message });
   }
 };

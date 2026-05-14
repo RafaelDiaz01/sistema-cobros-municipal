@@ -1,4 +1,4 @@
-import api from "./axios.js";
+import api from "../api/axios.js";
 
 // Obtener todos los contribuyentes
 export const getContribuyentes = async () => {
@@ -13,25 +13,25 @@ export const getEstadisticasContribuyentes = async () => {
 };
 
 // Crear un nuevo contribuyente
-export const createContribuyenteAPI = async (data) => {
+export const createContribuyente = async (data) => {
   const response = await api.post("/contribuyentes", data);
   return response.data;
 };
 
 // Actualizar un contribuyente existente
-export const updateStatusContribuyenteAPI = async (id, data) => {
+export const updateStatusContribuyente = async (id, data) => {
   const response = await api.put(`/contribuyentes/${id}/estado`, data);
   return response.data;
 };
 
 // Actualizar datos de un contribuyente
-export const updateContribuyenteAPI = async (id, data) => {
+export const updateContribuyente = async (id, data) => {
   const response = await api.put(`/contribuyentes/${id}`, data);
   return response.data;
 };
 
 // Buscar contribuyentes por nombre
-export const searchContribuyentesAPI = async (nombre) => {
+export const searchContribuyentes = async (nombre) => {
   const response = await api.get(`/contribuyentes/buscar`, {
     params: { nombre },
   });

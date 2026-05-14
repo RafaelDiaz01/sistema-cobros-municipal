@@ -9,6 +9,7 @@ import BaseModal from "../../ui/ModalBase.jsx";
 import Section from "../../modals/components/Section.jsx";
 import Grid from "../../modals/components/Grid.jsx";
 import Input from "../../modals/components/Input.jsx";
+import InputPhone from "../../modals/InputPhone.jsx";
 import Select from "../../modals/components/Select.jsx";
 import Stack from "../../layouts/Stack.jsx";
 import ModalFooter from "../components/ModalFooter.jsx";
@@ -108,7 +109,7 @@ export default function AddContribuyenteModal({ isOpen, onClose, onSuccess, cont
                 }}
                 error={errors.rfc}
               />
-              <Input
+              <InputPhone
                 label="Teléfono"
                 placeholder="Ej. 9515801224"
                 {...register("telefono")}

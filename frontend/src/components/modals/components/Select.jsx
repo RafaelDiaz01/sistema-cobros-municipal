@@ -1,6 +1,6 @@
 import Stack from "../../layouts/Stack.jsx";
 
-function Select({ label, options = [], disabled, ...props }) {
+function Select({ label, options = [], error, disabled, ...props }) {
   return (
     <Stack size="xs">
       <label className="text-sm font-medium">
@@ -17,6 +17,7 @@ function Select({ label, options = [], disabled, ...props }) {
           <option key={o}>{o}</option>
         ))}
       </select>
+      {error && <p className="text-red-500 text-xs">{error?.message}</p>}
     </Stack>
   );
 }

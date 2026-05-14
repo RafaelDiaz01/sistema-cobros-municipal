@@ -10,6 +10,7 @@ import SectionTitle from "../../components/titles/SectionTitle.jsx";
 import AddContribuyenteModal from "../../components/features/contribuyentes/AddContribuyenteModal.jsx";
 import StatsCards from "../../components/cards/StatsCards.jsx";
 import Table from "../../components/table/Table.jsx";
+import ModuleSkeleton from "../../components/ui/ModuleSkeleton.jsx";
 
 const Contribuyentes = () => {
   const [contribuyentes, setContribuyentes] = useState([]);
@@ -17,6 +18,8 @@ const Contribuyentes = () => {
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [contribuyenteEdit, setContribuyenteEdit] = useState(null);
+
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
   useEffect(() => {
     cargarDatos();
@@ -32,6 +35,7 @@ const Contribuyentes = () => {
     } catch (error) {
       showToast("error", "Error al cargar datos");
     } finally {
+      await sleep(1500);
       setLoading(false);
     }
   };
@@ -72,8 +76,6 @@ const Contribuyentes = () => {
       setContribuyentes(data);
     } catch (error) {
       showToast("error", "Error al cargar contribuyentes");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -115,36 +117,38 @@ const Contribuyentes = () => {
   return (
     <PageLayout>
       <Stack size="xl">
-        {/* TÍTULO DEL MÓDULO */}
-        <SectionTitle
-          text="Gestión de Contribuyentes"
-          onAdd={handleAdd}
-          textButton="Agregar Contribuyente"
-        />
-        {/* MODAL PARA AGREGAR CONTRIBUYENTE */}
-        {open && (
-          <AddContribuyenteModal
-            isOpen={open}
-            onClose={() => setOpen(false)}
-            contribuyente={contribuyenteEdit}
-            onSuccess={async () => {
-              await fetchContribuyentes();
-              await fetchEstadisticas();
-            }}
-          />
-        )}
-        {/* ESTADISTÍCAS DEL MÓDULO */}
         {loading ? (
-          <p>Cargando Estadísticas</p>
+          <ModuleSkeleton />
         ) : (
-          <StatsCards stats={stats} />
-        )}
-        <Table
-          rows={contribuyentes}
-          loading={loading}
-          columns={contribuyentesColumns(handleEdit, handleDelete)}
-          getRowId={(row) => row.id_contribuyente}
-        />
+          <>
+            {/* TÍTULO DEL MÓDULO */}
+            <SectionTitle
+              text="Gestión de Contribuyentes"
+              onAdd={handleAdd}
+              textButton="Agregar Contribuyente"
+            />
+            {/* MODAL PARA AGREGAR CONTRIBUYENTE */}
+            {open && (
+              <AddContribuyenteModal
+                isOpen={open}
+                onClose={() => setOpen(false)}
+                contribuyente={contribuyenteEdit}
+                onSuccess={async () => {
+                  await fetchContribuyentes();
+                  await fetchEstadisticas();
+                }}
+              />
+            )}
+            {/* ESTADISTÍCAS DEL MÓDULO */}
+            <StatsCards stats={stats} />
+
+            <Table
+              rows={contribuyentes}
+              loading={loading}
+              columns={contribuyentesColumns(handleEdit, handleDelete)}
+              getRowId={(row) => row.id_contribuyente}
+            />
+          </>)}
       </Stack>
     </PageLayout>
   );

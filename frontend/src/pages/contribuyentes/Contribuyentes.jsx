@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { Users, UserCheck, UserX, IdCard } from "lucide-react";
-import { getContribuyentes, updateStatusContribuyenteAPI } from "../../api/contribuyentes.js";
+import { getEstadisticasContribuyentes, getContribuyentes, updateStatusContribuyente } from "../../services/contribuyentesService.js";
 import { showToast } from "../../utils/alerts/toast.js";
 import { alertConfirmation } from "../../utils/alerts/alert.js";
 import { contribuyentesColumns } from "./contribuyetes.columns.jsx";
@@ -13,47 +13,61 @@ import Table from "../../components/table/Table.jsx";
 
 const Contribuyentes = () => {
   const [contribuyentes, setContribuyentes] = useState([]);
+  const [stats, setStats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [contribuyenteEdit, setContribuyenteEdit] = useState(null);
 
   useEffect(() => {
-    fetchContribuyentes();
+    cargarDatos();
   }, []);
 
-  const stats = useMemo(() => {
-    const total = contribuyentes.length;
-    const activos = contribuyentes.filter((c) => c.activo).length;
-    const inactivos = total - activos;
-    const conRfc = contribuyentes.filter((c) => c.rfc).length;
+  const cargarDatos = async () => {
+    try {
+      setLoading(true);
+      await Promise.all([
+        fetchEstadisticas(),
+        fetchContribuyentes(),
+      ]);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    return [
-      {
-        title: "Total de Contribuyentes",
-        value: total,
-        icon: <Users size={26} />,
-      },
-      {
-        title: "Activos",
-        value: activos,
-        icon: <UserCheck size={26} />,
-      },
-      {
-        title: "Inactivos",
-        value: inactivos,
-        icon: <UserX size={26} />,
-      },
-      {
-        title: "Con RFC",
-        value: conRfc,
-        icon: <IdCard size={26} />,
-      },
-    ];
-  }, [contribuyentes]);
+  const fetchEstadisticas = async () => {
+    try {
+      const data = await getEstadisticasContribuyentes();
+      setStats([
+        {
+          title: "Total de Contribuyentes",
+          value: data.total,
+          icon: <Users size={26} />,
+        },
+        {
+          title: "Activos",
+          value: data.activos,
+          icon: <UserCheck size={26} />,
+        },
+        {
+          title: "Inactivos",
+          value: data.inactivos,
+          icon: <UserX size={26} />,
+        },
+        {
+          title: "Con RFC",
+          value: data.con_rfc,
+          icon: <IdCard size={26} />,
+        },
+      ]);
+    } catch (error) {
+      console.error("Error al cargar estadísticas", error);
+    }
+  };
 
   const fetchContribuyentes = async () => {
     try {
-      setLoading(true);
       const data = await getContribuyentes();
       setContribuyentes(data);
     } catch (error) {
@@ -77,8 +91,9 @@ const Contribuyentes = () => {
     if (!confirmacion) return;
 
     try {
-      await updateStatusContribuyenteAPI(id, { estado: nuevoEstado });
-      fetchContribuyentes();
+      await updateStatusContribuyente(id, { estado: nuevoEstado });
+      await fetchContribuyentes();
+      await fetchEstadisticas();
       showToast("success", "Estado actualizado exitosamente");
     } catch (error) {
       console.error("Error al cambiar el estado contribuyente", error);
@@ -113,7 +128,10 @@ const Contribuyentes = () => {
             isOpen={open}
             onClose={() => setOpen(false)}
             contribuyente={contribuyenteEdit}
-            onSuccess={fetchContribuyentes}
+            onSuccess={async () => {
+              await fetchContribuyentes();
+              await fetchEstadisticas();
+            }}
           />
         )}
         {/* ESTADISTÍCAS DEL MÓDULO */}

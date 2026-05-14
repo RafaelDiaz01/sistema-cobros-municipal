@@ -30,7 +30,7 @@ const Contribuyentes = () => {
         fetchContribuyentes(),
       ]);
     } catch (error) {
-      console.error(error);
+      showToast("error", "Error al cargar datos");
     } finally {
       setLoading(false);
     }
@@ -62,7 +62,7 @@ const Contribuyentes = () => {
         },
       ]);
     } catch (error) {
-      console.error("Error al cargar estadísticas", error);
+      showToast("error", "Error al cargar estadísticas de contribuyentes");
     }
   };
 
@@ -71,7 +71,7 @@ const Contribuyentes = () => {
       const data = await getContribuyentes();
       setContribuyentes(data);
     } catch (error) {
-      console.error("Error al cargar contribuyentes", error);
+      showToast("error", "Error al cargar contribuyentes");
     } finally {
       setLoading(false);
     }
@@ -96,8 +96,7 @@ const Contribuyentes = () => {
       await fetchEstadisticas();
       showToast("success", "Estado actualizado exitosamente");
     } catch (error) {
-      console.error("Error al cambiar el estado contribuyente", error);
-      alert("Error al cambiar el estado del contribuyente");
+      showToast("error", "Error al cambiar el estado del contribuyente");
     }
   };
 

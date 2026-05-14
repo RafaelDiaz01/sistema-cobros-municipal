@@ -11,7 +11,7 @@ export default function SectionTitle({ text, onAdd, textButton }) {
       {/* BOTÓN */}
       <button
         onClick={onAdd}
-        className="flex items-center gap-2 bg-[var(--color-primario)] text-white font-medium px-5 py-2.5 rounded-xl hover:opacity-90 transition"
+        className="flex items-center gap-2 bg-[var(--color-primario)] text-white font-medium px-4 py-2 rounded-xl"
       >
         {textButton}
       </button>

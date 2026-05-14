@@ -100,7 +100,7 @@ export default function AddContribuyenteModal({ isOpen, onClose, onSuccess, cont
               />
               <Input
                 label="RFC"
-                placeholder="LOPJ010285MQ7"
+                placeholder="Ej. LOPJ010285MQ7"
                 required={false}
                 {...register("rfc")}
                 onInput={(e) => {
@@ -110,7 +110,7 @@ export default function AddContribuyenteModal({ isOpen, onClose, onSuccess, cont
               />
               <Input
                 label="Teléfono"
-                placeholder="9515801224"
+                placeholder="Ej. 9515801224"
                 {...register("telefono")}
                 error={errors.telefono}
               />

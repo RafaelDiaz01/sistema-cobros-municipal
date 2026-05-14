@@ -46,17 +46,17 @@ const Contribuyentes = () => {
           icon: <Users size={26} />,
         },
         {
-          title: "Activos",
+          title: "Contribuyentes Activos",
           value: data.activos,
           icon: <UserCheck size={26} />,
         },
         {
-          title: "Inactivos",
+          title: "Contribuyentes Inactivos",
           value: data.inactivos,
           icon: <UserX size={26} />,
         },
         {
-          title: "Con RFC",
+          title: "Contribuyentes con RFC",
           value: data.con_rfc,
           icon: <IdCard size={26} />,
         },

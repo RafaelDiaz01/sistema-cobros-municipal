@@ -37,19 +37,21 @@ export const SectionTitleSkeleton = () => (
    4 tarjetas: ícono + título + valor
    ───────────────────────────────────────────── */
 export const StatsCardsSkeleton = ({ cards = 4 }) => (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div className="w-full grid grid-cols-4 gap-6">
         {Array.from({ length: cards }).map((_, i) => (
             <div
                 key={i}
-                className="flex flex-col gap-4 rounded-2xl border border-gray-100 bg-white px-6 py-4 shadow-sm"
-            >
-                {/* Icono */}
-                <div className="flex items-center justify-between">
-                    <Bone className="h-10 w-10 rounded-lg bg-gradient-to-br from-green-100 via-green-50 to-green-100" />
-                    <Bone className="h-4 w-36" />
+                className="flex items-center gap-4 bg-[var(--color-secundario)] border border-[var(--color-borde)] rounded-2xl px-6 py-4 shadow-sm"
+            >   {/* ICONO */}
+                <Bone className="h-12 w-12 rounded-xl bg-gradient-to-br from-green-100 via-green-50 to-green-100" />
+
+                <div className="flex flex-col gap-3">
+                    {/* TEXTO */}
+                    <Bone className="h-4 w-40" />
+
+                    {/* VALOR */}
+                    <Bone className="h-6 w-6" />
                 </div>
-                {/* Valor numérico */}
-                <Bone className="h-8 w-20 from-green-50 via-green-100 to-green-50" />
             </div>
         ))}
     </div>
@@ -127,7 +129,7 @@ export const TableSkeleton = ({ rows = 7, columns = 6 }) => {
    Combina los tres esqueletos en orden
    ───────────────────────────────────────────── */
 const ModuleSkeleton = ({ tableRows = 7, tableColumns = 6, statsCards = 4 }) => (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-10">
         <SectionTitleSkeleton />
         <StatsCardsSkeleton cards={statsCards} />
         <TableSkeleton rows={tableRows} columns={tableColumns} />

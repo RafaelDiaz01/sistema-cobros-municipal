@@ -19,8 +19,6 @@ const Contribuyentes = () => {
   const [open, setOpen] = useState(false);
   const [contribuyenteEdit, setContribuyenteEdit] = useState(null);
 
-  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
   useEffect(() => {
     cargarDatos();
   }, []);
@@ -35,7 +33,6 @@ const Contribuyentes = () => {
     } catch (error) {
       showToast("error", "Error al cargar datos");
     } finally {
-      await sleep(1500);
       setLoading(false);
     }
   };
@@ -118,7 +115,7 @@ const Contribuyentes = () => {
     <PageLayout>
       <Stack size="xl">
         {loading ? (
-          <ModuleSkeleton />
+          <ModuleSkeleton tableRows={9} tableColumns={8} statsCards={4} />
         ) : (
           <>
             {/* TÍTULO DEL MÓDULO */}

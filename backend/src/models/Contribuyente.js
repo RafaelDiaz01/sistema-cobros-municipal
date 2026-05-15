@@ -40,6 +40,7 @@ const Contribuyente = sequelize.define(
     },
     numero_calle: {
       type: DataTypes.STRING(20),
+      allowNull: true,
     },
     barrio: {
       type: DataTypes.STRING(20),
@@ -48,9 +49,6 @@ const Contribuyente = sequelize.define(
     rfc: {
       type: DataTypes.STRING(15),
       unique: true,
-    },
-    copia_credencial: {
-      type: DataTypes.TEXT,
     },
     activo: {
       type: DataTypes.BOOLEAN,

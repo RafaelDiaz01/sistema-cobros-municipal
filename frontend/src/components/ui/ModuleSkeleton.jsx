@@ -1,17 +1,4 @@
-/**
- * Uso:
- *   import ModuleSkeleton, {
- *     SectionTitleSkeleton,
- *     StatsCardsSkeleton,
- *     TableSkeleton,
- *   } from "./SkeletonLoader";
- *
- *   // Módulo completo
- *   {loading ? <ModuleSkeleton /> : <TuModulo />}
- *
- *   // Partes individuales
- *   {loading ? <StatsCardsSkeleton /> : <StatsCards stats={stats} />}
- */
+// Esqueleto de carga para módulos completos (título, tarjetas de estadísticas y tabla)
 
 const Bone = ({ className = "" }) => (
     <div
@@ -19,10 +6,6 @@ const Bone = ({ className = "" }) => (
     />
 );
 
-/* ─────────────────────────────────────────────
-   1. SECTION TITLE
-   Título a la izquierda + botón a la derecha
-   ───────────────────────────────────────────── */
 export const SectionTitleSkeleton = () => (
     <div className="flex items-center justify-between">
         <div className="flex flex-col">
@@ -32,10 +15,6 @@ export const SectionTitleSkeleton = () => (
     </div>
 );
 
-/* ─────────────────────────────────────────────
-   2. STATS CARDS
-   4 tarjetas: ícono + título + valor
-   ───────────────────────────────────────────── */
 export const StatsCardsSkeleton = ({ cards = 4 }) => (
     <div className="w-full grid grid-cols-4 gap-6">
         {Array.from({ length: cards }).map((_, i) => (
@@ -57,13 +36,6 @@ export const StatsCardsSkeleton = ({ cards = 4 }) => (
     </div>
 );
 
-/* ─────────────────────────────────────────────
-   3. TABLE
-   Cabecera + filas de datos
-   Props:
-     rows    — número de filas visibles (default 7)
-     columns — número de columnas (default 6)
-   ───────────────────────────────────────────── */
 export const TableSkeleton = ({ rows = 7, columns = 6 }) => {
     // Ancho relativo de cada columna para variedad visual
     const colWidths = ["w-32", "w-28", "w-24", "w-20", "w-28", "w-16"];
@@ -124,10 +96,6 @@ export const TableSkeleton = ({ rows = 7, columns = 6 }) => {
     );
 };
 
-/* ─────────────────────────────────────────────
-   DEFAULT: Módulo completo
-   Combina los tres esqueletos en orden
-   ───────────────────────────────────────────── */
 const ModuleSkeleton = ({ tableRows = 7, tableColumns = 6, statsCards = 4 }) => (
     <div className="flex flex-col gap-10">
         <SectionTitleSkeleton />

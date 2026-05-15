@@ -1,8 +1,20 @@
 import api from "../api/axios.js";
 
 // Obtener todos los contribuyentes
-export const getContribuyentes = async () => {
-  const response = await api.get("/contribuyentes");
+export const getContribuyentes = async ({
+  page,
+  limit,
+}) => {
+  const response = await api.get(
+    "/contribuyentes",
+    {
+      params: {
+        page,
+        limit,
+      },
+    }
+  );
+
   return response.data;
 };
 

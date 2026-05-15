@@ -18,10 +18,17 @@ const Contribuyentes = () => {
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [contribuyenteEdit, setContribuyenteEdit] = useState(null);
+  const [totalRows, setTotalRows] = useState(0);
+
+  const [paginationModel, setPaginationModel] =
+    useState({
+      page: 0,
+      pageSize: 10,
+    });
 
   useEffect(() => {
     cargarDatos();
-  }, []);
+  }, [paginationModel]);
 
   const cargarDatos = async () => {
     try {
@@ -69,8 +76,12 @@ const Contribuyentes = () => {
 
   const fetchContribuyentes = async () => {
     try {
-      const data = await getContribuyentes();
-      setContribuyentes(data);
+      const data = await getContribuyentes({
+        page: paginationModel.page + 1,
+        limit: paginationModel.pageSize,
+      });
+      setContribuyentes(data.data);
+      setTotalRows(data.total);
     } catch (error) {
       showToast("error", "Error al cargar contribuyentes");
     }
@@ -144,6 +155,11 @@ const Contribuyentes = () => {
               loading={loading}
               columns={contribuyentesColumns(handleEdit, handleDelete)}
               getRowId={(row) => row.id_contribuyente}
+              rowCount={totalRows}
+              paginationModel={paginationModel}
+              onPaginationModelChange={
+                setPaginationModel
+              }
             />
           </>)}
       </Stack>

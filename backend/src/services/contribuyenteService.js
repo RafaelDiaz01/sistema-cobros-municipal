@@ -14,8 +14,25 @@ const generarClaveContribuyente = () => {
 };
 
 // Obtener todos los contribuyentes
-export const obtenerContribuyentes = async () => {
-  return await Contribuyente.findAll();
+export const obtenerContribuyentes = async (
+  page = 1,
+  limit = 10
+) => {
+  const offset = (page - 1) * limit;
+
+  const { rows, count } =
+    await Contribuyente.findAndCountAll({
+      limit,
+      offset,
+      order: [["id_contribuyente", "ASC"]],
+    });
+
+  return {
+    data: rows,
+    total: count,
+    currentPage: page,
+    totalPages: Math.ceil(count / limit),
+  };
 };
 
 // Crear un nuevo contribuyente

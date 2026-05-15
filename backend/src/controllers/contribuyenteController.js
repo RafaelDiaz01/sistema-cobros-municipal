@@ -3,7 +3,15 @@ import * as contribuyenteService from "../services/contribuyenteService.js";
 // Obtener todos los contribuyentes
 export const getContribuyentes = async (req, res) => {
   try {
-    const contribuyentes = await contribuyenteService.obtenerContribuyentes();
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    const contribuyentes =
+      await contribuyenteService.obtenerContribuyentes(
+        page,
+        limit
+      );
+
     res.json(contribuyentes);
   } catch (error) {
     res.status(500).json({ error: error.message });

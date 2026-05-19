@@ -108,6 +108,7 @@ export default function AddContribuyenteModal({ isOpen, onClose, onSuccess, cont
                   e.target.value = e.target.value.toUpperCase();
                 }}
                 error={errors.rfc}
+                optional
               />
               <InputPhone
                 label="Teléfono"

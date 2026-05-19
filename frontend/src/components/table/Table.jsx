@@ -23,7 +23,6 @@ export default function Table({
         onPaginationModelChange={
           onPaginationModelChange
         }
-        pageSizeOptions={[5, 10, 25, 50]}
         disableRowSelectionOnClick
         onRowClick={onRowClick}
       />

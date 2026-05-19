@@ -101,6 +101,13 @@ const Contribuyentes = () => {
     setOpen(true);
   };
 
+  const columns = useMemo(() => {
+    return contribuyentesColumns(
+      handleEdit,
+      handleDelete
+    );
+  }, []);
+
   return (
     <PageLayout>
       <Stack size="xl">
@@ -153,7 +160,7 @@ const Contribuyentes = () => {
             <Table
               rows={contribuyentes}
               loading={loading}
-              columns={contribuyentesColumns(handleEdit, handleDelete)}
+              columns={columns}
               getRowId={(row) => row.id_contribuyente}
               rowCount={totalRows}
               paginationModel={paginationModel}

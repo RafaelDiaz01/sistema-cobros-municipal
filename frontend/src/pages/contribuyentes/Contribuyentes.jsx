@@ -15,7 +15,8 @@ import ModuleSkeleton from "../../components/ui/ModuleSkeleton.jsx";
 const Contribuyentes = () => {
   const [contribuyentes, setContribuyentes] = useState([]);
   const [stats, setStats] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingPage, setLoadingPage] = useState(true);
+  const [loadingTable, setLoadingTable] = useState(false);
   const [open, setOpen] = useState(false);
   const [contribuyenteEdit, setContribuyenteEdit] = useState(null);
   const [totalRows, setTotalRows] = useState(0);
@@ -23,24 +24,28 @@ const Contribuyentes = () => {
   const [paginationModel, setPaginationModel] =
     useState({
       page: 0,
-      pageSize: 10,
+      pageSize: 9,
     });
 
   useEffect(() => {
-    cargarDatos();
+    cargarModuloInicial();
+  }, []);
+
+  useEffect(() => {
+    fetchContribuyentes();
   }, [paginationModel]);
 
-  const cargarDatos = async () => {
+  const cargarModuloInicial = async () => {
     try {
-      setLoading(true);
+      setLoadingPage(true);
       await Promise.all([
         fetchEstadisticas(),
-        fetchContribuyentes(),
+        fetchContribuyentes(true),
       ]);
     } catch (error) {
       showToast("error", "Error al cargar datos");
     } finally {
-      setLoading(false);
+      setLoadingPage(false);
     }
   };
 
@@ -53,8 +58,9 @@ const Contribuyentes = () => {
     }
   };
 
-  const fetchContribuyentes = async () => {
+  const fetchContribuyentes = async (cargaInicial = false) => {
     try {
+      if (!cargaInicial) setLoadingTable(true);
       const data = await getContribuyentes({
         page: paginationModel.page + 1,
         limit: paginationModel.pageSize,
@@ -63,6 +69,8 @@ const Contribuyentes = () => {
       setTotalRows(data.total);
     } catch (error) {
       showToast("error", "Error al cargar contribuyentes");
+    } finally {
+      if (!cargaInicial) setLoadingTable(false);
     }
   };
 
@@ -111,7 +119,7 @@ const Contribuyentes = () => {
   return (
     <PageLayout>
       <Stack size="xl">
-        {loading ? (
+        {loadingPage ? (
           <ModuleSkeleton tableRows={9} tableColumns={8} statsCards={4} />
         ) : (
           <>
@@ -159,7 +167,7 @@ const Contribuyentes = () => {
 
             <Table
               rows={contribuyentes}
-              loading={loading}
+              loading={loadingTable}
               columns={columns}
               getRowId={(row) => row.id_contribuyente}
               rowCount={totalRows}

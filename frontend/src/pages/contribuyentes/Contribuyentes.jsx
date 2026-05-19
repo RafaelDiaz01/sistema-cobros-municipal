@@ -47,28 +47,7 @@ const Contribuyentes = () => {
   const fetchEstadisticas = async () => {
     try {
       const data = await getEstadisticasContribuyentes();
-      setStats([
-        {
-          title: "Total de Contribuyentes",
-          value: data.total,
-          icon: <Users size={26} />,
-        },
-        {
-          title: "Contribuyentes Activos",
-          value: data.activos,
-          icon: <UserCheck size={26} />,
-        },
-        {
-          title: "Contribuyentes Inactivos",
-          value: data.inactivos,
-          icon: <UserX size={26} />,
-        },
-        {
-          title: "Contribuyentes con RFC",
-          value: data.con_rfc,
-          icon: <IdCard size={26} />,
-        },
-      ]);
+      setStats(data);
     } catch (error) {
       showToast("error", "Error al cargar estadísticas de contribuyentes");
     }
@@ -148,7 +127,28 @@ const Contribuyentes = () => {
               />
             )}
             {/* ESTADISTÍCAS DEL MÓDULO */}
-            <StatsCards stats={stats} />
+            <StatsCards stats={[
+              {
+                title: "Total de Contribuyentes",
+                value: stats.total,
+                icon: <Users size={26} />,
+              },
+              {
+                title: "Contribuyentes Activos",
+                value: stats.activos,
+                icon: <UserCheck size={26} />,
+              },
+              {
+                title: "Contribuyentes Inactivos",
+                value: stats.inactivos,
+                icon: <UserX size={26} />,
+              },
+              {
+                title: "Contribuyentes con RFC",
+                value: stats.con_rfc,
+                icon: <IdCard size={26} />,
+              },
+            ]} />
 
             <Table
               rows={contribuyentes}

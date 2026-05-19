@@ -118,7 +118,7 @@ const Contribuyentes = () => {
 
   return (
     <PageLayout>
-      <Stack size="xl">
+      <Stack size="lg">
         {loadingPage ? (
           <ModuleSkeleton tableRows={9} tableColumns={8} statsCards={4} />
         ) : (

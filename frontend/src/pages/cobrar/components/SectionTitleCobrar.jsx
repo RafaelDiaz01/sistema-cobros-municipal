@@ -1,4 +1,4 @@
-import { User } from "lucide-react";
+import { Info } from "lucide-react";
 
 export default function SectionTitleCobrar({ text, corteActivo, onAdd }) {
   return (
@@ -11,7 +11,7 @@ export default function SectionTitleCobrar({ text, corteActivo, onAdd }) {
           onClick={onAdd}
           className="flex items-center gap-2 bg-[var(--color-primario)] text-white font-medium px-5 py-2.5 rounded-lg hover:opacity-90 transition"
         >
-          <User size={18} />
+          <Info size={18} />
           Iniciar Turno
         </button>
       ) : (
@@ -19,7 +19,7 @@ export default function SectionTitleCobrar({ text, corteActivo, onAdd }) {
           disabled
           className="flex items-center gap-2 bg-gray-200 text-black font-medium px-5 py-2.5 rounded-lg cursor-not-allowed"
         >
-          <User size={18} />
+          <Info size={18} />
           Turno Activo
         </button>
       )}

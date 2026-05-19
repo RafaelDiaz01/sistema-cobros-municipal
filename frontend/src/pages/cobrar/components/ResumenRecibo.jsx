@@ -139,7 +139,7 @@ const ResumenRecibo = ({
 
           {/* Total a pagar */}
           <div className="bg-[var(--color-terciario)] p-4 rounded-lg border border-[var(--color-borde)]">
-            <Stack size="sm">
+            <Stack size="xs">
               <div className="flex justify-between items-center text-[var(--color-texto)]">
                 <span className="text-sm font-bold uppercase tracking-widest">
                   TOTAL
@@ -148,7 +148,7 @@ const ResumenRecibo = ({
                   ${montoFinal.toLocaleString("es-MX", { minimumFractionDigits: 2 })}
                 </span>
               </div>
-              <div className="pt-2 border-t border-[var(--color-borde)] flex justify-between items-center">
+              <div className="flex justify-between items-center">
                 <p className="text-xs text-primary/70 uppercase">
                   Total en letra
                 </p>
@@ -164,7 +164,7 @@ const ResumenRecibo = ({
             <button
               type="submit"
               disabled={disabled}
-              className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 font-medium rounded-lg transition-colors  bg-[var(--color-primario)] text-white hover:bg-green-700
+              className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 font-medium rounded-lg transition-colors  bg-[var(--color-primario)] text-white hover:bg-green-700
                 ${disabled ? "opacity-60 cursor-not-allowed hover:bg-[var(--color-primario)]" : ""}`}
             >
               Cobrar
@@ -173,7 +173,7 @@ const ResumenRecibo = ({
               type="button"
               disabled={disabled}
               onClick={limpiarRecibo}
-              className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 font-medium rounded-lg transition-colors bg-[var(--color-cancelar)] text-white hover:bg-red-700
+              className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 font-medium rounded-lg transition-colors bg-[var(--color-cancelar)] text-white hover:bg-red-700
                 ${disabled ? "opacity-60 cursor-not-allowed hover:bg-[var(--color-cancelar)]" : ""}`}
             >
               Cancelar

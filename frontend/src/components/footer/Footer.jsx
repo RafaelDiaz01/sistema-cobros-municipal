@@ -9,7 +9,7 @@ export default function Footer({
   return (
     <footer
       className={`
-        py-8 text-center space-y-1
+        py-4 text-center space-y-1
         ${className}
       `}
     >

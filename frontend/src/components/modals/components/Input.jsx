@@ -1,11 +1,20 @@
+import { Tooltip } from "@mui/material";
+import { Info } from "lucide-react";
 import Stack from "../../layouts/Stack.jsx";
 
-function Input({ label, required = true, error, disabled, ...props }) {
+function Input({ label, required = true, error, optional, disabled, ...props }) {
   return (
     <Stack size="xs">
       {/* LABEL */}
       <label className="text-sm font-medium">
-        {label} {required && <span className="text-red-500">*</span>}
+        <span className="inline-flex items-center">
+          {label} {required && <span className="ml-1 text-red-500">*</span>}
+          {optional && (
+            <Tooltip title="Este campo se puede dejar vacío" arrow>
+              <Info size={14} className="ml-1 text-gray-400" />
+            </Tooltip>
+          )}
+        </span>
       </label>
 
       {/* INPUT */}

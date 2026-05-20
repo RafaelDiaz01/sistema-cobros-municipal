@@ -4,23 +4,16 @@ import { Tag } from "lucide-react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { subconceptoSchema } from "../../../validations/schemas/subconcepto.schema.js";
 import { showToast } from "../../../utils/alerts/toast.js";
-import {
-  createSubconceptoAPI,
-  updateSubconceptoAPI,
-} from "../../../services/subconceptoService.js";
+import { createSubconceptoAPI, updateSubconceptoAPI } from "../../../services/subconceptoService.js";
 import ModalBase from "../../ui/ModalBase.jsx";
 import Section from "../../modals/components/Section.jsx";
 import Grid from "../../modals/components/Grid.jsx";
 import Input from "../../modals/components/Input.jsx";
 import Select from "../../modals/components/Select.jsx";
 import Stack from "../../layouts/Stack.jsx";
+import ModalFooter from "../components/ModalFooter.jsx";
 
-export default function AddSubconceptoModal({
-  isOpen,
-  onClose,
-  onSuccess,
-  subconcepto,
-}) {
+export default function AddSubconceptoModal({ isOpen, onClose, onSuccess, subconcepto }) {
   const isEdit = Boolean(subconcepto);
 
   const {
@@ -64,38 +57,17 @@ export default function AddSubconceptoModal({
     <ModalBase
       isOpen={isOpen}
       onClose={onClose}
-      title={isEdit ? "Editar Subconcepto" : "Nuevo Subconcepto"}
-      subtitle={
-        isEdit
-          ? "Modifica los datos del subconcepto"
-          : "Ingresa los datos del nuevo subconcepto"
-      }
-      footer={
-        <div className="flex justify-end gap-4 bg-white rounded-b-2xl pt-5 pb-0">
-          <button
-            type="button"
-            onClick={onClose}
-            className="px-5 py-2 rounded-lg bg-[var(--color-cancelar)] text-[var(--color-text-secundario)] text-sm"
-          >
-            Cancelar
-          </button>
-
-          <button
-            type="submit"
-            form="subconcepto-form"
-            className="px-6 py-2 rounded-lg bg-[var(--color-acento)] text-[var(--color-text-secundario)] text-sm font-medium"
-          >
-            {isEdit ? "Actualizar Subconcepto" : "Guardar Subconcepto"}
-          </button>
-        </div>
+      title={isEdit ? "Editar Subconcepto" : "Agregar Subconcepto"}
+      subtitle={isEdit ? "Modifica los datos del subconcepto" : "Ingresa los datos del nuevo subconcepto"}
+      footer={ModalFooter(onClose, isEdit, "subconcepto-form", "Subconcepto")
       }
     >
       <form id="subconcepto-form" onSubmit={handleSubmit(onSubmit)}>
         <Stack size="lg">
-          <Section icon={<Tag size={18} />} title="Información del Subconcepto">
+          <Section icon={<Tag size={18} />} title="Datos del Subconcepto">
             <Input
               label="Nombre del Subconcepto"
-              placeholder="Ej. Licencia de funcionamiento"
+              placeholder="Ej. Panaderías"
               {...register("nombre")}
               error={errors.nombre}
             />
@@ -109,7 +81,7 @@ export default function AddSubconceptoModal({
 
               <Input
                 label="Monto"
-                placeholder="Ej. 250.00"
+                placeholder="Ej. 300.00"
                 {...register("monto_base")}
                 error={errors.monto_base}
               />
@@ -132,7 +104,6 @@ export default function AddSubconceptoModal({
             </Grid>
           </Section>
         </Stack>
-
       </form>
     </ModalBase>
   );

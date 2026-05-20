@@ -100,7 +100,7 @@ export default function Cobrar() {
 
   return (
     <PageLayout>
-      <Stack size="xl">
+      <Stack size="lg">
         <SectionTitleCobrar
           text="Procesar Cobros Municipales"
           corteActivo={corteActivo}

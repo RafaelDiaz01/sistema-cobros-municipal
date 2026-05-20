@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Tag } from "lucide-react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { subconceptoSchema } from "../../../validations/schemas/subconcepto.schema.js";
 import { showToast } from "../../../utils/alerts/toast.js";
 import {
   createSubconceptoAPI,
@@ -26,7 +28,9 @@ export default function AddSubconceptoModal({
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(subconceptoSchema)
+  });
 
   useEffect(() => {
     if (isEdit && subconcepto) {
@@ -92,32 +96,22 @@ export default function AddSubconceptoModal({
             <Input
               label="Nombre del Subconcepto"
               placeholder="Ej. Licencia de funcionamiento"
-              {...register("nombre", {
-                required: "Este campo es obligatorio",
-              })}
-              error={errors.nombre?.message}
+              {...register("nombre")}
+              error={errors.nombre}
             />
             <Grid cols={3}>
               <Input
                 label="Clave del Subconcepto"
                 placeholder="Ej. 41010011"
-                {...register("clave_subconcepto", {
-                  required: "Este campo es obligatorio",
-                })}
-                error={errors.clave_subconcepto?.message}
+                {...register("clave_subconcepto")}
+                error={errors.clave_subconcepto}
               />
 
               <Input
                 label="Monto"
                 placeholder="Ej. 250.00"
-                {...register("monto_base", {
-                  required: "Este campo es obligatorio",
-                  min: {
-                    value: 0,
-                    message: "El monto debe ser mayor o igual a 0",
-                  },
-                })}
-                error={errors.monto_base?.message}
+                {...register("monto_base")}
+                error={errors.monto_base}
               />
 
               <Select
@@ -132,15 +126,13 @@ export default function AddSubconceptoModal({
                   "Mensual",
                   "Anual",
                 ]}
-                {...register("periodicidad", {
-                  required: "Seleccione una periodicidad",
-                })}
-                error={errors.periodicidad?.message}
+                {...register("periodicidad")}
+                error={errors.periodicidad}
               />
             </Grid>
           </Section>
         </Stack>
-        
+
       </form>
     </ModalBase>
   );

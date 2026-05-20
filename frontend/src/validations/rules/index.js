@@ -8,3 +8,5 @@ export * from "./rfc.rules.js";
 export * from "./birthday.rules.js";
 export * from "./streetNumber.js";
 export * from "./selectRequired.rules.js";
+export * from "./amount.rules.js";
+export * from "./key.rules.js";

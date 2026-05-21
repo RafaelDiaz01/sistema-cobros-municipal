@@ -1,10 +1,26 @@
 import Subconcepto from "../models/Subconcepto.js";
+import sequelize from "../config/database.js";
+import { Op, fn, col, where } from "sequelize";
 
 // Obtener todos los subconceptos
-export const getAllSubconceptos = async () => {
+export const getAllSubconceptos = async (
+  page = 1,
+  limit = 10
+) => {
   try {
-    const subconceptos = await Subconcepto.findAll();
-    return subconceptos;
+    const offset = (page - 1) * limit;
+    const { rows, count } = await Subconcepto.findAndCountAll({
+      limit,
+      offset,
+      order: [["id_subconcepto", "ASC"]],
+    });
+
+    return {
+      data: rows,
+      total: count,
+      currentPage: page,
+      totalPages: Math.ceil(count / limit),
+    };
   } catch (error) {
     console.error("Error al obtener los subconceptos:", error);
     throw error;
@@ -48,3 +64,41 @@ export const updateSubconceptoEstado = async (id, estado) => {
     throw error;
   }
 };
+
+// Obtener estadisticas de subconceptos
+export const getSubconceptoStats = async () => {
+  try {
+    const stats = await Subconcepto.findOne({
+      attributes: [
+        [
+          sequelize.fn("COUNT", sequelize.col("*")),
+          "total"
+        ],
+        [
+          sequelize.literal("SUM(activo = 1)"),
+          "activos"
+        ],
+        [
+          sequelize.literal("SUM(activo = 0)"),
+          "inactivos"
+        ],
+        [
+          sequelize.literal("SUM(es_cobrable = 1)"),
+          "cobrables"
+        ]
+      ],
+      raw: true
+    });
+
+    return {
+      total: Number(stats.total),
+      activos: Number(stats.activos),
+      inactivos: Number(stats.inactivos),
+      cobrables: Number(stats.cobrables)
+    };
+  } catch (error) {
+    console.error("Error al obtener las estadísticas de subconceptos:", error);
+    throw error;
+  }
+}
+

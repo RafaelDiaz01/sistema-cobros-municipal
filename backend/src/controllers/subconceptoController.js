@@ -3,7 +3,9 @@ import * as subconceptoService from "../services/subconceptoService.js";
 // Obtener todos los subconceptos
 export const getAllSubconceptos = async (req, res) => {
   try {
-    const subconceptos = await subconceptoService.getAllSubconceptos();
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const subconceptos = await subconceptoService.getAllSubconceptos(page, limit);
     res.json(subconceptos);
   } catch (error) {
     console.error("Error al obtener los subconceptos:", error);
@@ -46,5 +48,16 @@ export const updateSubconceptoEstado = async (req, res) => {
   } catch (error) {
     console.error("Error al actualizar el estado del subconcepto:", error);
     res.status(500).json({ error: "Error al actualizar el estado del subconcepto" });
+  }
+};
+
+// Obtener estadísticas de subconceptos
+export const getSubconceptoStats = async (req, res) => {
+  try {
+    const estadisticas = await subconceptoService.getSubconceptoStats();
+    res.json(estadisticas);
+  } catch (error) {
+    console.error("Error al obtener las estadísticas de subconceptos:", error);
+    res.status(500).json({ message: "Error al obtener las estadísticas de subconceptos" });
   }
 };

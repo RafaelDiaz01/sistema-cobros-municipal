@@ -15,4 +15,7 @@ router.patch("/:id", subconceptoController.updateSubconcepto);
 // Actualizar estado de un subconcepto
 router.patch("/:id/estado", subconceptoController.updateSubconceptoEstado);
 
+// Obtener estadísticas de subconceptos
+router.get("/estadisticas", subconceptoController.getSubconceptoStats);
+
 export default router;

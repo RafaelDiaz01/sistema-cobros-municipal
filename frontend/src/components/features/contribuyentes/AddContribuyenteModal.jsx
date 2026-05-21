@@ -52,13 +52,12 @@ export default function AddContribuyenteModal({ isOpen, onClose, onSuccess, cont
         showToast("success", "Contribuyente actualizado exitosamente");
       } else {
         await createContribuyente(data);
-        showToast("success", "Contribuyente guardado exitosamente");
+        showToast("success", "Contribuyente agregado exitosamente");
       }
       onSuccess();
       onClose();
     } catch (error) {
-      console.error("Error al guardar contribuyente", error);
-      showToast("error", "Error al guardar contribuyente");
+      showToast("error", "Error al agregar contribuyente");
     }
   };
 

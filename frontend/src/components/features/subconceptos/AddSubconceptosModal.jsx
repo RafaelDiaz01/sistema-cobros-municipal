@@ -43,13 +43,12 @@ export default function AddSubconceptoModal({ isOpen, onClose, onSuccess, subcon
         showToast("success", "Subconcepto actualizado exitosamente");
       } else {
         await createSubconceptoAPI(data);
-        showToast("success", "Subconcepto creado exitosamente");
+        showToast("success", "Subconcepto agregado exitosamente");
       }
       onSuccess();
       onClose();
     } catch (error) {
-      console.error("Error al guardar subconcepto", error);
-      showToast("error", "Error al guardar subconcepto");
+      showToast("error", "Error al agregar subconcepto");
     }
   };
 

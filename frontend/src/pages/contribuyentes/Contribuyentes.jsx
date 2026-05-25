@@ -8,6 +8,7 @@ import PageLayout from "../../components/layouts/PageLayout.jsx";
 import Stack from "../../components/layouts/Stack.jsx";
 import SectionTitle from "../../components/titles/SectionTitle.jsx";
 import AddContribuyenteModal from "../../components/features/contribuyentes/AddContribuyenteModal.jsx";
+import SearchBar from "../../components/SearchBar.jsx";
 import StatsCards from "../../components/cards/StatsCards.jsx";
 import Table from "../../components/table/Table.jsx";
 import ModuleSkeleton from "../../components/ui/ModuleSkeleton.jsx";
@@ -24,7 +25,7 @@ const Contribuyentes = () => {
   const [paginationModel, setPaginationModel] =
     useState({
       page: 0,
-      pageSize: 9,
+      pageSize: 7,
     });
 
   useEffect(() => {
@@ -164,7 +165,11 @@ const Contribuyentes = () => {
                 icon: <IdCard size={26} />,
               },
             ]} />
-
+            <SearchBar
+              value={""}
+              onChange={() => { }}
+              placeholder="Buscar por Clave Única, Nombre Completo o RFC"
+            />
             <Table
               rows={contribuyentes}
               loading={loadingTable}

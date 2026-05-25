@@ -23,3 +23,9 @@ export const updateSubconceptoEstadoAPI = async (id, estado) => {
   const response = await api.patch(`/subconceptos/${id}/estado`, estado);
   return response.data;
 };
+
+// Obtener estadísticas de subconceptos
+export const getEstadisticasSubconceptosAPI = async () => {
+  const response = await api.get("/subconceptos/estadisticas");
+  return response.data;
+};

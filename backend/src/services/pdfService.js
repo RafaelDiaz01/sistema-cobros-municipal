@@ -194,7 +194,7 @@ export async function generarReciboPDF(pago) {
 
   drawRoundedBox(margin + 10, cashierY, width - 60, 22);
 
-  page.drawText(normalizeText(`CAJERO: ${pago.usuario.nombre_usuario}`), {
+  page.drawText(normalizeText(`CAJERO: ${pago.usuario.nombre_completo}`), {
     x: margin + 20,
     y: cashierY + 6,
     size: 9,

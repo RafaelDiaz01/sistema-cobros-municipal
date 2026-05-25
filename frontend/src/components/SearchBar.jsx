@@ -14,7 +14,7 @@ export default function SearchBar({ value, onChange, placeholder }) {
       items-center 
       gap-3 
       px-4 
-      py-3 
+      py-4 
       rounded-xl
     "
     >

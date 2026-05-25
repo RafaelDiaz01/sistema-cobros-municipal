@@ -10,3 +10,4 @@ export * from "./streetNumber.js";
 export * from "./selectRequired.rules.js";
 export * from "./amount.rules.js";
 export * from "./key.rules.js";
+export * from "./autocomplete.rules.js";

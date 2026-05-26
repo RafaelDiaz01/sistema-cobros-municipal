@@ -57,6 +57,24 @@ const Contribuyente = sequelize.define(
   },
   {
     freezeTableName: true, // Evita que Sequelize pluralice el nombre de la tabla
+
+    indexes: [ // Indices para mejorar el rendimiento de las búsquedas por estos campos
+      {
+        fields: ["clave_unica"],
+      },
+      {
+        fields: ["nombre"],
+      },
+      {
+        fields: ["apellido_paterno"],
+      },
+      {
+        fields: ["apellido_materno"],
+      },
+      {
+        fields: ["activo"],
+      }
+    ],
   }
 );
 

@@ -60,9 +60,6 @@ const Contribuyente = sequelize.define(
 
     indexes: [ // Indices para mejorar el rendimiento de las búsquedas por estos campos
       {
-        fields: ["clave_unica"],
-      },
-      {
         fields: ["nombre"],
       },
       {

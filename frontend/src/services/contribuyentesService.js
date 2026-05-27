@@ -4,6 +4,10 @@ import api from "../api/axios.js";
 export const getContribuyentes = async ({
   page,
   limit,
+  search,
+  activo,
+  sortField,
+  sortOrder,
 }) => {
   const response = await api.get(
     "/contribuyentes",
@@ -11,6 +15,10 @@ export const getContribuyentes = async ({
       params: {
         page,
         limit,
+        search,
+        activo,
+        sortField,
+        sortOrder,
       },
     }
   );

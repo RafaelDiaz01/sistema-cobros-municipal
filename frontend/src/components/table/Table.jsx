@@ -9,6 +9,8 @@ export default function Table({
   paginationModel,
   onPaginationModelChange,
   onRowClick,
+  sortModel,
+  onSortModelChange,
 }) {
   return (
     <div style={{ width: "100%" }}>
@@ -23,6 +25,9 @@ export default function Table({
         onPaginationModelChange={
           onPaginationModelChange
         }
+        sortingMode="server"
+        sortModel={sortModel}
+        onSortModelChange={onSortModelChange}
         disableRowSelectionOnClick
         onRowClick={onRowClick}
       />

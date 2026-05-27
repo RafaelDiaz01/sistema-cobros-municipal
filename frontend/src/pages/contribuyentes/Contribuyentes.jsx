@@ -4,6 +4,7 @@ import { getEstadisticasContribuyentes, getContribuyentes, updateStatusContribuy
 import { showToast } from "../../utils/alerts/toast.js";
 import { alertConfirmation } from "../../utils/alerts/alert.js";
 import { contribuyentesColumns } from "./contribuyetes.columns.jsx";
+import { useDebounce } from "../../hooks/useDebounce.js";
 import PageLayout from "../../components/layouts/PageLayout.jsx";
 import Stack from "../../components/layouts/Stack.jsx";
 import SectionTitle from "../../components/titles/SectionTitle.jsx";
@@ -21,6 +22,16 @@ const Contribuyentes = () => {
   const [open, setOpen] = useState(false);
   const [contribuyenteEdit, setContribuyenteEdit] = useState(null);
   const [totalRows, setTotalRows] = useState(0);
+  const [search, setSearch] = useState("");
+  const [activo, setActivo] = useState("");
+  const [sortModel, setSortModel] = useState([
+    {
+      field: "id_contribuyente",
+      sort: "desc",
+    },
+  ]);
+
+  const debouncedSearch = useDebounce(search, 500);
 
   const [paginationModel, setPaginationModel] =
     useState({
@@ -34,7 +45,7 @@ const Contribuyentes = () => {
 
   useEffect(() => {
     fetchContribuyentes();
-  }, [paginationModel]);
+  }, [paginationModel, debouncedSearch, activo, sortModel]);
 
   const cargarModuloInicial = async () => {
     try {
@@ -62,11 +73,16 @@ const Contribuyentes = () => {
   const fetchContribuyentes = async (cargaInicial = false) => {
     try {
       if (!cargaInicial) setLoadingTable(true);
+      const sort = sortModel[0];
       const data = await getContribuyentes({
         page: paginationModel.page + 1,
         limit: paginationModel.pageSize,
+        search: debouncedSearch,
+        activo,
+        sortField: sort?.field || "id_contribuyente",
+        sortOrder: sort?.sort?.toUpperCase() || "DESC",
       });
-      setContribuyentes(data.data);
+      setContribuyentes(data.contribuyentes);
       setTotalRows(data.total);
     } catch (error) {
       showToast("error", "Error al cargar contribuyentes");
@@ -166,9 +182,15 @@ const Contribuyentes = () => {
               },
             ]} />
             <SearchBar
-              value={""}
-              onChange={() => { }}
-              placeholder="Buscar por Clave Única, Nombre Completo o RFC"
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setPaginationModel((prev) => ({
+                  ...prev,
+                  page: 0,
+                }));
+              }}
+              placeholder="Buscar por Clave Única o Nombre"
             />
             <Table
               rows={contribuyentes}
@@ -180,6 +202,8 @@ const Contribuyentes = () => {
               onPaginationModelChange={
                 setPaginationModel
               }
+              sortModel={sortModel}
+              onSortModelChange={setSortModel}
             />
           </>)}
       </Stack>

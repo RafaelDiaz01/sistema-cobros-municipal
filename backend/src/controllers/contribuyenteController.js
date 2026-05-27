@@ -3,13 +3,23 @@ import * as contribuyenteService from "../services/contribuyenteService.js";
 // Obtener todos los contribuyentes
 export const getContribuyentes = async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const {
+      page = 1,
+      limit = 10,
+      search = "",
+      activo,
+      sortField = "id_contribuyente",
+      sortOrder = "DESC",
+    } = req.query;
 
     const contribuyentes =
       await contribuyenteService.obtenerContribuyentes(
         page,
-        limit
+        limit,
+        search,
+        activo,
+        sortField,
+        sortOrder
       );
 
     res.json(contribuyentes);

@@ -16,22 +16,47 @@ const generarClaveContribuyente = () => {
 // Obtener todos los contribuyentes
 export const obtenerContribuyentes = async (
   page = 1,
-  limit = 10
+  limit = 10,
+  search = "",
+  activo,
+  sortField = "id_contribuyente",
+  sortOrder = "DESC",
 ) => {
   const offset = (page - 1) * limit;
+  const where = {};
+
+  if (activo !== undefined) {
+    where.activo = activo;
+  }
+
+  if (search?.trim()) {
+    const searchTerm = search.trim();
+    const isClaveUnica = /^[0-9]+$/.test(searchTerm);
+
+    if (isClaveUnica) {
+      where.clave_unica = searchTerm;
+    } else {
+      where[Op.or] = [
+        { nombre: { [Op.like]: `${searchTerm}%` } },
+        { apellido_paterno: { [Op.like]: `${searchTerm}%` } },
+        { apellido_materno: { [Op.like]: `${searchTerm}%` } },
+      ];
+    }
+  }
 
   const { rows, count } =
     await Contribuyente.findAndCountAll({
+      where,
       limit,
       offset,
-      order: [["id_contribuyente", "ASC"]],
+      order: [[sortField, sortOrder]],
     });
 
   return {
-    data: rows,
     total: count,
     currentPage: page,
     totalPages: Math.ceil(count / limit),
+    contribuyentes: rows,
   };
 };
 

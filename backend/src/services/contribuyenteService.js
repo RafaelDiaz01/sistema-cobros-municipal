@@ -22,7 +22,9 @@ export const obtenerContribuyentes = async (
   sortField = "id_contribuyente",
   sortOrder = "DESC",
 ) => {
-  const offset = (page - 1) * limit;
+  const pageNumber = Number(page);
+  const limitNumber = Number(limit);
+  const offset = (pageNumber - 1) * limitNumber;
   const where = {};
 
   if (activo !== undefined) {
@@ -47,15 +49,15 @@ export const obtenerContribuyentes = async (
   const { rows, count } =
     await Contribuyente.findAndCountAll({
       where,
-      limit,
-      offset,
+      limit: limitNumber,
+      offset: offset,
       order: [[sortField, sortOrder]],
     });
 
   return {
     total: count,
-    currentPage: page,
-    totalPages: Math.ceil(count / limit),
+    currentPage: pageNumber,
+    totalPages: Math.ceil(count / limitNumber),
     contribuyentes: rows,
   };
 };

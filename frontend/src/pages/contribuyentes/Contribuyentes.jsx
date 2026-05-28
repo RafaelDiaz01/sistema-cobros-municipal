@@ -73,7 +73,7 @@ const Contribuyentes = () => {
   const fetchContribuyentes = async (cargaInicial = false) => {
     try {
       if (!cargaInicial) setLoadingTable(true);
-      const sort = sortModel[0];
+      const sort = sortModel?.[0];
       const data = await getContribuyentes({
         page: paginationModel.page + 1,
         limit: paginationModel.pageSize,
@@ -132,6 +132,14 @@ const Contribuyentes = () => {
       handleDelete
     );
   }, []);
+
+  const handlePaginationChange = (newPaginationModel) => {
+    setPaginationModel(newPaginationModel);
+  };
+
+  const handleSortModelChange = (newSortModel) => {
+    setSortModel(newSortModel);
+  };
 
   return (
     <PageLayout>
@@ -200,10 +208,10 @@ const Contribuyentes = () => {
               rowCount={totalRows}
               paginationModel={paginationModel}
               onPaginationModelChange={
-                setPaginationModel
+                handlePaginationChange
               }
               sortModel={sortModel}
-              onSortModelChange={setSortModel}
+              onSortModelChange={handleSortModelChange}
             />
           </>)}
       </Stack>

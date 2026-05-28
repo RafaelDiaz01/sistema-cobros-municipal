@@ -14,7 +14,7 @@ export const contribuyentesColumns = (onEdit, onToggleStatus) => [
     field: "nombre",
     headerName: "Nombre Completo",
     width: 400,
-    valueGetter: (params, row) =>
+    valueGetter: (_, row) =>
       `${row.nombre} ${row.apellido_paterno} ${row.apellido_materno}`,
   },
   {
@@ -40,7 +40,7 @@ export const contribuyentesColumns = (onEdit, onToggleStatus) => [
     field: "direccion",
     headerName: "Dirección",
     flex: 1,
-    valueGetter: (params, row) =>
+    valueGetter: (_, row) =>
       formatAddress(row.calle, row.numero_calle, row.barrio),
   },
   {

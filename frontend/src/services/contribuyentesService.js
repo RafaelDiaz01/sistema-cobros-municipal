@@ -1,25 +1,12 @@
 import api from "../api/axios.js";
+import { cleanParams } from "../utils/cleanParams.js";
 
 // Obtener todos los contribuyentes
-export const getContribuyentes = async ({
-  page,
-  limit,
-  search,
-  activo,
-  sortField,
-  sortOrder,
-}) => {
+export const getContribuyentes = async (filters) => {
   const response = await api.get(
     "/contribuyentes",
     {
-      params: {
-        page,
-        limit,
-        search,
-        activo,
-        sortField,
-        sortOrder,
-      },
+      params: cleanParams(filters),
     }
   );
 

@@ -47,13 +47,13 @@ export const contribuyentesColumns = (onEdit, onToggleStatus) => [
     field: "telefono",
     headerName: "Teléfono",
     width: 140,
-    valueFormatter: formatPhone,
+    valueFormatter: (value) => formatPhone(value),
   },
   {
     field: "updatedAt",
     headerName: "Última Actualización",
     width: 180,
-    valueFormatter: formatDateTime,
+    valueFormatter: (value) => formatDateTime(value),
   },
   {
     field: "activo",

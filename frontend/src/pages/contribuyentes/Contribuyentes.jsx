@@ -131,7 +131,7 @@ const Contribuyentes = () => {
       handleEdit,
       handleDelete
     );
-  }, []);
+  }, [handleEdit, handleDelete]);
 
   const handlePaginationChange = (newPaginationModel) => {
     setPaginationModel(newPaginationModel);

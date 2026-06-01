@@ -1,6 +1,7 @@
 import Contribuyente from "../models/Contribuyente.js";
 import sequelize from "../config/database.js";
 import { Op, fn, col, where } from "sequelize";
+import { isValidFilter } from "../utils/isValidFilter.js";
 
 // Función para generar una clave única para el contribuyente
 const generarClaveContribuyente = () => {
@@ -27,11 +28,11 @@ export const obtenerContribuyentes = async (
   const offset = (pageNumber - 1) * limitNumber;
   const where = {};
 
-  if (activo !== undefined) {
-    where.activo = activo;
+  if (isValidFilter(activo)) {
+    where.activo = activo === "true";
   }
 
-  if (search?.trim()) {
+  if (isValidFilter(search)) {
     const searchTerm = search.trim();
     const isClaveUnica = /^[0-9]+$/.test(searchTerm);
 

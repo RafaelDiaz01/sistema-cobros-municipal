@@ -133,10 +133,6 @@ const Contribuyentes = () => {
     );
   }, [handleEdit, handleDelete]);
 
-  useEffect(() => {
-    console.log("Columns recreated");
-  }, [columns]);
-
   const handlePaginationChange = (newPaginationModel) => {
     setPaginationModel(newPaginationModel);
   };

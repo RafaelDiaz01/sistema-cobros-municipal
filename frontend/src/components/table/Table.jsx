@@ -25,6 +25,7 @@ export default function Table({
         onPaginationModelChange={
           onPaginationModelChange
         }
+        pageSizeOptions={[7, 25, 50, 100]}
         sortingMode="server"
         sortModel={sortModel}
         onSortModelChange={onSortModelChange}

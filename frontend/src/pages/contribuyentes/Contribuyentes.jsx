@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { Users, UserCheck, UserX, IdCard } from "lucide-react";
 import { getEstadisticasContribuyentes, getContribuyentes, updateStatusContribuyente } from "../../services/contribuyentesService.js";
 import { showToast } from "../../utils/alerts/toast.js";
@@ -91,7 +91,7 @@ const Contribuyentes = () => {
     }
   };
 
-  const handleDelete = async (id, estadoActual) => {
+  const handleDelete = useCallback(async (id, estadoActual) => {
     const nuevoEstado = !estadoActual;
     const mensaje = nuevoEstado
       ? "¿Deseas activar este contribuyente?"
@@ -112,7 +112,7 @@ const Contribuyentes = () => {
     } catch (error) {
       showToast("error", "Error al cambiar el estado del contribuyente");
     }
-  };
+  }, [fetchContribuyentes, fetchEstadisticas]);
 
   // Abrir modal para crear
   const handleAdd = () => {
@@ -121,10 +121,10 @@ const Contribuyentes = () => {
   };
 
   // Abrir modal para editar
-  const handleEdit = (contribuyente) => {
+  const handleEdit = useCallback((contribuyente) => {
     setContribuyenteEdit(contribuyente);
     setOpen(true);
-  };
+  }, []);
 
   const columns = useMemo(() => {
     return contribuyentesColumns(
@@ -132,6 +132,10 @@ const Contribuyentes = () => {
       handleDelete
     );
   }, [handleEdit, handleDelete]);
+
+  useEffect(() => {
+    console.log("Columns recreated");
+  }, [columns]);
 
   const handlePaginationChange = (newPaginationModel) => {
     setPaginationModel(newPaginationModel);

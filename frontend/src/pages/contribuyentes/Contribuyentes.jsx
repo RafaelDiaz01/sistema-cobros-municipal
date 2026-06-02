@@ -191,8 +191,8 @@ const Contribuyentes = () => {
             ]} />
             <SearchBar
               value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
+              onChange={(valor) => {
+                setSearch(valor);
                 setPaginationModel((prev) => ({
                   ...prev,
                   page: 0,

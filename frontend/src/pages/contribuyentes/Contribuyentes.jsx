@@ -137,6 +137,12 @@ const Contribuyentes = () => {
     setPaginationModel((prev) => ({ ...prev, page: 0 }));
   }, []);
 
+  const handleActivoChange = useCallback((valor) => {
+    setActivo(valor);
+    // Volver a la primera página al cambiar el filtro de estado
+    setPaginationModel((prev) => ({ ...prev, page: 0 }));
+  }, []);
+
   // ─── Valores derivados memoizados ──────────────────────────────────────────
   const columns = useMemo(
     () => contribuyentesColumns(handleEdit, handleDelete),
@@ -203,6 +209,8 @@ const Contribuyentes = () => {
           value={search}
           onChange={handleSearchChange}
           placeholder="Buscar por Clave Única o Nombre"
+          statusValue={activo}
+          onStatusChange={handleActivoChange}
         />
 
         <Table

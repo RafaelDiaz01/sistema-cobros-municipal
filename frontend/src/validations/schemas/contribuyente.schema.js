@@ -1,6 +1,6 @@
 // Esquema de validación para el formulario de contribuyente utilizando Yup
 import * as yup from "yup";
-import { stringRule, phoneRule, rfcRule, birthdateRule, streetNumberRule, requiredSelectRule } from "../rules";
+import { stringRule, phoneRule, rfcRule, birthdateRule, streetNameRule, streetNumberRule, requiredSelectRule } from "../rules";
 
 export const createContribuyenteSchema = yup.object({
     nombre: stringRule,
@@ -9,7 +9,7 @@ export const createContribuyenteSchema = yup.object({
     telefono: phoneRule,
     rfc: rfcRule,
     fecha_nacimiento: birthdateRule,
-    calle: stringRule,
+    calle: streetNameRule,
     numero_calle: streetNumberRule,
     barrio: requiredSelectRule,
 });

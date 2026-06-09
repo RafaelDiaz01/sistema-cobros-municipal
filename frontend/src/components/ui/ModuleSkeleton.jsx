@@ -35,6 +35,20 @@ export const StatsCardsSkeleton = ({ cards = 4 }) => (
     </div>
 );
 
+export const SearchBarSkeleton = () => (
+    <div className="flex w-full items-center gap-3 rounded-xl border border-gray-100 bg-white px-4 py-4 shadow-sm">
+        <Bone className="h-5 w-5 shrink-0 rounded-md" />
+        <Bone className="h-4 flex-1 rounded-md" />
+        <div className="h-5 w-px shrink-0 bg-gray-200" />
+
+        <div className="flex shrink-0 items-center gap-3 pl-1">
+            <Bone className="h-4 w-4 rounded-md" />
+            <Bone className="h-4 w-24 rounded-md" />
+        </div>
+    </div>
+);
+
+
 export const TableSkeleton = ({ rows, columns }) => {
     return (
         <div className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm">
@@ -86,6 +100,7 @@ const ModuleSkeleton = ({ tableRows, tableColumns, statsCards }) => (
     <div className="flex flex-col gap-10">
         <SectionTitleSkeleton />
         <StatsCardsSkeleton cards={statsCards} />
+        <SearchBarSkeleton />
         <TableSkeleton rows={tableRows} columns={tableColumns} />
     </div>
 );

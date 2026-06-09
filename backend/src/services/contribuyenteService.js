@@ -23,8 +23,10 @@ export const obtenerContribuyentes = async (
   sortField = "id_contribuyente",
   sortOrder = "DESC",
 ) => {
-  const pageNumber = Number(page);
-  const limitNumber = Number(limit);
+  const MAX_LIMIT = 100;
+
+  const pageNumber = Math.max(Number(page) || 1, 1);
+  const limitNumber = Math.min(Math.max(Number(limit) || 10, 1), MAX_LIMIT);
   const offset = (pageNumber - 1) * limitNumber;
   const where = {};
 

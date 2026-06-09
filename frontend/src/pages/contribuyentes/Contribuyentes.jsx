@@ -180,7 +180,7 @@ const Contribuyentes = () => {
   if (loadingPage) {
     return (
       <PageLayout>
-        <ModuleSkeleton tableRows={9} tableColumns={8} statsCards={4} />
+        <ModuleSkeleton tableRows={7} tableColumns={8} statsCards={4} />
       </PageLayout>
     );
   }

@@ -13,7 +13,7 @@ export const getContribuyentes = async (filters) => {
   return response.data;
 };
 
-// Obtener estadísticas de contribuyentes. Eliminar, ya no sirve
+// Obtener estadísticas de contribuyentes.
 export const getEstadisticasContribuyentes = async () => {
   const response = await api.get("/contribuyentes/estadisticas");
   return response.data;

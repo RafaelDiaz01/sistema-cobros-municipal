@@ -36,7 +36,7 @@ export const obtenerContribuyentes = async (
 
   if (isValidFilter(search)) {
     const searchTerm = search.trim();
-    const isClaveUnica = /^[0-9]+$/.test(searchTerm);
+    const isClaveUnica = /^CTR-\d{2}-[A-Z0-9]{4}$/.test(searchTerm);
 
     if (isClaveUnica) {
       where.clave_unica = searchTerm;

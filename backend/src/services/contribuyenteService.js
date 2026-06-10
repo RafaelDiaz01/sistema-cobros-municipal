@@ -41,11 +41,15 @@ export const obtenerContribuyentes = async (
     if (isClaveUnica) {
       where.clave_unica = searchTerm;
     } else {
-      where[Op.or] = [
-        { nombre: { [Op.like]: `${searchTerm}%` } },
-        { apellido_paterno: { [Op.like]: `${searchTerm}%` } },
-        { apellido_materno: { [Op.like]: `${searchTerm}%` } },
-      ];
+      const terms = searchTerm.split(/\s+/);
+
+      where[Op.and] = terms.map((term) => ({
+        [Op.or]: [
+          { nombre: { [Op.like]: `${term}%` } },
+          { apellido_paterno: { [Op.like]: `${term}%` } },
+          { apellido_materno: { [Op.like]: `${term}%` } },
+        ],
+      }));
     }
   }
 

@@ -24,12 +24,14 @@ export default function ActionButtons({
                         <Pencil size={18} />
                     </button>
                 ) : (
-                    <button
-                        disabled
-                        className={`${buttonBase} cursor-not-allowed opacity-50`}
-                    >
-                        <Pencil size={18} />
-                    </button>
+                    <span>
+                        <button
+                            disabled
+                            className={`${buttonBase} cursor-not-allowed opacity-50`}
+                        >
+                            <Pencil size={18} />
+                        </button>
+                    </span>
                 )}
             </Tooltip>
 

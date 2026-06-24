@@ -1,10 +1,14 @@
 import { useEffect, useState, useMemo, useCallback, useRef } from "react";
 import { Users, UserCheck, UserX, IdCard } from "lucide-react";
-import { getEstadisticasContribuyentes, getContribuyentes, updateStatusContribuyente } from "../../services/contribuyentesService.js";
 import { showToast } from "../../utils/alerts/toast.js";
 import { alertConfirmation } from "../../utils/alerts/alert.js";
 import { contribuyentesColumns } from "./contribuyetes.columns.jsx";
 import { useDebounce } from "../../hooks/useDebounce.js";
+import { useContribuyentesQuery } from "../../hooks/contribuyentes/useContribuyentesQuery.js";
+import { useContribuyentesStatsQuery } from "../../hooks/contribuyentes/useContribuyentesStatsQuery.js";
+import { useQueryClient } from "@tanstack/react-query";
+import { contribuyentesKeys } from "../../hooks/contribuyentes/contribuyentesKeys.js";
+import { useUpdateStatusContribuyente } from "../../hooks/contribuyentes/useUpdateStatusContribuyente.js";
 import PageLayout from "../../components/layouts/PageLayout.jsx";
 import Stack from "../../components/layouts/Stack.jsx";
 import SectionTitle from "../../components/titles/SectionTitle.jsx";
@@ -19,72 +23,52 @@ const INITIAL_PAGINATION = { page: 0, pageSize: 7 };
 const INITIAL_SORT = [{ field: "id_contribuyente", sort: "desc" }];
 
 const Contribuyentes = () => {
-  const [contribuyentes, setContribuyentes] = useState([]);
-  const [stats, setStats] = useState({});
-  const [loadingPage, setLoadingPage] = useState(true);
-  const [loadingTable, setLoadingTable] = useState(false);
   const [open, setOpen] = useState(false);
   const [contribuyenteEdit, setContribuyenteEdit] = useState(null);
-  const [totalRows, setTotalRows] = useState(0);
   const [search, setSearch] = useState("");
   const [activo, setActivo] = useState("");
   const [sortModel, setSortModel] = useState(INITIAL_SORT);
   const [paginationModel, setPaginationModel] = useState(INITIAL_PAGINATION);
   const debouncedSearch = useDebounce(search, 500);
-  const isInitialMount = useRef(true);
 
-  // ─── Data fetching ─────────────────────────────────────────────────────────
-  const fetchEstadisticas = useCallback(async () => {
-    try {
-      const data = await getEstadisticasContribuyentes();
-      setStats(data);
-    } catch {
+  // ─── React Query ─────────────────────────────────────────────
+  const queryClient = useQueryClient();
+
+  const {
+    data: contribuyentesData,
+    isLoading: isLoadingContribuyentes,
+    isFetching: isFetchingContribuyentes,
+    isError: isErrorContribuyentes,
+  } = useContribuyentesQuery({
+    paginationModel,
+    debouncedSearch,
+    activo,
+    sortModel,
+  });
+
+  const {
+    data: stats = {},
+    isLoading: isLoadingStats,
+    isError: isErrorStats,
+  } = useContribuyentesStatsQuery();
+
+  const updateStatusMutation = useUpdateStatusContribuyente();
+  const contribuyentes = contribuyentesData?.contribuyentes ?? [];
+  const totalRows = contribuyentesData?.total ?? 0;
+  const loadingPage = isLoadingContribuyentes || isLoadingStats;
+  const loadingTable = isFetchingContribuyentes;
+
+  useEffect(() => {
+    if (isErrorContribuyentes) {
+      showToast("error", "Error al cargar contribuyentes");
+    }
+  }, [isErrorContribuyentes]);
+
+  useEffect(() => {
+    if (isErrorStats) {
       showToast("error", "Error al cargar estadísticas de contribuyentes");
     }
-  }, []);
-
-  const fetchContribuyentes = useCallback(async () => {
-    setLoadingTable(true);
-    try {
-      const sort = sortModel[0];
-      const data = await getContribuyentes({
-        page: paginationModel.page + 1,
-        limit: paginationModel.pageSize,
-        search: debouncedSearch,
-        activo,
-        sortField: sort?.field ?? "id_contribuyente",
-        sortOrder: sort?.sort?.toUpperCase() ?? "DESC",
-      });
-      setContribuyentes(data.contribuyentes);
-      setTotalRows(data.total);
-    } catch {
-      showToast("error", "Error al cargar contribuyentes");
-    } finally {
-      setLoadingTable(false);
-    }
-  }, [paginationModel, debouncedSearch, activo, sortModel]);
-
-  // Carga inicial, se ejecuta una sola vez al montar el componente.
-  useEffect(() => {
-    const initialize = async () => {
-      try {
-        await Promise.all([fetchEstadisticas(), fetchContribuyentes()]);
-      } finally {
-        setLoadingPage(false);
-      }
-    };
-    initialize();
-  }, []);
-
-  // Se dispara cuando cambian filtros, paginación u orden.
-  // Salta la primera ejecución (mount) para no duplicar la carga inicial.
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      return;
-    }
-    fetchContribuyentes();
-  }, [fetchContribuyentes]);
+  }, [isErrorStats]);
 
   // ─── Handlers ──────────────────────────────────────────────────────────────
   const handleDelete = useCallback(async (id, estadoActual) => {
@@ -97,14 +81,12 @@ const Contribuyentes = () => {
     if (!confirmacion) return;
 
     try {
-      await updateStatusContribuyente(id, { estado: nuevoEstado });
-      // Actualiza tabla y estadísticas en paralelo
-      await Promise.all([fetchContribuyentes(), fetchEstadisticas()]);
+      await updateStatusMutation.mutateAsync({ id, estado: nuevoEstado });
       showToast("success", "Estado actualizado exitosamente");
     } catch (error) {
       showToast("error", "Error al cambiar el estado del contribuyente");
     }
-  }, [fetchContribuyentes, fetchEstadisticas]);
+  }, [updateStatusMutation]);
 
   // Abrir modal para crear
   const handleAdd = useCallback(() => {
@@ -122,8 +104,15 @@ const Contribuyentes = () => {
   const handleCloseModal = useCallback(() => setOpen(false), []);
 
   const handleModalSuccess = useCallback(async () => {
-    await Promise.all([fetchContribuyentes(), fetchEstadisticas()]);
-  }, [fetchContribuyentes, fetchEstadisticas]);
+    await Promise.all([
+      queryClient.invalidateQueries({
+        queryKey: contribuyentesKeys.lists(),
+      }),
+      queryClient.invalidateQueries({
+        queryKey: contribuyentesKeys.stats(),
+      }),
+    ]);
+  }, [queryClient]);
 
   const handleSearchChange = useCallback((valor) => {
     setSearch(valor);

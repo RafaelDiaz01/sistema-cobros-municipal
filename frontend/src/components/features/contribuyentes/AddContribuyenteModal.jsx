@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { User, MapPin } from "lucide-react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createContribuyenteSchema } from "../../../validations/schemas/contribuyente.schema.js";
-import { createContribuyente, updateContribuyente, } from "../../../services/contribuyentesService.js";
+import { useCreateContribuyenteMutation } from "../../../hooks/contribuyentes/useCreateContribuyenteMutation.js";
+import { useUpdateContribuyenteMutation } from "../../../hooks/contribuyentes/useUpdateContribuyenteMutation.js";
 import { showToast } from "../../../utils/alerts/toast.js";
 import BaseModal from "../../ui/ModalBase.jsx";
 import Section from "../../modals/components/Section.jsx";
@@ -17,11 +18,16 @@ import ModalFooter from "../components/ModalFooter.jsx";
 export default function AddContribuyenteModal({ isOpen, onClose, onSuccess, contribuyente }) {
   const isEdit = Boolean(contribuyente);
 
+  const createMutation = useCreateContribuyenteMutation();
+  const updateMutation = useUpdateContribuyenteMutation();
+
+  const isPending = createMutation.isPending || updateMutation.isPending;
+
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(createContribuyenteSchema),
     defaultValues: {
@@ -48,16 +54,17 @@ export default function AddContribuyenteModal({ isOpen, onClose, onSuccess, cont
   const onSubmit = async (data) => {
     try {
       if (isEdit) {
-        await updateContribuyente(contribuyente.id_contribuyente, data);
+        await updateMutation.mutateAsync({ id: contribuyente.id_contribuyente, data });
         showToast("success", "Contribuyente actualizado exitosamente");
       } else {
-        await createContribuyente(data);
+        await createMutation.mutateAsync(data);
         showToast("success", "Contribuyente agregado exitosamente");
       }
-      onSuccess();
+      onSuccess?.();
       onClose();
-    } catch (error) {
-      showToast("error", "Error al agregar contribuyente");
+    } catch {
+      const mensaje = isEdit ? "Error al actualizar contribuyente" : "Error al agregar contribuyente";
+      showToast("error", mensaje);
     }
   };
 

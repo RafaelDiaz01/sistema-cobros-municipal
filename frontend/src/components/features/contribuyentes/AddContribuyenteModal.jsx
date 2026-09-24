@@ -52,6 +52,8 @@ export default function AddContribuyenteModal({ isOpen, onClose, onSuccess, cont
   }, [isEdit, contribuyente, reset]);
 
   const onSubmit = async (data) => {
+    if (isPending) return; // Evita enviar el formulario si ya hay una solicitud pendiente
+
     try {
       if (isEdit) {
         await updateMutation.mutateAsync({ id: contribuyente.id_contribuyente, data });
@@ -74,7 +76,7 @@ export default function AddContribuyenteModal({ isOpen, onClose, onSuccess, cont
       onClose={onClose}
       title={isEdit ? "Editar Contribuyente" : "Agregar Contribuyente"}
       subtitle={isEdit ? "Modifica los datos del contribuyente" : "Ingresa los datos del nuevo contribuyente"}
-      footer={ModalFooter(onClose, isEdit, "contribuyente-form", "Contribuyente")}
+      footer={ModalFooter(onClose, isEdit, "contribuyente-form", "Contribuyente", isPending)}
     >
       <form id="contribuyente-form" onSubmit={handleSubmit(onSubmit)}>
         <Stack size="lg">

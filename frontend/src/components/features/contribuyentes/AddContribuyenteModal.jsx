@@ -15,7 +15,7 @@ import Select from "../../modals/components/Select.jsx";
 import Stack from "../../layouts/Stack.jsx";
 import ModalFooter from "../components/ModalFooter.jsx";
 
-export default function AddContribuyenteModal({ isOpen, onClose, onSuccess, contribuyente }) {
+export default function AddContribuyenteModal({ isOpen, onClose, contribuyente }) {
   const isEdit = Boolean(contribuyente);
 
   const createMutation = useCreateContribuyenteMutation();
@@ -62,7 +62,6 @@ export default function AddContribuyenteModal({ isOpen, onClose, onSuccess, cont
         await createMutation.mutateAsync(data);
         showToast("success", "Contribuyente agregado exitosamente");
       }
-      onSuccess?.();
       onClose();
     } catch {
       const mensaje = isEdit ? "Error al actualizar contribuyente" : "Error al agregar contribuyente";

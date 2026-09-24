@@ -6,8 +6,6 @@ import { contribuyentesColumns } from "./contribuyetes.columns.jsx";
 import { useDebounce } from "../../hooks/useDebounce.js";
 import { useContribuyentesQuery } from "../../hooks/contribuyentes/useContribuyentesQuery.js";
 import { useContribuyentesStatsQuery } from "../../hooks/contribuyentes/useContribuyentesStatsQuery.js";
-import { useQueryClient } from "@tanstack/react-query";
-import { contribuyentesKeys } from "../../hooks/contribuyentes/contribuyentesKeys.js";
 import { useUpdateStatusContribuyente } from "../../hooks/contribuyentes/useUpdateStatusContribuyente.js";
 import PageLayout from "../../components/layouts/PageLayout.jsx";
 import Stack from "../../components/layouts/Stack.jsx";
@@ -32,8 +30,6 @@ const Contribuyentes = () => {
   const debouncedSearch = useDebounce(search, 500);
 
   // ─── React Query ─────────────────────────────────────────────
-  const queryClient = useQueryClient();
-
   const {
     data: contribuyentesData,
     isLoading: isLoadingContribuyentes,
@@ -102,17 +98,6 @@ const Contribuyentes = () => {
 
   // Callbacks estables para el modal (evitan renders innecesarios de hijo)
   const handleCloseModal = useCallback(() => setOpen(false), []);
-
-  const handleModalSuccess = useCallback(async () => {
-    await Promise.all([
-      queryClient.invalidateQueries({
-        queryKey: contribuyentesKeys.lists(),
-      }),
-      queryClient.invalidateQueries({
-        queryKey: contribuyentesKeys.stats(),
-      }),
-    ]);
-  }, [queryClient]);
 
   const handleSearchChange = useCallback((valor) => {
     setSearch(valor);
@@ -188,7 +173,6 @@ const Contribuyentes = () => {
             isOpen={open}
             onClose={handleCloseModal}
             contribuyente={contribuyenteEdit}
-            onSuccess={handleModalSuccess}
           />
         )}
 

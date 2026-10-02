@@ -181,7 +181,7 @@ const Contribuyentes = () => {
         <SearchBar
           value={search}
           onChange={handleSearchChange}
-          placeholder="Buscar por Clave Única o Nombre"
+          placeholder="Buscar por Nombre Completo"
           statusValue={activo}
           onStatusChange={handleActivoChange}
         />

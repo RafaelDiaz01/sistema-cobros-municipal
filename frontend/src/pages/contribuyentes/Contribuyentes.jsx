@@ -3,10 +3,10 @@ import { Users, UserCheck, UserX, IdCard } from "lucide-react";
 import { showToast } from "../../utils/alerts/toast.js";
 import { alertConfirmation } from "../../utils/alerts/alert.js";
 import { contribuyentesColumns } from "./contribuyetes.columns.jsx";
-import { useDebounce } from "../../hooks/useDebounce.js";
 import { useContribuyentesQuery } from "../../hooks/contribuyentes/useContribuyentesQuery.js";
 import { useContribuyentesStatsQuery } from "../../hooks/contribuyentes/useContribuyentesStatsQuery.js";
 import { useUpdateStatusContribuyente } from "../../hooks/contribuyentes/useUpdateStatusContribuyente.js";
+import { useServerTableState } from "../../hooks/common/useServerTableState.js";
 import PageLayout from "../../components/layouts/PageLayout.jsx";
 import Stack from "../../components/layouts/Stack.jsx";
 import SectionTitle from "../../components/titles/SectionTitle.jsx";
@@ -23,11 +23,23 @@ const INITIAL_SORT = [{ field: "id_contribuyente", sort: "desc" }];
 const Contribuyentes = () => {
   const [open, setOpen] = useState(false);
   const [contribuyenteEdit, setContribuyenteEdit] = useState(null);
-  const [search, setSearch] = useState("");
   const [activo, setActivo] = useState("");
-  const [sortModel, setSortModel] = useState(INITIAL_SORT);
-  const [paginationModel, setPaginationModel] = useState(INITIAL_PAGINATION);
-  const debouncedSearch = useDebounce(search, 500);
+  
+  // ─── Estado de la tabla (paginación, ordenamiento, búsqueda) ─────────────
+  const {
+    search,
+    debouncedSearch,
+    sortModel,
+    paginationModel,
+    setPaginationModel,
+    handleSearchChange,
+    handleSortModelChange,
+    resetPage,
+  } = useServerTableState({
+    initialPagination: INITIAL_PAGINATION,
+    initialSort: INITIAL_SORT,
+    debounceDelay: 500,
+  });
 
   // ─── React Query ─────────────────────────────────────────────
   const {
@@ -99,23 +111,11 @@ const Contribuyentes = () => {
   // Callbacks estables para el modal (evitan renders innecesarios de hijo)
   const handleCloseModal = useCallback(() => setOpen(false), []);
 
-  const handleSearchChange = useCallback((valor) => {
-    setSearch(valor);
-    // Volver a la primera página al cambiar el término de búsqueda
-    setPaginationModel((prev) => ({ ...prev, page: 0 }));
-  }, []);
-
-  const handleSortModelChange = useCallback((newSortModel) => {
-    setSortModel(newSortModel);
-    // Volver a la primera página al cambiar el orden
-    setPaginationModel((prev) => ({ ...prev, page: 0 }));
-  }, []);
-
   const handleActivoChange = useCallback((valor) => {
     setActivo(valor);
     // Volver a la primera página al cambiar el filtro de estado
-    setPaginationModel((prev) => ({ ...prev, page: 0 }));
-  }, []);
+    resetPage();
+  }, [resetPage]);
 
   // ─── Valores derivados memoizados ──────────────────────────────────────────
   const columns = useMemo(

@@ -5,7 +5,7 @@ export default function ModalFooter(onClose, isEdit, idForm, buttonText, isPendi
                 type="button"
                 onClick={onClose}
                 disabled={isPending}
-                className="px-5 py-2 rounded-lg bg-[var(--color-cancelar)] text-[var(--color-text-secundario)] text-sm"
+                className="px-6 py-2 rounded-lg bg-[var(--color-cancelar)] text-[var(--color-text-secundario)] text-sm transition duration-300 ease-in-out hover:bg-[var(--color-cancelar-hover)]"
             >
                 Cancelar
             </button>
@@ -14,7 +14,7 @@ export default function ModalFooter(onClose, isEdit, idForm, buttonText, isPendi
                 type="submit"
                 form={idForm}
                 disabled={isPending}
-                className="px-6 py-2 rounded-lg bg-[var(--color-acento)] text-[var(--color-text-secundario)] text-sm font-medium"
+                className="px-6 py-2 rounded-lg bg-[var(--color-primario)] text-[var(--color-text-secundario)] text-sm transition duration-300 ease-in-out hover:bg-[var(--color-acento)]"
             >
                 {isPending
                     ? isEdit ? `Actualizando ${buttonText}` : `Guardando ${buttonText}`

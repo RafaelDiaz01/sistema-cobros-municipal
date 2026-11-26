@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
 :root {
-  --color-primario: #1F5A3C;
+  --color-primario: #437c46;
   --color-secundario: #ffffff;
   --color-terciario: #E8F8EE;
-  --color-acento: #437c46;
+  --color-acento: #1F5A3C;
   --color-cancelar: #d9534f;
+  --color-cancelar-hover: #c9302c;
   --color-inactivo: #E6E7EB;
   --color-fondo: #F5F5F5;
   --color-texto: #000000;

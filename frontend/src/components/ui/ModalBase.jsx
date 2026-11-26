@@ -24,7 +24,7 @@ export default function ModalBase({
           </div>
 
           <button onClick={onClose}>
-            <X className="text-gray-400 hover:text-red-500" />
+            <X className="text-gray-400 transition duration-300 ease-in-out hover:text-red-500 cursor-pointer" />
           </button>
         </div>
 

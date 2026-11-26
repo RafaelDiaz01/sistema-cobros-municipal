@@ -37,11 +37,6 @@ export default function GestionRecibos() {
         icon: <ReceiptText />,
       },
       {
-        title: "Recibos Emitidos",
-        value: recibos.filter(r => r.estado === "EMITIDO").length,
-        icon: <Check />,
-      },
-      {
         title: "Recibos Cancelados",
         value: recibos.filter(r => r.estado === "CANCELADO").length,
         icon: <X />,
@@ -91,7 +86,7 @@ export default function GestionRecibos() {
     <PageLayout>
       <Stack size="xl">
         <SectionTitleSimple text="Gestión de Recibos" />
-        <StatsCards stats={stats} columns={5}/>
+        <StatsCards stats={stats}/>
         <Table rows={recibos} columns={recibosColumns(handleEdit, handleDelete)} getRowId={(row) => row.id_recibo} />
       </Stack>
     </PageLayout>

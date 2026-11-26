@@ -111,6 +111,7 @@ export default function AddContribuyenteModal({ isOpen, onClose, contribuyente }
                 placeholder="Ej. LOPJ010285MQ7"
                 required={false}
                 {...register("rfc")}
+                maxLength={13}
                 onInput={(e) => {
                   e.target.value = e.target.value.toUpperCase();
                 }}

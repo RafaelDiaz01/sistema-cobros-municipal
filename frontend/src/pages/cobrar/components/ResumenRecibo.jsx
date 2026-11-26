@@ -60,7 +60,7 @@ const ResumenRecibo = ({
   if (total === 0) {
     totalEnLetras = "CERO PESOS 00/100";
   } else {
-    totalEnLetras = numeroALetras(total, true, {
+    totalEnLetras = numeroALetras(montoFinal, true, {
       Monedasingular: "PESO",
       Monedaplural: "PESOS",
       centSingular: "CENTAVOS",

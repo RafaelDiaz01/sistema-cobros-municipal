@@ -44,7 +44,7 @@ export const recibosColumns = (onEdit, onToggleStatus) => [
         headerName: "Cobrado Por",
         width: 180,
         renderCell: (params) => {
-            return params.row.pago?.usuario?.nombre_usuario || 'Sin usuario';
+            return params.row.pago?.usuario?.nombre_completo || 'Sin usuario';
         },
     },
     {

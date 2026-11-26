@@ -51,7 +51,7 @@ export const obtenerHistorialRecibos = async () => {
                     {
                         model: Usuario,
                         as: "usuario",
-                        attributes: ["id_usuario", "nombre_usuario"],
+                        attributes: ["id_usuario", "nombre_completo"],
                     }
                 ],
             },
